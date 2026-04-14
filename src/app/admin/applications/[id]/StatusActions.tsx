@@ -32,7 +32,7 @@ export default function StatusActions({
     startTransition(async () => {
       const result = await updateStatus(applicationId, newStatus);
       if ("error" in result) {
-        setStatusErr(result.error);
+        setStatusErr(result.error ?? null);
       } else {
         router.refresh();
       }
