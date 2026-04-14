@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+/* ─── Global Scroll ──────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ─── Design Tokens ──────────────────────────────────────── */
+@theme {
+  /* Brand Colors — Blue System */
+  --color-brand:         #1B3F7A;   /* Deep Navy Blue — 주 브랜드 */
+  --color-brand-light:   #2A5BAD;   /* Medium Blue — 호버 */
+  --color-brand-muted:   #C5D8F0;   /* Soft Blue — 배경 액센트 */
+
+  /* Surface Colors */
+  --color-soft-beige:    #F0F4FA;   /* Blue-tinted Off-White — 섹션 배경 */
+  --color-off-white:     #F8FAFD;   /* Lightest Surface */
+  --color-border:        #D8E4F2;   /* Blue-tinted Border */
+
+  /* Text Colors */
+  --color-text-primary:   #0F1F3D;  /* Deep Navy Text */
+  --color-text-secondary: #3A4E6B;  /* Mid Navy Text */
+  --color-text-muted:     #7A8FA8;  /* Muted Blue-Gray */
+
+  /* Fonts — Pretendard 기반 단일 폰트 시스템 */
+  --font-sans:  "PretendardVariable", "Pretendard", -apple-system, BlinkMacSystemFont,
+                "Segoe UI", sans-serif;
+  --font-serif: var(--font-sans);
+
+  /* Spacing */
+  --spacing-section: 7rem;
+}
+
+/* ─── Base ───────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-off-white);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* ─── Typography helpers ─────────────────────────────────── */
+.font-serif    { font-family: var(--font-serif); }
+.font-sans     { font-family: var(--font-sans); }
+
+/* Eyebrow — 섹션 상단 작은 레이블 */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-brand);
+}
+
+/* Academic citation — 학회지명 */
+.citation {
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-size: 0.8125rem;
+  letter-spacing: 0.01em;
+  color: var(--color-text-muted);
+}
