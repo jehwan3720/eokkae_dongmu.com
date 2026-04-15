@@ -5,6 +5,7 @@ import Curriculum from "@/components/Curriculum";
 import Gallery from "@/components/Gallery";
 import Differentiation from "@/components/Differentiation";
 import Pricing from "@/components/Pricing";
+import AdminPackage from "@/components/AdminPackage";
 import Instructor from "@/components/Instructor";
 import Reviews from "@/components/Reviews";
 import FAQ from "@/components/FAQ";
@@ -21,6 +22,7 @@ export default function Home() {
       <Gallery />
       <Differentiation />
       <Pricing />
+      <AdminPackage />
       <Instructor />
       <Reviews />
       <FAQ />
