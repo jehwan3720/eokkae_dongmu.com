@@ -5,32 +5,39 @@ import { staggerContainer, slideUp, slideUpStagger, VIEWPORT } from "@/lib/motio
 
 const tiers = [
   {
-    label: "일반 참여가",
-    sub: "개별 / 소규모",
-    price: "12,000",
+    label: "학급 단독 참여",
+    sub: "1 ~ 29인",
+    price: "14,000",
     unit: "원 / 인",
-    desc: "단일 학급 미만 소규모 신청 기준 적용 단가",
+    desc: "단일 학급 소규모 신청 기준",
     badge: null,
     highlight: false,
   },
   {
-    label: "학급 상생가",
-    sub: "20인 이상",
+    label: "학급 연합 상생가",
+    sub: "30 ~ 49인",
     price: "10,000",
     unit: "원 / 인",
-    desc: "학급 단위 신청 시 제작 효율화에 따른 절감분 환원",
-    badge: "행정 예산 최적화 추천",
+    desc: "옆 반과 함께 신청 시 적용 (품의 추천)",
+    badge: "가장 많이 선택해요",
     highlight: true,
   },
   {
-    label: "기관 특별가",
+    label: "학년·기관 특별가",
     sub: "50인 이상",
     price: "9,000",
     unit: "원 / 인",
-    desc: "학년·기관 단위 신청 시 원가 절감분 전액 교육 현장 환원",
+    desc: "학년 단위 신청 시 예산 최적화",
     badge: null,
     highlight: false,
   },
+];
+
+const valueStack = [
+  { icon: "✅", text: "프리미엄 생물 및 사육 세트 제공" },
+  { icon: "✅", text: "교과 과정 맞춤형 활동지 지원" },
+  { icon: "✅", text: "결재용 품의 서류(교육 계획서, 견적서 등) 즉시 발급" },
+  { icon: "🧹", text: "수업 후 교실 100% 원상복구 및 뒷정리 책임", special: true },
 ];
 
 const kitFeatures = [
@@ -76,26 +83,27 @@ export default function Pricing() {
           >
             전문 강사 수업료는 0원입니다.
           </motion.h2>
-          {/* 운영 철학 요약 */}
           <motion.p
             className="text-[0.9375rem] text-[var(--color-text-secondary)] leading-[1.9]"
             variants={slideUp}
           >
-            한정된 학교 예산 내에서 더 많은 학생이 고품질 생태 교육을 경험할 수 있도록,
-            대량 제작 시 발생하는 절감 비용을 교육 현장에 직접 환원합니다.
+            단순한 관찰 키트가 아닙니다. 강사 파견부터 뒷정리, 행정 처리까지.
+            선생님의 학급 운영 부담을 &lsquo;0&rsquo;으로 만드는
+            <span className="font-semibold text-[var(--color-text-primary)]"> All-in-One 생태 교육 솔루션</span>입니다.
           </motion.p>
         </motion.div>
 
-        {/* ── 강사비 0원 카드 ─────────────────────────── */}
+        {/* ── 강사비 0원 카드 + Value Stack ────────────── */}
         <motion.div
-          className="mb-px"
+          className="mb-px grid grid-cols-1 md:grid-cols-[1fr_300px]"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={VIEWPORT}
         >
+          {/* 강사비 0원 카드 */}
           <motion.div
-            className="bg-[#0F1F3D] px-10 py-9 flex flex-col md:flex-row md:items-center md:justify-between gap-5"
+            className="bg-[#0F1F3D] px-10 py-9 flex flex-col justify-between gap-5"
             variants={slideUp}
           >
             <div>
@@ -109,13 +117,37 @@ export default function Pricing() {
                 전문 강사 파견 · 수업 진행 · 교구 설명 · 사후 가이드
               </p>
             </div>
-            <div className="flex flex-wrap gap-x-8 gap-y-2 md:text-right">
+            <div className="flex flex-wrap gap-x-8 gap-y-2">
               {["출장비 없음", "준비비 없음", "인건비 청구 없음"].map((t) => (
                 <span key={t} className="text-[0.75rem] text-white/30 tracking-wide flex items-center gap-1.5">
                   <span className="text-white/20 text-[0.5rem]">✓</span>{t}
                 </span>
               ))}
             </div>
+          </motion.div>
+
+          {/* Value Stack 체크리스트 */}
+          <motion.div
+            className="bg-[#1B3F7A] px-7 py-8 flex flex-col justify-center gap-4"
+            variants={slideUp}
+          >
+            <p className="text-[0.6rem] font-bold tracking-[0.22em] uppercase text-white/40 mb-1">
+              All-in-One 포함 내역
+            </p>
+            {valueStack.map(({ icon, text, special }) => (
+              <div
+                key={text}
+                className={[
+                  "flex items-start gap-3 text-[0.8125rem] leading-snug",
+                  special
+                    ? "mt-1 pt-4 border-t border-white/10 text-white font-semibold"
+                    : "text-white/70",
+                ].join(" ")}
+              >
+                <span className="flex-shrink-0 text-[1rem] leading-none mt-0.5">{icon}</span>
+                <span>{text}</span>
+              </div>
+            ))}
           </motion.div>
         </motion.div>
 
@@ -135,7 +167,7 @@ export default function Pricing() {
               키트 구분
             </span>
             <span className="text-[0.6875rem] font-semibold tracking-[0.15em] uppercase text-[var(--color-text-muted)] text-right hidden md:block">
-              적용 기준
+              적용 인원
             </span>
             <span className="text-[0.6875rem] font-semibold tracking-[0.15em] uppercase text-[var(--color-text-muted)] text-right">
               교육 지원가
@@ -146,22 +178,23 @@ export default function Pricing() {
           {tiers.map(({ label, sub, price, unit, desc, badge, highlight }, i) => (
             <motion.div
               key={label}
-              className={`grid grid-cols-1 md:grid-cols-[1fr_160px_180px] items-start md:items-center gap-3 md:gap-0 px-6 py-6 border-b transition-colors ${
+              className={[
+                "grid grid-cols-1 md:grid-cols-[1fr_160px_180px] items-start md:items-center gap-3 md:gap-0 px-6 py-6 border-b transition-colors",
                 highlight
-                  ? "bg-[var(--color-brand)]/[0.035] border-[var(--color-brand)]/20"
-                  : "border-[var(--color-border)] bg-white"
-              }`}
+                  ? "bg-[#1B3F7A]/[0.04] border-[#1B3F7A]/20 border-l-4 border-l-[#1B3F7A]"
+                  : "border-[var(--color-border)] bg-white border-l-4 border-l-transparent",
+              ].join(" ")}
               variants={slideUpStagger}
               custom={i}
             >
               {/* 구분명 + 설명 */}
               <div className="flex flex-col gap-1.5">
                 <div className="flex items-center gap-2.5 flex-wrap">
-                  <span className={`text-[0.9375rem] font-semibold tracking-tight ${highlight ? "text-[var(--color-brand)]" : "text-[var(--color-text-primary)]"}`}>
+                  <span className={`text-[0.9375rem] font-semibold tracking-tight ${highlight ? "text-[#1B3F7A]" : "text-[var(--color-text-primary)]"}`}>
                     {label}
                   </span>
                   {badge && (
-                    <span className="inline-flex items-center px-2 py-0.5 text-[0.5625rem] font-bold tracking-wider border border-[var(--color-brand)] text-[var(--color-brand)] uppercase rounded-[2px]">
+                    <span className="inline-flex items-center px-2.5 py-1 text-[0.5625rem] font-bold tracking-wider bg-[#1B3F7A] text-white rounded-[2px]">
                       {badge}
                     </span>
                   )}
@@ -171,38 +204,38 @@ export default function Pricing() {
                 </p>
               </div>
 
-              {/* 적용 기준 */}
+              {/* 적용 인원 */}
               <div className="hidden md:flex items-center justify-end">
-                <span className={`text-[0.8125rem] tracking-wide ${highlight ? "text-[var(--color-brand)] font-medium" : "text-[var(--color-text-muted)]"}`}>
+                <span className={`text-[0.8125rem] tracking-wide ${highlight ? "text-[#1B3F7A] font-medium" : "text-[var(--color-text-muted)]"}`}>
                   {sub}
                 </span>
               </div>
 
               {/* 단가 */}
               <div className="flex items-baseline gap-1 md:justify-end">
-                <span className={`text-[1.625rem] font-bold tracking-tight ${highlight ? "text-[var(--color-brand)]" : "text-[var(--color-text-primary)]"}`}>
+                <span className={`text-[1.625rem] font-bold tracking-tight ${highlight ? "text-[#1B3F7A]" : "text-[var(--color-text-primary)]"}`}>
                   {price}
                 </span>
-                <span className={`text-[0.75rem] ${highlight ? "text-[var(--color-brand)]/60" : "text-[var(--color-text-muted)]"}`}>
+                <span className={`text-[0.75rem] ${highlight ? "text-[#1B3F7A]/60" : "text-[var(--color-text-muted)]"}`}>
                   {unit}
                 </span>
               </div>
             </motion.div>
           ))}
 
-          {/* 테이블 하단 — 규모의 경제 설명 */}
+          {/* 테이블 하단 — 연합 신청 유도 */}
           <motion.div
             className="bg-[var(--color-soft-beige)] px-6 py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
             variants={slideUp}
           >
             <p className="text-[0.8125rem] text-[var(--color-text-secondary)] leading-relaxed">
-              <span className="font-semibold text-[var(--color-text-primary)]">운영 효율화에 따른 교육 지원가</span>
-              &nbsp;— 학급·학년 단위 신청 시 제작 원가가 낮아지는 규모의 경제 원리를 적용,
-              절감분을 수익으로 남기지 않고 학교에 그대로 환원합니다.
+              <span className="font-semibold text-[var(--color-text-primary)]">옆 반과 함께하면 예산이 절약됩니다</span>
+              &nbsp;— 한 학급 평균 18인 기준, 단독 신청 시 252,000원 →
+              <span className="font-semibold text-[#1B3F7A]"> 30인 연합 신청 시 300,000원으로 12명 더 참여</span> 가능합니다.
             </p>
-            <div className="flex-shrink-0 text-right">
-              <p className="text-[0.6875rem] text-[var(--color-text-muted)] tracking-wide">25인 학급 기준</p>
-              <p className="text-[0.9375rem] font-bold text-[var(--color-brand)]">총 250,000원</p>
+            <div className="flex-shrink-0 text-right whitespace-nowrap">
+              <p className="text-[0.6875rem] text-[var(--color-text-muted)] tracking-wide">연합 신청 절감 효과</p>
+              <p className="text-[0.9375rem] font-bold text-[#1B3F7A]">인당 4,000원 절감</p>
             </div>
           </motion.div>
         </motion.div>
@@ -336,6 +369,7 @@ export default function Pricing() {
             견적서 요청하기 →
           </a>
         </motion.div>
+
       </div>
     </section>
   );
