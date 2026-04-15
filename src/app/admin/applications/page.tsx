@@ -69,7 +69,15 @@ export default async function ApplicationsPage({
             교육 문의 관리
           </h1>
         </div>
-        <LogoutButton />
+        <div className="flex items-center gap-3">
+          <Link
+            href="/admin/photos"
+            className="px-4 py-2 text-[0.8125rem] font-medium text-[#8A95A3] border border-[#E8EAED] rounded-[3px] hover:text-[#1A2535] hover:border-[#C0C6CE] transition-colors duration-150"
+          >
+            사진 관리
+          </Link>
+          <LogoutButton />
+        </div>
       </div>
 
       {/* 통계 카드 */}
