@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+
 import { staggerContainer, slideUp, slideUpStagger, VIEWPORT } from "@/lib/motion";
 
 const tiers = [
@@ -33,12 +34,6 @@ const tiers = [
   },
 ];
 
-const valueStack = [
-  { icon: "✅", text: "프리미엄 생물 및 사육 세트 제공" },
-  { icon: "✅", text: "교과 과정 맞춤형 활동지 지원" },
-  { icon: "✅", text: "결재용 품의 서류(교육 계획서, 견적서 등) 즉시 발급" },
-  { icon: "🧹", text: "수업 후 교실 100% 원상복구 및 뒷정리 책임", special: true },
-];
 
 const kitFeatures = [
   {
@@ -93,17 +88,16 @@ export default function Pricing() {
           </motion.p>
         </motion.div>
 
-        {/* ── 강사비 0원 카드 + Value Stack ────────────── */}
+        {/* ── 강사비 0원 카드 ─────────────────────────── */}
         <motion.div
-          className="mb-px grid grid-cols-1 md:grid-cols-[1fr_300px]"
+          className="mb-px"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={VIEWPORT}
         >
-          {/* 강사비 0원 카드 */}
           <motion.div
-            className="bg-[#0F1F3D] px-10 py-9 flex flex-col justify-between gap-5"
+            className="bg-[#0F1F3D] px-10 py-9 flex flex-col md:flex-row md:items-center md:justify-between gap-5"
             variants={slideUp}
           >
             <div>
@@ -117,37 +111,13 @@ export default function Pricing() {
                 전문 강사 파견 · 수업 진행 · 교구 설명 · 사후 가이드
               </p>
             </div>
-            <div className="flex flex-wrap gap-x-8 gap-y-2">
+            <div className="flex flex-wrap gap-x-8 gap-y-2 md:text-right">
               {["출장비 없음", "준비비 없음", "인건비 청구 없음"].map((t) => (
                 <span key={t} className="text-[0.75rem] text-white/30 tracking-wide flex items-center gap-1.5">
                   <span className="text-white/20 text-[0.5rem]">✓</span>{t}
                 </span>
               ))}
             </div>
-          </motion.div>
-
-          {/* Value Stack 체크리스트 */}
-          <motion.div
-            className="bg-[#1B3F7A] px-7 py-8 flex flex-col justify-center gap-4"
-            variants={slideUp}
-          >
-            <p className="text-[0.6rem] font-bold tracking-[0.22em] uppercase text-white/40 mb-1">
-              All-in-One 포함 내역
-            </p>
-            {valueStack.map(({ icon, text, special }) => (
-              <div
-                key={text}
-                className={[
-                  "flex items-start gap-3 text-[0.8125rem] leading-snug",
-                  special
-                    ? "mt-1 pt-4 border-t border-white/10 text-white font-semibold"
-                    : "text-white/70",
-                ].join(" ")}
-              >
-                <span className="flex-shrink-0 text-[1rem] leading-none mt-0.5">{icon}</span>
-                <span>{text}</span>
-              </div>
-            ))}
           </motion.div>
         </motion.div>
 
