@@ -2,7 +2,7 @@
 
 import { useRef, useState, useCallback, useEffect, useTransition } from "react";
 import Image from "next/image";
-import { Reorder, useDragControls, motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Upload, Trash2, Eye, EyeOff, X, CheckCircle, GripVertical, AlertCircle } from "lucide-react";
 import { createClient } from "@/lib/supabase/browser";
 import GallerySlotEditor from "./GallerySlotEditor";
@@ -107,20 +107,33 @@ function Toast({ message, type = "success", onClose }: { message: string; type?:
 }
 
 /* ── Slider Reorder Item ── */
-function SliderItem({ photo, onRemove }: { photo: PhotoRecord; onRemove: (id: string) => void }) {
-  const controls = useDragControls();
+function SliderItem({
+  photo,
+  onRemove,
+  onDragStart,
+  onDragOver,
+  onDrop,
+  isDragOver,
+}: {
+  photo: PhotoRecord;
+  onRemove: (id: string) => void;
+  onDragStart: (id: string) => void;
+  onDragOver: (id: string) => void;
+  onDrop: (id: string) => void;
+  isDragOver: boolean;
+}) {
   return (
-    <Reorder.Item
-      value={photo}
-      dragListener={false}
-      dragControls={controls}
-      className="flex items-center gap-3 bg-white border border-[#E8EAED] rounded-[8px] px-3 py-2.5 select-none"
-      whileDrag={{ scale: 1.02, boxShadow: "0 8px 24px rgba(15,31,61,0.12)", zIndex: 50 }}
+    <div
+      draggable
+      onDragStart={() => onDragStart(photo.id)}
+      onDragOver={(e) => { e.preventDefault(); onDragOver(photo.id); }}
+      onDrop={(e) => { e.preventDefault(); onDrop(photo.id); }}
+      className={[
+        "flex items-center gap-3 bg-white border rounded-[8px] px-3 py-2.5 select-none cursor-grab active:cursor-grabbing transition-all duration-150",
+        isDragOver ? "border-[#1B3F7A] shadow-md scale-[1.01]" : "border-[#E8EAED]",
+      ].join(" ")}
     >
-      <div
-        onPointerDown={(e) => controls.start(e)}
-        className="cursor-grab active:cursor-grabbing text-[#B0B8C1] hover:text-[#5A6472] transition-colors touch-none flex-shrink-0"
-      >
+      <div className="text-[#B0B8C1] hover:text-[#5A6472] transition-colors flex-shrink-0">
         <GripVertical size={16} />
       </div>
       <div className="relative w-10 h-10 rounded-[4px] overflow-hidden flex-shrink-0 bg-[#F0F1F3]">
@@ -139,7 +152,7 @@ function SliderItem({ photo, onRemove }: { photo: PhotoRecord; onRemove: (id: st
       >
         <X size={14} />
       </button>
-    </Reorder.Item>
+    </div>
   );
 }
 
@@ -157,6 +170,8 @@ export default function PhotoUploader() {
   const [agreed, setAgreed]             = useState(false);
   const [uploading, setUploading]       = useState(false);
   const [toast, setToast]               = useState<{ msg: string; type: "success" | "error" } | null>(null);
+  const [sliderDragId, setSliderDragId] = useState<string | null>(null);
+  const [sliderOverId, setSliderOverId] = useState<string | null>(null);
   const [isPending, startTransition]    = useTransition();
 
   const showToast = (msg: string, type: "success" | "error" = "success") =>
@@ -315,6 +330,32 @@ export default function PhotoUploader() {
     } else {
       showToast("사진이 삭제되었습니다.");
     }
+  }
+
+  /* 슬라이더 HTML5 드래그 핸들러 */
+  function handleSliderDragStart(id: string) {
+    setSliderDragId(id);
+  }
+  function handleSliderDragOver(id: string) {
+    setSliderOverId(id);
+  }
+  function handleSliderDrop(targetId: string) {
+    if (!sliderDragId || sliderDragId === targetId) {
+      setSliderDragId(null);
+      setSliderOverId(null);
+      return;
+    }
+    setSliderPhotos((prev) => {
+      const next = [...prev];
+      const fromIdx = next.findIndex((p) => p.id === sliderDragId);
+      const toIdx   = next.findIndex((p) => p.id === targetId);
+      if (fromIdx < 0 || toIdx < 0) return prev;
+      const [moved] = next.splice(fromIdx, 1);
+      next.splice(toIdx, 0, moved);
+      return next;
+    });
+    setSliderDragId(null);
+    setSliderOverId(null);
   }
 
   /* 슬라이더 순서 변경 저장 */
@@ -562,21 +603,19 @@ export default function PhotoUploader() {
             <span className="text-[0.75rem]">업로드 시 노출 위치를 "롤링 슬라이더"로 선택하세요.</span>
           </div>
         ) : (
-          <Reorder.Group
-            axis="y"
-            values={sliderPhotos}
-            onReorder={(newOrder) => setSliderPhotos(newOrder)}
-            className="flex flex-col gap-2"
-            as="div"
-          >
+          <div className="flex flex-col gap-2">
             {sliderPhotos.map((photo) => (
               <SliderItem
                 key={photo.id}
                 photo={photo}
                 onRemove={removeFromSlider}
+                onDragStart={handleSliderDragStart}
+                onDragOver={handleSliderDragOver}
+                onDrop={handleSliderDrop}
+                isDragOver={sliderOverId === photo.id}
               />
             ))}
-          </Reorder.Group>
+          </div>
         )}
 
         {sliderPhotos.length > 0 && (

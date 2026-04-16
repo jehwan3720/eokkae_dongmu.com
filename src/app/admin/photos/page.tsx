@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import LogoutButton from "@/app/admin/applications/LogoutButton";
-import PhotoUploaderLoader from "./PhotoUploaderLoader";
+import PhotoUploader from "./PhotoUploader";
 
 export default async function PhotosPage() {
   const supabase = await createClient();
@@ -44,7 +44,7 @@ export default async function PhotosPage() {
         </div>
 
         {/* 업로더 */}
-        <PhotoUploaderLoader />
+        <PhotoUploader />
 
       </div>
     </div>
