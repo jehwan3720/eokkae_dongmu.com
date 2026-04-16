@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { slideUpStagger, staggerContainer, VIEWPORT } from "@/lib/motion";
 
@@ -130,16 +131,17 @@ export default function Hero() {
           >
             {/* 메인 이미지 */}
             <div
-              className="relative w-full aspect-[4/5] rounded-sm overflow-hidden flex items-center justify-center"
-              style={{ backgroundColor: "#1B3F7A33", border: "1px solid #1B3F7A66" }}
+              className="relative w-full aspect-[4/5] rounded-sm overflow-hidden"
+              style={{ border: "1px solid #1B3F7A66" }}
             >
-              {/* 실제 사진 교체 위치: 손바닥 위 장수풍뎅이를 바라보는 아이 */}
-              <div className="text-center select-none">
-                <p className="text-[#7EB3F5]/40 text-[0.6875rem] tracking-widest uppercase mb-2">Photo</p>
-                <p className="text-[#7EB3F5]/30 text-[0.75rem] leading-relaxed">
-                  장수풍뎅이 성충<br />손바닥 위 체험 장면
-                </p>
-              </div>
+              <Image
+                src="/images/풍뎅이.jpg"
+                alt="장수풍뎅이 성충"
+                fill
+                className="object-cover"
+                sizes="420px"
+                priority
+              />
 
               {/* 학명 배지 */}
               <div

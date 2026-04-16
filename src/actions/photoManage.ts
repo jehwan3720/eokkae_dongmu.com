@@ -101,6 +101,25 @@ export async function deletePhotoRecord(
   }
 }
 
+/** display_location 변경 */
+export async function updateDisplayLocation(
+  id: string,
+  displayLocation: string,
+): Promise<{ ok: true } | { error: string }> {
+  try {
+    await requireAuth();
+    const service = createServiceClient();
+    const { error } = await service
+      .from("activity_photos")
+      .update({ display_location: displayLocation })
+      .eq("id", id);
+    if (error) return { error: error.message };
+    return { ok: true };
+  } catch (e) {
+    return { error: (e as Error).message };
+  }
+}
+
 /** 갤러리 슬롯 일괄 저장 (슬롯 0~3 배치) */
 export async function assignGallerySlots(
   assignments: { id: string; slot: number | null }[],

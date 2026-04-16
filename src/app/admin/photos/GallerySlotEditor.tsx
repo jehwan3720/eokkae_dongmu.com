@@ -35,6 +35,7 @@ export default function GallerySlotEditor({ galleryPhotos }: Props) {
 
   const [uploading, setUploading]   = useState<number | null>(null); // 업로드 중인 슬롯 인덱스
   const [progress, setProgress]     = useState(0);
+  const [uploadError, setUploadError] = useState<string | null>(null);
   const [dragSource, setDragSource] = useState<
     | { from: "pool"; photo: PhotoRecord }
     | { from: "slot"; slotIndex: number; photo: PhotoRecord }
@@ -82,7 +83,9 @@ export default function GallerySlotEditor({ galleryPhotos }: Props) {
 
     if (storageErr) {
       console.error("[SLOT UPLOAD] Storage 에러:", storageErr.message);
+      setUploadError("사진 업로드에 실패했습니다. 다시 시도해주세요.");
       setUploading(null);
+      setTimeout(() => setUploadError(null), 4000);
       return;
     }
 
@@ -105,7 +108,9 @@ export default function GallerySlotEditor({ galleryPhotos }: Props) {
 
     if (dbErr) {
       console.error("[SLOT UPLOAD] DB 에러:", dbErr.message);
+      setUploadError("사진 정보 저장에 실패했습니다. 다시 시도해주세요.");
       setUploading(null);
+      setTimeout(() => setUploadError(null), 4000);
       return;
     }
 
@@ -138,24 +143,22 @@ export default function GallerySlotEditor({ galleryPhotos }: Props) {
   }
   function onDropSlot(slotIndex: number) {
     if (!dragSource) return;
-    setSlots((prev) => {
-      const next = [...prev];
-      const displaced = next[slotIndex];
-      if (dragSource.from === "slot") {
-        next[dragSource.slotIndex] = displaced ?? null;
-        if (displaced) {
-          /* 교환: 기존 사진 → 원래 슬롯으로 */
-        } else {
-          next[dragSource.slotIndex] = null;
-        }
-      } else {
-        // pool → slot: 기존 사진이 있으면 풀로
-        if (displaced) addToPool(displaced);
-        setPool((p) => p.filter((x) => x.id !== dragSource.photo.id));
-      }
-      next[slotIndex] = dragSource.photo;
-      return next;
-    });
+
+    // 현재 slots 스냅샷을 직접 참조해 updater 밖에서 계산
+    const displaced = slots[slotIndex];
+    const nextSlots = [...slots];
+
+    if (dragSource.from === "slot") {
+      // 슬롯 ↔ 슬롯 교환
+      nextSlots[dragSource.slotIndex] = displaced ?? null;
+    } else {
+      // 풀 → 슬롯: 기존 사진은 풀로, 드래그한 사진은 풀에서 제거
+      if (displaced) addToPool(displaced);
+      setPool((p) => p.filter((x) => x.id !== dragSource.photo.id));
+    }
+    nextSlots[slotIndex] = dragSource.photo;
+    setSlots(nextSlots);
+
     setDragSource(null);
     setDragOverSlot(null);
   }
@@ -222,6 +225,14 @@ export default function GallerySlotEditor({ galleryPhotos }: Props) {
         className="hidden"
         onChange={handleFileSelected}
       />
+
+      {/* 업로드 오류 알림 */}
+      {uploadError && (
+        <div className="flex items-center gap-2.5 px-4 py-3 rounded-[6px] bg-red-50 border border-red-200 text-red-700 text-[0.8125rem] font-medium">
+          <span className="flex-shrink-0">⚠</span>
+          {uploadError}
+        </div>
+      )}
 
       {/* ── 레이아웃 미리보기 ── */}
       <div>

@@ -11,6 +11,7 @@ import {
   toggleVisibility,
   updateSliderOrder,
   deletePhotoRecord,
+  updateDisplayLocation,
   type PhotoRecord,
 } from "@/actions/photoManage";
 
@@ -326,9 +327,17 @@ export default function PhotoUploader() {
   async function removeFromSlider(id: string) {
     setSliderPhotos((prev) => prev.filter((p) => p.id !== id));
     setGallery((prev) => prev.map((p) => p.id === id ? { ...p, display_location: "none" } : p));
-    const supabase = createClient();
-    await supabase.from("activity_photos").update({ display_location: "none" }).eq("id", id);
-    showToast("슬라이더에서 제거했습니다.");
+    const res = await updateDisplayLocation(id, "none");
+    if ("error" in res) {
+      showToast("슬라이더 제거에 실패했습니다.", "error");
+      const all = await listManagedPhotos();
+      if (!("error" in all)) {
+        setGallery(all);
+        setSliderPhotos(all.filter((p) => p.display_location === "slider" && p.is_visible));
+      }
+    } else {
+      showToast("슬라이더에서 제거했습니다.");
+    }
   }
 
   const canUpload = !!institution && !!grade && !!stage && agreed && queue.length > 0 && !uploading;
