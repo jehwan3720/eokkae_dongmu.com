@@ -17,12 +17,23 @@ export default function AdminLoginPage() {
     setError(null);
 
     const supabase = createClient();
-    const { error: authError } = await supabase.auth.signInWithPassword({
+
+    console.log("[AUTH] SUPABASE_URL:", process.env.NEXT_PUBLIC_SUPABASE_URL);
+    console.log("[AUTH] ANON_KEY 앞 20자:", process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.slice(0, 20));
+    console.log("[AUTH] 로그인 시도:", email);
+
+    const { data, error: authError } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
+    console.log("[AUTH] 응답 data:", data);
+    console.log("[AUTH] 응답 error:", authError);
+
     if (authError) {
+      console.error("[AUTH] 에러 코드:", authError.code);
+      console.error("[AUTH] 에러 메시지:", authError.message);
+      console.error("[AUTH] 에러 status:", authError.status);
       setError("이메일 또는 비밀번호가 올바르지 않습니다.");
       setLoading(false);
       return;

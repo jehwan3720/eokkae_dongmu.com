@@ -1,74 +1,48 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { staggerContainer, slideUp, VIEWPORT } from "@/lib/motion";
+import type { ActivityPhoto } from "./GallerySection";
 
-const photos = [
-  {
-    id: "feature",
-    caption: "처음엔 무서웠는데, 이름을 붙여줬어요.",
-    credit: "3학년 이○○",
-    aspect: "aspect-[3/4]",
-  },
-  {
-    id: "sm-1",
-    caption: "선생님, 이 친구 심장이 뛰어요.",
-    credit: "4학년 박○○",
-    aspect: "aspect-square",
-  },
-  {
-    id: "sm-2",
-    caption: "집에서도 보고 싶어요.",
-    credit: "2학년 김○○",
-    aspect: "aspect-square",
-  },
-  {
-    id: "medium",
-    caption: "선생님과 함께 관찰 일지를 씁니다.",
-    credit: null,
-    aspect: "aspect-[16/9]",
-  },
-  {
-    id: "sm-3",
-    caption: "조심조심 손에 올려봐요.",
-    credit: "3학년 최○○",
-    aspect: "aspect-square",
-  },
-];
-
-// 플레이스홀더 색상 (실제 사진으로 교체 예정)
-const placeholderColors: Record<string, string> = {
-  feature: "#C5D8F0",
-  "sm-1": "#D8E8F5",
-  "sm-2": "#B8CCE8",
-  medium: "#D0E0F0",
-  "sm-3": "#C8D8EC",
-};
+const ASPECTS = ["aspect-[3/4]", "aspect-square", "aspect-square", "aspect-[16/9]"];
+const PLACEHOLDER_COLORS = ["#C5D8F0", "#D8E8F5", "#B8CCE8", "#D0E0F0"];
 
 function PhotoCard({
   photo,
+  index,
   className = "",
 }: {
-  photo: (typeof photos)[number];
+  photo: ActivityPhoto | null;
+  index: number;
   className?: string;
 }) {
+  const aspect = ASPECTS[index] ?? "aspect-square";
+  const placeholderColor = PLACEHOLDER_COLORS[index] ?? "#C5D8F0";
+  const caption = photo ? `${photo.activity_step ?? ""} ${photo.grade_class ?? ""}`.trim() : null;
+
   return (
     <motion.div
       className={`relative overflow-hidden group cursor-default ${className}`}
       whileHover="hover"
       initial="rest"
     >
-      {/* 사진 영역 (플레이스홀더) */}
-      <div
-        className={`w-full ${photo.aspect} relative`}
-        style={{ backgroundColor: placeholderColors[photo.id] }}
-      >
-        {/* 실제 이미지 교체 시: <Image src={...} fill className="object-cover" /> */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-[var(--color-brand)] opacity-30 text-xs tracking-widest uppercase select-none">
-            Photo
-          </span>
-        </div>
+      <div className={`w-full ${aspect} relative`} style={photo ? {} : { backgroundColor: placeholderColor }}>
+        {photo ? (
+          <Image
+            src={photo.image_url}
+            alt={caption ?? "수업 사진"}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 50vw"
+          />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="text-[var(--color-brand)] opacity-30 text-xs tracking-widest uppercase select-none">
+              Photo
+            </span>
+          </div>
+        )}
 
         {/* 호버 캡션 오버레이 */}
         <motion.div
@@ -78,14 +52,14 @@ function PhotoCard({
             hover: { opacity: 1, transition: { duration: 0.25 } },
           }}
         >
-          {photo.caption && (
+          {caption && (
             <p className="text-white text-[0.8125rem] leading-snug italic">
-              &ldquo;{photo.caption}&rdquo;
+              &ldquo;{caption}&rdquo;
             </p>
           )}
-          {photo.credit && (
+          {photo?.organization && (
             <p className="text-white/60 text-[0.6875rem] mt-1 tracking-wide">
-              — {photo.credit}
+              — {photo.organization}
             </p>
           )}
         </motion.div>
@@ -94,7 +68,10 @@ function PhotoCard({
   );
 }
 
-export default function Gallery() {
+export default function Gallery({ photos }: { photos: (ActivityPhoto | null)[] }) {
+  // 4개 슬롯 배열 그대로 사용 (GallerySection에서 이미 구성됨)
+  const slots = photos;
+
   return (
     <section id="gallery" className="bg-[var(--color-off-white)] py-24 md:py-32">
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
@@ -133,29 +110,26 @@ export default function Gallery() {
           viewport={VIEWPORT}
         >
           {/* 데스크탑: Feature Shot (왼쪽 큰 사진) */}
-          <motion.div
-            className="md:row-span-2 hidden md:block"
-            variants={slideUp}
-          >
-            <PhotoCard photo={photos[0]} className="h-full" />
+          <motion.div className="md:row-span-2 hidden md:block" variants={slideUp}>
+            <PhotoCard photo={slots[0]} index={0} className="h-full" />
           </motion.div>
 
           {/* 모바일에서 Feature */}
           <motion.div className="block md:hidden" variants={slideUp}>
-            <PhotoCard photo={photos[0]} />
+            <PhotoCard photo={slots[0]} index={0} />
           </motion.div>
 
           {/* 우측 상단 — 작은 2장 */}
           <motion.div variants={slideUp}>
-            <PhotoCard photo={photos[1]} />
+            <PhotoCard photo={slots[1]} index={1} />
           </motion.div>
           <motion.div variants={slideUp}>
-            <PhotoCard photo={photos[2]} />
+            <PhotoCard photo={slots[2]} index={2} />
           </motion.div>
 
           {/* 우측 하단 — 가로 넓은 Medium */}
           <motion.div className="md:col-span-2" variants={slideUp}>
-            <PhotoCard photo={photos[3]} />
+            <PhotoCard photo={slots[3]} index={3} />
           </motion.div>
         </motion.div>
 
@@ -167,7 +141,7 @@ export default function Gallery() {
           whileInView="visible"
           viewport={VIEWPORT}
         >
-          * 사진은 보호자 동의 하에 게시됩니다. 실제 수업 사진으로 업데이트 예정입니다.
+          * 사진은 보호자 동의 하에 게시됩니다.
         </motion.p>
       </div>
     </section>

@@ -1,16 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import type { Application, ApplicationStatus } from "@/lib/supabase/types";
+import type { Application } from "@/lib/supabase/types";
 import InlineStatusSelect from "./InlineStatusSelect";
 import ApplicationDrawer from "./ApplicationDrawer";
-
-const STATUS_COUNT_STYLE: Record<ApplicationStatus, string> = {
-  pending:   "text-amber-600",
-  confirmed: "text-emerald-600",
-  canceled:  "text-gray-400",
-};
 
 export default function ApplicationTable({ rows }: { rows: Application[] }) {
   const [selected, setSelected] = useState<Application | null>(null);

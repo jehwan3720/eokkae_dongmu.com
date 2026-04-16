@@ -2,7 +2,7 @@ import Hero from "@/components/Hero";
 import TrustBar from "@/components/TrustBar";
 import Process from "@/components/Process";
 import Curriculum from "@/components/Curriculum";
-import Gallery from "@/components/Gallery";
+import GallerySection from "@/components/GallerySection";
 import Differentiation from "@/components/Differentiation";
 import Pricing from "@/components/Pricing";
 import AdminPackage from "@/components/AdminPackage";
@@ -19,7 +19,7 @@ export default function Home() {
       <TrustBar />
       <Process />
       <Curriculum />
-      <Gallery />
+      <GallerySection />
       <Differentiation />
       <Pricing />
       <AdminPackage />

@@ -1,14 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
-import type { Application, ApplicationStatus } from "@/lib/supabase/types";
+import type { Application } from "@/lib/supabase/types";
 import InlineStatusSelect from "./InlineStatusSelect";
 
-const STATUS_LABEL: Record<ApplicationStatus, { label: string; cls: string }> = {
-  pending:   { label: "대기 중", cls: "bg-amber-50 text-amber-700 border border-amber-300" },
-  confirmed: { label: "확정됨",  cls: "bg-emerald-50 text-emerald-700 border border-emerald-400" },
-  canceled:  { label: "취소됨",  cls: "bg-gray-100 text-gray-500 border border-gray-300" },
-};
 
 function Field({ label, value }: { label: string; value: React.ReactNode }) {
   return (

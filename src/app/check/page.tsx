@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { checkApplication, ApplicationResult } from "@/actions/checkApplication";
 
@@ -147,12 +148,12 @@ export default function CheckPage() {
 
         {/* 헤더 */}
         <div className="mb-10">
-          <a href="/" className="inline-flex items-center gap-1.5 text-[0.6875rem] font-semibold tracking-[0.2em] uppercase text-[#7EB3F5] mb-6 hover:text-white transition-colors duration-150">
+          <Link href="/" className="inline-flex items-center gap-1.5 text-[0.6875rem] font-semibold tracking-[0.2em] uppercase text-[#7EB3F5] mb-6 hover:text-white transition-colors duration-150">
             <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
               <path d="M13 5H1M1 5L5 1M1 5L5 9" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
             메인으로
-          </a>
+          </Link>
           <p className="text-[0.6875rem] font-semibold tracking-[0.2em] uppercase text-[#7EB3F5] mb-3">어깨동무</p>
           <h1 className="text-[1.875rem] font-bold tracking-tight text-white mb-2">
             문의 내역 조회
