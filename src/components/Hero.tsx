@@ -186,7 +186,7 @@ export default function Hero() {
         >
           {[
             { num: "₩ 0",      label: "강사 수업료",           sub: null },
-            { num: "10,000원", label: "학급 단위 지원가 기준", sub: "20인 이상 신청 시 운영 효율화에 따른 비용 환원 적용" },
+            { num: "10,000원", label: "학급 단위 지원가 기준", sub: "30인 이상 신청 시 운영 효율화에 따른 비용 환원 적용" },
             { num: "4단계",    label: "한살이 연계 커리큘럼",  sub: null },
             { num: "無관리",   label: "관리가 필요 없는 올인원 사육 키트",      sub: null },
           ].map(({ num, label, sub }, i) => (

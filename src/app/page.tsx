@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Hero from "@/components/Hero";
 import TrustBar from "@/components/TrustBar";
 import Process from "@/components/Process";
@@ -19,7 +20,9 @@ export default function Home() {
       <TrustBar />
       <Process />
       <Curriculum />
-      <GallerySection />
+      <Suspense fallback={null}>
+        <GallerySection />
+      </Suspense>
       <Differentiation />
       <Pricing />
       <AdminPackage />

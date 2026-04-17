@@ -44,6 +44,7 @@ function PhotoCard({
           </div>
         )}
 
+
         {/* 호버 캡션 오버레이 */}
         <motion.div
           className="absolute inset-0 bg-[var(--color-brand)]/70 flex flex-col justify-end p-4"

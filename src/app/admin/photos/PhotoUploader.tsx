@@ -2,7 +2,6 @@
 
 import { useRef, useState, useCallback, useEffect, useTransition } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
 import { Upload, Trash2, Eye, EyeOff, X, CheckCircle, GripVertical, AlertCircle } from "lucide-react";
 import { createClient } from "@/lib/supabase/browser";
 import GallerySlotEditor from "./GallerySlotEditor";
@@ -87,11 +86,8 @@ function Toast({ message, type = "success", onClose }: { message: string; type?:
   }, [onClose]);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 16 }}
-      className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-3.5 rounded-[8px] shadow-2xl ${
+    <div
+      className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-3.5 rounded-[8px] shadow-2xl animate-slide-up ${
         type === "success" ? "bg-[#0F1F3D] text-white" : "bg-red-600 text-white"
       }`}
     >
@@ -102,7 +98,7 @@ function Toast({ message, type = "success", onClose }: { message: string; type?:
       <button onClick={onClose} className="ml-2 opacity-50 hover:opacity-100 transition-opacity">
         <X size={14} />
       </button>
-    </motion.div>
+    </div>
   );
 }
 
@@ -493,7 +489,7 @@ export default function PhotoUploader() {
                   </div>
                   {item.progress > 0 && item.progress < 100 && (
                     <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#E8EAED]">
-                      <motion.div className="h-full bg-[#1B3F7A]" animate={{ width: `${item.progress}%` }} transition={{ duration: 0.4 }} />
+                      <div className="h-full bg-[#1B3F7A] transition-all duration-400" style={{ width: `${item.progress}%` }} />
                     </div>
                   )}
                   {item.progress === 100 && <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-emerald-500" />}
@@ -550,26 +546,24 @@ export default function PhotoUploader() {
 
                   {/* 호버 액션 오버레이 */}
                   <div className="absolute inset-0 bg-[#0F1F3D]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center gap-2">
-                    <motion.button
+                    <button
                       onClick={() => handleToggleVisibility(photo)}
                       title={photo.is_visible ? "숨기기" : "노출하기"}
-                      whileTap={{ scale: 0.9 }}
-                      className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors ${
+                      className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors active:scale-90 ${
                         photo.is_visible ? "bg-white/20 hover:bg-amber-400" : "bg-white/20 hover:bg-emerald-500"
                       }`}
                     >
                       {photo.is_visible
                         ? <EyeOff size={15} className="text-white" />
                         : <Eye size={15} className="text-white" />}
-                    </motion.button>
-                    <motion.button
+                    </button>
+                    <button
                       onClick={() => handleDelete(photo)}
                       title="영구 삭제"
-                      whileTap={{ scale: 0.9 }}
-                      className="w-9 h-9 rounded-full bg-white/20 hover:bg-red-500 flex items-center justify-center transition-colors"
+                      className="w-9 h-9 rounded-full bg-white/20 hover:bg-red-500 flex items-center justify-center transition-colors active:scale-90"
                     >
                       <Trash2 size={15} className="text-white" />
-                    </motion.button>
+                    </button>
                   </div>
                 </div>
                 <div className="px-2.5 py-2">
@@ -647,11 +641,9 @@ export default function PhotoUploader() {
       </section>
 
       {/* Toast */}
-      <AnimatePresence>
-        {toast && (
-          <Toast message={toast.msg} type={toast.type} onClose={() => setToast(null)} />
-        )}
-      </AnimatePresence>
+      {toast && (
+        <Toast message={toast.msg} type={toast.type} onClose={() => setToast(null)} />
+      )}
     </div>
   );
 }
