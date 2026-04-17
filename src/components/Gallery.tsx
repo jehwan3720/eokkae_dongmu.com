@@ -134,16 +134,6 @@ export default function Gallery({ photos }: { photos: (ActivityPhoto | null)[] }
           </motion.div>
         </motion.div>
 
-        {/* 하단 안내 */}
-        <motion.p
-          className="mt-8 text-center text-[0.75rem] text-[var(--color-text-muted)] tracking-wide"
-          variants={slideUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={VIEWPORT}
-        >
-          * 사진은 보호자 동의 하에 게시됩니다.
-        </motion.p>
       </div>
     </section>
   );
