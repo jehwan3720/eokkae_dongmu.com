@@ -57,6 +57,26 @@ export async function updateStatus(
   return { ok: true };
 }
 
+/** 문의 삭제 — 인증된 관리자만 호출 가능 */
+export async function deleteApplication(applicationId: string) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { error: "인증이 필요합니다." };
+
+  const service = createServiceClient();
+  const { error } = await service
+    .from("applications")
+    .delete()
+    .eq("application_id", applicationId);
+
+  if (error) {
+    console.error("[deleteApplication] DB DELETE 실패:", JSON.stringify(error));
+    return { error: "삭제에 실패했습니다." };
+  }
+
+  return { ok: true };
+}
+
 /** 관리자 메모 저장 */
 export async function saveAdminNotes(applicationId: string, notes: string) {
   const supabase = await createClient();

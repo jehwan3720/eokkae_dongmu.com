@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   slideUp,
@@ -25,7 +26,7 @@ const steps = [
     badge: "워크숍 · 올인원 키트",
     desc: "자체 제작 유충병에 3령 유충을 직접 입식합니다. 발효 참나무 톱밥이 먹이이자 서식지로 기능하여 추가 관리 없이 번데기까지 자급자족으로 성장합니다.",
     tags: ["#유충입식", "#친환경톱밥", "#무관리키트"],
-    img: "유충병 & 장수풍뎅이 3령 유충",
+    img: "/images/유충.jpg",
   },
   {
     step: "02",
@@ -34,7 +35,7 @@ const steps = [
     badge: "번데기방 자가 조성",
     desc: "유충이 스스로 톱밥을 굳혀 번데기방을 만드는 과정을 관찰합니다. 인위적 개입 없이 진행되는 변태 과정을 일지로 기록하며 생명의 리듬을 몸으로 배웁니다.",
     tags: ["#번데기방", "#변태관찰", "#관찰일지"],
-    img: "번데기방 단면 관찰 장면",
+    img: "/images/가로번데기.jpg",
   },
   {
     step: "03",
@@ -43,7 +44,7 @@ const steps = [
     badge: "생명 전환의 결정적 순간",
     desc: "번데기를 벗고 성충으로 탈바꿈하는 우화 순간을 직접 목격합니다. 껍질을 벗어나는 그 짧은 순간이 아이들에게 생명에 대한 경이로움을 심어주는 핵심 장면입니다.",
     tags: ["#우화포착", "#생명경이", "#체험교육"],
-    img: "우화 직후 장수풍뎅이 성충",
+    img: "/images/우화모습.jpg",
   },
   {
     step: "04",
@@ -52,7 +53,7 @@ const steps = [
     badge: "가정·교실 연계 기록",
     desc: "완전히 굳은 성충을 직접 만지고 관찰하며 한살이 여정을 마무리합니다. 입식부터 성충까지의 관찰 일지를 완성하며 책임감과 생명 존중 감수성을 내면화합니다.",
     tags: ["#성충관찰", "#책임감", "#한살이완성"],
-    img: "아이 손 위 장수풍뎅이 성충",
+    img: "/images/성충.jpg",
   },
 ];
 
@@ -162,23 +163,19 @@ export default function Curriculum() {
               initial="rest"
               whileHover="hover"
             >
-              {/* 이미지 플레이스홀더 */}
+              {/* 이미지 */}
               <motion.div
-                className="w-full aspect-[4/3] flex items-center justify-center"
-                style={{
-                  backgroundColor: "var(--color-soft-beige)",
-                  borderBottom: "1px solid var(--color-border)",
-                }}
+                className="w-full aspect-[4/3] relative overflow-hidden"
+                style={{ borderBottom: "1px solid var(--color-border)" }}
                 variants={cardHover}
               >
-                <div className="text-center select-none px-4">
-                  <p className="text-[var(--color-brand-muted)] text-[0.5625rem] tracking-widest uppercase mb-1">
-                    Photo
-                  </p>
-                  <p className="text-[var(--color-text-muted)] text-[0.6875rem] leading-snug">
-                    {img}
-                  </p>
-                </div>
+                <Image
+                  src={img}
+                  alt={title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, 25vw"
+                />
               </motion.div>
 
               {/* 카드 본문 */}

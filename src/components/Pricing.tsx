@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 import { staggerContainer, slideUp, slideUpStagger, VIEWPORT } from "@/lib/motion";
@@ -246,13 +247,16 @@ export default function Pricing() {
 
             <motion.div className="hidden md:flex flex-col gap-2" variants={slideUp}>
               <div
-                className="w-full aspect-[2/3] flex items-center justify-center"
-                style={{ backgroundColor: "var(--color-soft-beige)", border: "1px solid var(--color-border)" }}
+                className="w-full aspect-[2/3] relative overflow-hidden"
+                style={{ border: "1px solid var(--color-border)" }}
               >
-                <div className="text-center select-none px-4">
-                  <p className="text-[var(--color-brand-muted)] text-[0.5625rem] tracking-widest uppercase mb-2">Photo / Diagram</p>
-                  <p className="text-[var(--color-text-muted)] text-[0.6875rem] leading-snug">유충병 단면 구조<br />(발효 톱밥 + 3령 유충)</p>
-                </div>
+                <Image
+                  src="/images/Group 6.png"
+                  alt="유충병 단면 구조"
+                  fill
+                  className="object-cover"
+                  sizes="25vw"
+                />
               </div>
               <p className="text-[0.6rem] text-center text-[var(--color-text-muted)] tracking-wide">
                 자체 제작 전용 유충병 · 친환경 발효 참나무 톱밥 충진

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { BookOpen, FileText, Trophy, Heart, ChevronDown } from "lucide-react";
 import { staggerContainer, slideUp, slideUpStagger, VIEWPORT } from "@/lib/motion";
@@ -85,14 +86,15 @@ export default function Instructor() {
               variants={slideUpStagger}
               custom={0}
             >
-              {/* 사진 플레이스홀더 */}
-              <div
-                className="w-36 h-36 rounded-full flex items-center justify-center overflow-hidden flex-shrink-0"
-                style={{ background: "linear-gradient(135deg, #C5D8F0 0%, #8AAFD8 100%)" }}
-              >
-                <span className="text-white/60 text-[0.625rem] tracking-widest uppercase select-none">
-                  Photo
-                </span>
+              {/* 프로필 사진 */}
+              <div className="w-36 h-36 rounded-full overflow-hidden flex-shrink-0 relative">
+                <Image
+                  src="/images/김태욱.jpg"
+                  alt="김태욱"
+                  fill
+                  className="object-cover"
+                  sizes="144px"
+                />
               </div>
 
               {/* 이름 + 직함 */}
