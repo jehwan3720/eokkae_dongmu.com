@@ -251,7 +251,7 @@ export default function Pricing() {
                 style={{ border: "1px solid var(--color-border)" }}
               >
                 <Image
-                  src="/images/Group 6.png"
+                  src="/images/교체.png"
                   alt="유충병 단면 구조"
                   fill
                   className="object-cover"
