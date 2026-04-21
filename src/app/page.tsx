@@ -9,6 +9,7 @@ import GallerySection from "@/components/GallerySection";
 import Differentiation from "@/components/Differentiation";
 import Pricing from "@/components/Pricing";
 import AdminPackage from "@/components/AdminPackage";
+import ExpertCuration from "@/components/ExpertCuration";
 import Reviews from "@/components/Reviews";
 import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
@@ -29,6 +30,7 @@ export default function Home() {
       <Differentiation />
       <Pricing />
       <AdminPackage />
+      <ExpertCuration />
       <Reviews />
       <FAQ />
       <CTA />
