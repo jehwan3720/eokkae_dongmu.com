@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, BookOpen, FileText, Trophy, Heart } from "lucide-react";
 import { staggerContainer, slideUp, slideUpStagger, VIEWPORT } from "@/lib/motion";
 
 const checks = [
@@ -22,6 +23,38 @@ const checks = [
     desc: "KC 인증 기준 이상의 내부 품질 체크리스트를 적용합니다. 유해 물질 부재 및 구조 안전성을 납품 전 전수 검사합니다.",
   },
 ];
+
+const credentials = [
+  { Icon: BookOpen, text: "사범대학 역사교육 전공 (교육학적 기초)" },
+  { Icon: FileText, text: "곤충 생태 관련 학술 논문 저자" },
+  { Icon: Trophy,   text: "전국 곤충학회 곤충 연구대회 대상" },
+  { Icon: Heart,    text: "생태 교육 봉사 활동 기획 및 자발적 참여" },
+];
+
+const careerDetails = [
+  {
+    category: "연구 및 학술",
+    items: [
+      "수서 생물 종간 포식 관계 및 생태적 메커니즘 분석 연구 진행",
+      "원주과학관 곤충 학술대회 대상 수상",
+    ],
+  },
+  {
+    category: "공공 및 관리",
+    items: [
+      "화천군 생태 오염원 저감 습지(Biotope) 관리장 역임 및 모니터링 수행",
+    ],
+  },
+  {
+    category: "전시 및 교육",
+    items: [
+      "'잠자리: 찰나의 궤적' 개인 사진 전시회 주최",
+      "청소년 생태 학습권 보장을 위한 곤충 지식 큐레이션 플랫폼 운영",
+    ],
+  },
+];
+
+const quote = `토론 대회 준비를 위해 생태계를 공부하던 날들, 그리고 아이들과 함께한 봉사 현장에서 처음 장수풍뎅이를 손에 쥐어준 순간을 잊지 못합니다. 그 아이의 눈빛이 바뀌는 데는 단 3초도 걸리지 않았습니다. 저는 그 3초를 더 많은 아이들에게 전하고 싶습니다.`;
 
 export default function ExpertCuration() {
   return (
@@ -62,8 +95,8 @@ export default function ExpertCuration() {
           </motion.p>
         </motion.div>
 
-        {/* ── 본문 2컬럼 ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_440px] gap-12 lg:gap-20 items-start">
+        {/* ── 검증 체크리스트 + 프로필 카드 ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-12 lg:gap-16 items-start mb-16">
 
           {/* 좌측 — 체크리스트 */}
           <motion.div
@@ -79,20 +112,12 @@ export default function ExpertCuration() {
                 className="flex gap-5 py-7 border-b border-[#E8EAED] first:border-t first:border-[#E8EAED]"
                 variants={slideUpStagger}
                 custom={i}
-                transition={{ duration: 0.9 }}
               >
-                {/* 아이콘 */}
                 <div className="flex-shrink-0 mt-0.5">
-                  <div className="w-8 h-8 rounded-full bg-[var(--color-brand)]/8 flex items-center justify-center">
-                    <CheckCircle2
-                      size={16}
-                      className="text-[var(--color-brand)]"
-                      strokeWidth={2}
-                    />
+                  <div className="w-8 h-8 rounded-full bg-[var(--color-brand)]/[0.08] flex items-center justify-center">
+                    <CheckCircle2 size={16} className="text-[var(--color-brand)]" strokeWidth={2} />
                   </div>
                 </div>
-
-                {/* 텍스트 */}
                 <div className="flex flex-col gap-1.5">
                   <p className="text-[0.9375rem] font-semibold tracking-tight text-[#0F1F3D] leading-snug">
                     {title}
@@ -105,64 +130,101 @@ export default function ExpertCuration() {
             ))}
           </motion.div>
 
-          {/* 우측 — 이미지 플레이스홀더 */}
+          {/* 우측 — 전문가 프로필 카드 */}
           <motion.div
-            className="lg:sticky lg:top-24"
-            initial={{ opacity: 0, x: 24 }}
+            className="lg:sticky lg:top-24 bg-white border border-[#E8EAED] rounded-2xl overflow-hidden"
+            initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={VIEWPORT}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
           >
-            {/* 메인 이미지 영역 */}
-            <div
-              className="w-full aspect-[3/4] rounded-2xl overflow-hidden relative flex items-center justify-center"
-              style={{ backgroundColor: "#DDE6F0" }}
-            >
-              {/* 플레이스홀더 레이블 */}
-              <div className="flex flex-col items-center gap-2 select-none pointer-events-none">
-                <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center"
-                  style={{ backgroundColor: "#C5D4E8" }}
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                    <rect x="3" y="3" width="18" height="18" rx="2" stroke="#8AAFD8" strokeWidth="1.5"/>
-                    <circle cx="8.5" cy="8.5" r="1.5" fill="#8AAFD8"/>
-                    <path d="M21 15l-5-5L5 21" stroke="#8AAFD8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
-                <span
-                  className="text-[0.625rem] tracking-[0.18em] uppercase"
-                  style={{ color: "#8AAFD8" }}
-                >
-                  전문가 검수 사진
-                </span>
+            {/* 프로필 상단 */}
+            <div className="flex flex-col items-center gap-4 px-8 pt-8 pb-6 border-b border-[#E8EAED]">
+              <div className="w-24 h-24 rounded-full overflow-hidden relative flex-shrink-0">
+                <Image
+                  src="/images/김태욱.jpg"
+                  alt="김태욱"
+                  fill
+                  className="object-cover"
+                  sizes="96px"
+                />
+              </div>
+              <div className="text-center">
+                <p className="text-[1rem] font-bold tracking-tight text-[#0F1F3D]">김태욱</p>
+                <p className="text-[0.75rem] text-[#8A95A3] mt-0.5 tracking-wide">
+                  생태교육 총괄 디렉터 · 키트 설계자
+                </p>
               </div>
             </div>
 
-            {/* 하단 인용구 */}
-            <div
-              className="mt-5 px-6 py-5 rounded-xl border border-[#E0E8F2]"
-              style={{ backgroundColor: "#FFFFFF" }}
-            >
+            {/* 자격 목록 */}
+            <ul className="flex flex-col gap-3 px-8 py-6 border-b border-[#E8EAED]">
+              {credentials.map(({ Icon, text }, i) => (
+                <li key={i} className="flex items-start gap-3 text-[0.8125rem] text-[#5A6472] leading-snug">
+                  <Icon size={13} className="flex-shrink-0 text-[#B0BCC8] mt-0.5" strokeWidth={1.75} />
+                  {text}
+                </li>
+              ))}
+            </ul>
+
+            {/* 인용구 */}
+            <div className="relative px-8 py-6 bg-[#F8F9FB]">
+              <span
+                aria-hidden="true"
+                className="absolute top-3 left-6 text-[3.5rem] leading-none text-[var(--color-brand)] select-none pointer-events-none"
+                style={{ opacity: 0.10, fontFamily: "Georgia, serif" }}
+              >
+                &ldquo;
+              </span>
               <p
-                className="text-[0.875rem] leading-[1.9] text-[#5A6472]"
+                className="text-[0.8125rem] leading-[1.9] text-[#5A6472] relative z-10"
                 style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic" }}
               >
-                &ldquo;교육 효과는 도구의 안전함과 아이가 느끼는 경이로움이
-                동시에 충족될 때 비로소 완성됩니다.&rdquo;
+                {quote}
               </p>
-              <div className="mt-4 flex items-center gap-3">
-                <div className="w-5 h-px bg-[#C8D4E0]" />
-                <cite
-                  className="not-italic text-[0.6875rem] tracking-wide"
-                  style={{ color: "#A0AEBB" }}
-                >
-                  어깨동무 키트 개발 원칙
+              <div className="mt-4 flex items-center gap-2">
+                <div className="w-4 h-px bg-[#C8D4E0]" />
+                <cite className="not-italic text-[0.625rem] text-[#A0AEBB] tracking-wide">
+                  김태욱 · 생태교육 총괄 디렉터
                 </cite>
               </div>
             </div>
           </motion.div>
         </div>
+
+        {/* ── 상세 경력 3열 ── */}
+        <motion.div
+          className="border-t border-[#E8EAED] pt-14"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VIEWPORT}
+        >
+          <motion.p
+            className="text-[0.6875rem] font-semibold tracking-[0.18em] uppercase text-[var(--color-brand)] mb-8"
+            variants={slideUp}
+          >
+            상세 경력
+          </motion.p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10">
+            {careerDetails.map(({ category, items }, i) => (
+              <motion.div key={category} variants={slideUpStagger} custom={i}>
+                <p className="text-[0.6875rem] font-semibold tracking-[0.14em] uppercase text-[#0F1F3D] mb-4">
+                  {category}
+                </p>
+                <ul className="flex flex-col gap-3">
+                  {items.map((item, j) => (
+                    <li key={j} className="flex items-start gap-2.5 text-[0.8125rem] text-[#5A6472] leading-relaxed">
+                      <span className="flex-shrink-0 mt-[0.4rem] w-1 h-1 rounded-full bg-[#B0BCC8]" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
 
       </div>
     </section>
