@@ -1,13 +1,14 @@
 import { Suspense } from "react";
 import Hero from "@/components/Hero";
 import TrustBar from "@/components/TrustBar";
-import Process from "@/components/Process";
+import CurriculumMapping from "@/components/CurriculumMapping";
 import Curriculum from "@/components/Curriculum";
+import TeacherSupport from "@/components/TeacherSupport";
+import ProductTech from "@/components/ProductTech";
 import GallerySection from "@/components/GallerySection";
 import Differentiation from "@/components/Differentiation";
 import Pricing from "@/components/Pricing";
 import AdminPackage from "@/components/AdminPackage";
-import Instructor from "@/components/Instructor";
 import Reviews from "@/components/Reviews";
 import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
@@ -18,15 +19,16 @@ export default function Home() {
     <main>
       <Hero />
       <TrustBar />
-      <Process />
+      <CurriculumMapping />
       <Curriculum />
+      <TeacherSupport />
+      <ProductTech />
       <Suspense fallback={null}>
         <GallerySection />
       </Suspense>
       <Differentiation />
       <Pricing />
       <AdminPackage />
-      <Instructor />
       <Reviews />
       <FAQ />
       <CTA />

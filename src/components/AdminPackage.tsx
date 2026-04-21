@@ -150,7 +150,7 @@ export default function AdminPackage() {
             </svg>
           </a>
           <p className="text-[0.8125rem] text-[#B0B8C1] leading-snug">
-            문의 접수 즉시 이메일로 전송됩니다.
+            30인 이상 학년 단위 납품 시 단가 자동 절감 적용 · 문의 접수 즉시 이메일로 전송됩니다.
           </p>
         </motion.div>
 

@@ -293,7 +293,7 @@ function ContactModal({ onClose }: { onClose: () => void }) {
               {/* 헤더 */}
               <div className="px-10 pt-8 pb-5 border-b border-gray-100 flex-shrink-0">
                 <p className="text-[0.6875rem] font-semibold tracking-[0.18em] uppercase text-[var(--color-brand)] mb-1.5">
-                  교육 일정 문의
+                  교구 납품 문의
                 </p>
                 <h3 className="text-[1.25rem] font-bold tracking-tight text-[var(--color-text-primary)]">
                   간편 문의
@@ -568,7 +568,7 @@ function ContactModal({ onClose }: { onClose: () => void }) {
 
                 {/* 하단 안내 */}
                 <p className="text-center text-[0.6875rem] text-[var(--color-text-muted)] pb-1 leading-snug">
-                  운영 효율화를 통한 학급 지원가 10,000원 적용 (20인 이상)
+                  학급 단위 기준가 10,000원 · 30인 이상 납품 시 단가 자동 할인
                 </p>
               </form>
             </motion.div>
@@ -620,7 +620,7 @@ export default function CTA() {
               variants={slideUpStagger}
               custom={0}
             >
-              교육 일정 문의
+              교구 납품 문의
             </motion.p>
 
             <motion.h2
@@ -636,8 +636,8 @@ export default function CTA() {
               variants={slideUpStagger}
               custom={2}
             >
-              강사비 0원, 키트비 10,000원.<br />
-              교육 일정·예산 처리·교육과정 연계까지 편하게 문의해주세요.
+              키트비 10,000원, 수업 자료 전면 무료.<br />
+              납품 일정·예산 처리·교육과정 연계까지 편하게 문의해주세요.
             </motion.p>
 
             <motion.div variants={slideUpStagger} custom={3} className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
@@ -651,7 +651,7 @@ export default function CTA() {
                 }}
                 whileTap={{ scale: 0.97, transition: { duration: 0.1 } }}
               >
-                지금 교육 일정 문의하기
+                지금 교구 납품 문의하기
               </motion.button>
 
               <a

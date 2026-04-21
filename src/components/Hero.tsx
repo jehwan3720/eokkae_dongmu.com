@@ -29,10 +29,10 @@ export default function Hero() {
 
           <ul className="hidden md:flex items-center gap-8 text-[0.8125rem] text-white/70 font-medium tracking-wide">
             {[
-              { label: "프로그램 소개", href: "#curriculum" },
-              { label: "수업 현장",   href: "#gallery" },
-              { label: "강사 소개",   href: "#instructor" },
-              { label: "비용 안내",   href: "#pricing" },
+              { label: "교과 연계",  href: "#curriculum-mapping" },
+              { label: "키트 구성", href: "#curriculum" },
+              { label: "수업 현장",  href: "#gallery" },
+              { label: "비용 안내",  href: "#pricing" },
             ].map(({ label, href }) => (
               <li key={label}>
                 <a href={href} className="hover:text-white transition-colors duration-150">{label}</a>
@@ -44,7 +44,7 @@ export default function Hero() {
             href="#contact"
             className="hidden md:inline-flex items-center px-5 py-2.5 text-[0.8125rem] font-semibold tracking-wide text-white border border-white/30 hover:bg-white hover:text-[#0F1F3D] transition-all duration-200 rounded-sm"
           >
-            교육 일정 문의
+            교구 납품 문의
           </a>
         </nav>
 
@@ -63,7 +63,7 @@ export default function Hero() {
               variants={slideUpStagger}
               custom={0}
             >
-              장수풍뎅이와 함께하는 생태 전환 교육
+              대한민국 초등 교과 및 누리과정 100% 연계
             </motion.p>
 
             {/* Main Headline */}
@@ -72,23 +72,20 @@ export default function Hero() {
               variants={slideUpStagger}
               custom={1}
             >
-              살아있는 생명과<br />
-              눈을 맞추는 수업
+              완성형 생태 교구,<br />
+              어깨동무 올인원 키트
             </motion.h1>
 
-            {/* 장수풍뎅이 한살이 설명 */}
+            {/* 서브 카피 */}
             <motion.div
               className="flex flex-col gap-1.5 mb-6"
               variants={slideUpStagger}
               custom={2}
             >
               <p className="text-white/70 text-[0.9375rem] leading-relaxed">
-                장수풍뎅이(<span style={{ fontFamily: "Georgia, serif", fontStyle: "italic" }}>Trypoxylus dichotomus</span>)의
-                알·유충·번데기·성충 한살이를<br className="hidden md:block" />
-                한국곤충학회지 연구 데이터를 기반으로 직접 관찰하는 교육 과정
-              </p>
-              <p style={{ fontFamily: "Georgia, serif", fontStyle: "italic", fontSize: "0.8rem", color: "#7EB3F5", opacity: 0.85 }}>
-                Korean Journal of Applied Entomology
+                수업 준비부터 행정 처리까지.<br className="hidden md:block" />
+                선생님은 아이들의 관찰에만 집중할 수 있도록<br className="hidden md:block" />
+                완벽하게 설계된 올인원 키트를 만나보세요.
               </p>
             </motion.div>
 
@@ -98,7 +95,7 @@ export default function Hero() {
               variants={slideUpStagger}
               custom={3}
             >
-              2022 개정 교육과정 &nbsp;·&nbsp; 생태전환교육 목표 부합
+              2022 개정 교육과정 &nbsp;·&nbsp; 누리과정 &nbsp;·&nbsp; 생태전환교육 목표 부합
             </motion.p>
 
             {/* CTA */}
@@ -111,13 +108,13 @@ export default function Hero() {
                 href="#contact"
                 className="inline-flex items-center justify-center px-8 py-4 bg-[#1B3F7A] hover:bg-[#2A5BAD] text-white text-sm font-semibold tracking-wide rounded-sm transition-colors duration-200"
               >
-                교육 일정 문의하기
+                교구 납품 견적 문의하기
               </a>
               <a
-                href="#curriculum"
+                href="#curriculum-mapping"
                 className="inline-flex items-center justify-center px-8 py-4 border border-white/20 text-white/70 hover:text-white hover:border-white/50 text-sm font-medium tracking-wide rounded-sm transition-colors duration-200"
               >
-                한살이 교육 자세히 보기 →
+                교육과정 연계 확인하기 →
               </a>
             </motion.div>
           </motion.div>
@@ -185,8 +182,8 @@ export default function Hero() {
           viewport={VIEWPORT}
         >
           {[
-            { num: "₩ 0",      label: "강사 수업료",           sub: null },
-            { num: "10,000원", label: "학급 단위 지원가 기준", sub: "30인 이상 신청 시 운영 효율화에 따른 비용 환원 적용" },
+            { num: "₩ 0",      label: "추가 관리 비용",         sub: null },
+            { num: "10,000원", label: "학급 단위 키트 기준가",  sub: "30인 이상 납품 시 단가 자동 할인 적용" },
             { num: "4단계",    label: "한살이 연계 커리큘럼",  sub: null },
             { num: "無관리",   label: "관리가 필요 없는 올인원 사육 키트",      sub: null },
           ].map(({ num, label, sub }, i) => (

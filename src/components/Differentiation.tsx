@@ -6,7 +6,7 @@ import { staggerContainer, slideUp, slideUpStagger, VIEWPORT } from "@/lib/motio
 const rows = [
   {
     label: "교육 근거",
-    generic: "강사 재량 커리큘럼",
+    generic: "비표준 교재 활용",
     ours: "한국곤충학회지 기반 이론 병행",
     highlight: false,
   },
