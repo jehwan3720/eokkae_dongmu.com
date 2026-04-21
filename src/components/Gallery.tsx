@@ -31,7 +31,7 @@ function PhotoCard({
         {photo ? (
           <Image
             src={photo.image_url}
-            alt={caption ?? "수업 사진"}
+            alt={caption ?? "어깨동무 장수풍뎅이 생태 교육 수업 현장"}
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 50vw"

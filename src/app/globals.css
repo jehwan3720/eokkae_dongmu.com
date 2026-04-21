@@ -38,7 +38,7 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 17px; /* 기본 16px → 17px: 모든 rem 단위 비례 확대 */
+  font-size: 19px; /* 기본 16px → 19px: 모든 rem 단위 비례 확대 */
 }
 
 body {
