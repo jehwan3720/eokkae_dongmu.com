@@ -38,6 +38,7 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 17px; /* 기본 16px → 17px: 모든 rem 단위 비례 확대 */
 }
 
 body {
@@ -45,7 +46,7 @@ body {
   color: var(--color-text-primary);
   font-family: var(--font-sans);
   font-size: 1rem;
-  line-height: 1.7;
+  line-height: 1.75;
 }
 
 /* ─── Typography helpers ─────────────────────────────────── */
