@@ -18,10 +18,6 @@ const checks = [
     title: "냄새와 벌레 꼬임을 원천 차단하는 독자적 배합 톱밥 기술",
     desc: "부패 억제 발효 공정과 밀봉 통기 구조를 결합하여 교실 환경에서 냄새·초파리·응애 발생을 구조적으로 차단합니다.",
   },
-  {
-    title: "어린이 제품 안전 기준(KC)을 상회하는 엄격한 품질 관리",
-    desc: "KC 인증 기준 이상의 내부 품질 체크리스트를 적용합니다. 유해 물질 부재 및 구조 안전성을 납품 전 전수 검사합니다.",
-  },
 ];
 
 const credentials = [
@@ -66,7 +62,7 @@ export default function ExpertCuration() {
 
         {/* ── 섹션 헤더 ── */}
         <motion.div
-          className="mb-16 max-w-2xl"
+          className="mb-10 max-w-2xl"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -96,11 +92,11 @@ export default function ExpertCuration() {
         </motion.div>
 
         {/* ── 검증 체크리스트 + 프로필 카드 ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-12 lg:gap-16 items-start mb-16">
+        <div className="flex flex-col lg:flex-row items-start gap-12 lg:gap-16 -mb-10">
 
           {/* 좌측 — 체크리스트 */}
           <motion.div
-            className="flex flex-col gap-0"
+            className="flex-1 min-w-0 flex flex-col gap-0"
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
@@ -109,7 +105,7 @@ export default function ExpertCuration() {
             {checks.map(({ title, desc }, i) => (
               <motion.div
                 key={title}
-                className="flex gap-5 py-7 border-b border-[#E8EAED] first:border-t first:border-[#E8EAED]"
+                className="flex gap-5 py-12 border-b border-[#E8EAED] first:border-t first:border-[#E8EAED] first:pt-0"
                 variants={slideUpStagger}
                 custom={i}
               >
@@ -131,70 +127,72 @@ export default function ExpertCuration() {
           </motion.div>
 
           {/* 우측 — 전문가 프로필 카드 */}
-          <motion.div
-            className="lg:sticky lg:top-24 bg-white border border-[#E8EAED] rounded-2xl overflow-hidden"
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={VIEWPORT}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-          >
-            {/* 프로필 상단 */}
-            <div className="flex flex-col items-center gap-4 px-8 pt-8 pb-6 border-b border-[#E8EAED]">
-              <div className="w-24 h-24 rounded-full overflow-hidden relative flex-shrink-0">
-                <Image
-                  src="/images/김태욱.jpg"
-                  alt="김태욱"
-                  fill
-                  className="object-cover"
-                  sizes="96px"
-                />
+          <div className="w-full lg:w-[380px] flex-shrink-0 lg:-mt-40" style={{ alignSelf: 'flex-start' }}>
+            <motion.div
+              className="bg-white border border-[#E8EAED] rounded-2xl overflow-hidden"
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={VIEWPORT}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+            >
+              {/* 프로필 상단 */}
+              <div className="flex flex-col items-center gap-4 px-8 pt-8 pb-6 border-b border-[#E8EAED]">
+                <div className="w-24 h-24 rounded-full overflow-hidden relative flex-shrink-0">
+                  <Image
+                    src="/images/김태욱.jpg"
+                    alt="김태욱"
+                    fill
+                    className="object-cover"
+                    sizes="96px"
+                  />
+                </div>
+                <div className="text-center">
+                  <p className="text-[1rem] font-bold tracking-tight text-[#0F1F3D]">김태욱</p>
+                  <p className="text-[0.75rem] text-[#8A95A3] mt-0.5 tracking-wide">
+                    생태교육 총괄 디렉터 · 키트 설계자
+                  </p>
+                </div>
               </div>
-              <div className="text-center">
-                <p className="text-[1rem] font-bold tracking-tight text-[#0F1F3D]">김태욱</p>
-                <p className="text-[0.75rem] text-[#8A95A3] mt-0.5 tracking-wide">
-                  생태교육 총괄 디렉터 · 키트 설계자
+
+              {/* 자격 목록 */}
+              <ul className="flex flex-col gap-3 px-8 py-6 border-b border-[#E8EAED]">
+                {credentials.map(({ Icon, text }, i) => (
+                  <li key={i} className="flex items-start gap-3 text-[0.8125rem] text-[#5A6472] leading-snug">
+                    <Icon size={13} className="flex-shrink-0 text-[#B0BCC8] mt-0.5" strokeWidth={1.75} />
+                    {text}
+                  </li>
+                ))}
+              </ul>
+
+              {/* 인용구 */}
+              <div className="relative px-8 py-6 bg-[#F8F9FB]">
+                <span
+                  aria-hidden="true"
+                  className="absolute top-3 left-6 text-[3.5rem] leading-none text-[var(--color-brand)] select-none pointer-events-none"
+                  style={{ opacity: 0.10, fontFamily: "Georgia, serif" }}
+                >
+                  &ldquo;
+                </span>
+                <p
+                  className="text-[0.8125rem] text-[#374151] relative z-10"
+                  style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", lineHeight: 1.8 }}
+                >
+                  {quote}
                 </p>
+                <div className="mt-4 flex items-center gap-2">
+                  <div className="w-4 h-px bg-[#C8D4E0]" />
+                  <cite className="not-italic text-[0.625rem] text-[#A0AEBB] tracking-wide">
+                    김태욱 · 생태교육 총괄 디렉터
+                  </cite>
+                </div>
               </div>
-            </div>
-
-            {/* 자격 목록 */}
-            <ul className="flex flex-col gap-3 px-8 py-6 border-b border-[#E8EAED]">
-              {credentials.map(({ Icon, text }, i) => (
-                <li key={i} className="flex items-start gap-3 text-[0.8125rem] text-[#5A6472] leading-snug">
-                  <Icon size={13} className="flex-shrink-0 text-[#B0BCC8] mt-0.5" strokeWidth={1.75} />
-                  {text}
-                </li>
-              ))}
-            </ul>
-
-            {/* 인용구 */}
-            <div className="relative px-8 py-6 bg-[#F8F9FB]">
-              <span
-                aria-hidden="true"
-                className="absolute top-3 left-6 text-[3.5rem] leading-none text-[var(--color-brand)] select-none pointer-events-none"
-                style={{ opacity: 0.10, fontFamily: "Georgia, serif" }}
-              >
-                &ldquo;
-              </span>
-              <p
-                className="text-[0.8125rem] leading-[1.9] text-[#5A6472] relative z-10"
-                style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic" }}
-              >
-                {quote}
-              </p>
-              <div className="mt-4 flex items-center gap-2">
-                <div className="w-4 h-px bg-[#C8D4E0]" />
-                <cite className="not-italic text-[0.625rem] text-[#A0AEBB] tracking-wide">
-                  김태욱 · 생태교육 총괄 디렉터
-                </cite>
-              </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
 
         {/* ── 상세 경력 3열 ── */}
         <motion.div
-          className="border-t border-[#E8EAED] pt-14"
+          className="pt-14"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"

@@ -68,7 +68,7 @@ export default function Hero() {
 
             {/* Main Headline */}
             <motion.h1
-              className="text-[3rem] md:text-[4.25rem] lg:text-[5rem] font-bold leading-[1.05] tracking-[-0.03em] text-white mb-8"
+              className="text-[2.25rem] md:text-[3.25rem] lg:text-[3.875rem] font-bold leading-[1.05] tracking-[-0.03em] text-white mb-8"
               variants={slideUpStagger}
               custom={1}
             >
