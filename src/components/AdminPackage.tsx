@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { FileText, Building2, Landmark, BookOpen } from "lucide-react";
 import { staggerContainer, slideUp, slideUpStagger, VIEWPORT } from "@/lib/motion";
+import JSZip from "jszip";
 
 const documents = [
   {
@@ -18,24 +19,24 @@ const documents = [
     title: "사업자등록증",
     desc: "국세청 등록 사업자 정보 원본. 계약·지출 결의 첨부 서류로 활용됩니다.",
     tag: "공식 서류",
-    downloadHref: null,
-    downloadName: null,
+    downloadHref: "/assets/docs/사업자등록증.pdf",
+    downloadName: "어깨동무_사업자등록증.pdf",
   },
   {
     Icon: Landmark,
     title: "통장 사본",
     desc: "대금 지급을 위한 공식 계좌 정보. 학교 회계 담당자 확인용으로 제공됩니다.",
     tag: "즉시 제공",
-    downloadHref: null,
-    downloadName: null,
+    downloadHref: "/assets/docs/통장사본.pdf",
+    downloadName: "어깨동무_통장사본.pdf",
   },
   {
     Icon: BookOpen,
     title: "수업 계획서",
     desc: "교육과정 연계 근거와 차시 구성이 포함된 공문 제출용 계획서입니다.",
     tag: "교육청 기준",
-    downloadHref: null,
-    downloadName: null,
+    downloadHref: "/assets/docs/수업계획서.doc",
+    downloadName: "어깨동무_생태교육_수업계획서.doc",
   },
 ];
 
@@ -140,15 +141,32 @@ export default function AdminPackage() {
           viewport={VIEWPORT}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         >
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-2.5 px-7 py-3.5 bg-[#0F1F3D] text-white text-[0.875rem] font-semibold tracking-tight rounded-[6px] hover:bg-[#1B3F7A] transition-colors duration-200"
+          <button
+            onClick={async () => {
+              const zip = new JSZip();
+              const files = documents.filter((d) => d.downloadHref && d.downloadName);
+              await Promise.all(
+                files.map(async ({ downloadHref, downloadName }) => {
+                  const res = await fetch(downloadHref!);
+                  const blob = await res.blob();
+                  zip.file(downloadName!, blob);
+                })
+              );
+              const content = await zip.generateAsync({ type: "blob" });
+              const a = document.createElement("a");
+              a.href = URL.createObjectURL(content);
+              a.download = "어깨동무_행정서류_패키지.zip";
+              a.click();
+              URL.revokeObjectURL(a.href);
+            }}
+            className="inline-flex items-center gap-2.5 px-7 py-3.5 border border-[#0F1F3D] text-[#0F1F3D] text-[0.875rem] font-semibold tracking-tight rounded-[6px] hover:bg-[#0F1F3D] hover:text-white transition-colors duration-200"
           >
-            행정 서류 패키지 미리보기
-            <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
-              <path d="M1 5h12M8 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            전체 서류 한 번에 받기
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M7 1v8M3 6l4 4 4-4M1 11h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-          </a>
+          </button>
+
           <p className="text-[0.8125rem] text-[#B0B8C1] leading-snug">
             30인 이상 학년 단위 납품 시 단가 자동 절감 적용 · 문의 접수 즉시 이메일로 전송됩니다.
           </p>

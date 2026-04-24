@@ -11,12 +11,6 @@ const rows = [
     highlight: false,
   },
   {
-    label: "교육 형태",
-    generic: "1회성 이벤트",
-    ours: "4단계 연속 커리큘럼",
-    highlight: false,
-  },
-  {
     label: "체계성",
     generic: "비표준화",
     ours: "표준화된 교육 방법론",

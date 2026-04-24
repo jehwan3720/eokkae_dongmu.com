@@ -57,7 +57,6 @@ export default function CurriculumMapping() {
             className="text-[2rem] md:text-[2.75rem] font-bold leading-[1.15] tracking-[-0.025em] text-[var(--color-text-primary)]"
             variants={slideUp}
           >
-            한국곤충학회 연구 데이터 기반,<br />
             공교육 교과 과정에 완벽히 맞춘<br className="hidden md:block" />
             4단계 관찰 커리큘럼
           </motion.h2>

@@ -1,10 +1,36 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
 import { slideUpStagger, staggerContainer, VIEWPORT } from "@/lib/motion";
 
+const heroImages = [
+  { src: "/images/풍뎅이.jpg",   alt: "장수풍뎅이 성충" },
+  { src: "/images/대표사진.png", alt: "어깨동무 생태 교육 키트 대표 사진" },
+  { src: "/images/키트사진.png", alt: "어깨동무 생태 교육 키트 구성" },
+  { src: "/images/유충수정.png", alt: "장수풍뎅이 유충" },
+];
+
 export default function Hero() {
+  const [imgIndex, setImgIndex] = useState(0);
+  const [lightbox, setLightbox] = useState(false);
+
+  useEffect(() => {
+    if (lightbox) return;
+    const delay = imgIndex === 0 ? 2000 : 4000;
+    const timer = setTimeout(() => {
+      setImgIndex((prev) => (prev + 1) % heroImages.length);
+    }, delay);
+    return () => clearTimeout(timer);
+  }, [imgIndex, lightbox]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setLightbox(false); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
   return (
     <section className="relative bg-[#0F1F3D] overflow-hidden">
 
@@ -128,17 +154,29 @@ export default function Hero() {
           >
             {/* 메인 이미지 */}
             <div
-              className="relative w-full aspect-[4/5] rounded-sm overflow-hidden"
+              className="relative w-full aspect-[4/5] rounded-sm overflow-hidden cursor-zoom-in"
               style={{ border: "1px solid #1B3F7A66" }}
+              onClick={() => setLightbox(true)}
             >
-              <Image
-                src="/images/풍뎅이.jpg"
-                alt="장수풍뎅이 성충"
-                fill
-                className="object-cover"
-                sizes="420px"
-                priority
-              />
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={imgIndex}
+                  className="absolute inset-0"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.8, ease: "easeInOut" }}
+                >
+                  <Image
+                    src={heroImages[imgIndex].src}
+                    alt={heroImages[imgIndex].alt}
+                    fill
+                    className="object-cover"
+                    sizes="420px"
+                    priority
+                  />
+                </motion.div>
+              </AnimatePresence>
 
               {/* 학명 배지 */}
               <div
@@ -202,6 +240,83 @@ export default function Hero() {
           ))}
         </motion.div>
       </div>
+
+      {/* ── 라이트박스 ── */}
+      <AnimatePresence>
+        {lightbox && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            onClick={() => setLightbox(false)}
+          >
+            <motion.div
+              className="relative w-[90vw] max-w-3xl aspect-[4/5]"
+              initial={{ scale: 0.92, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.92, opacity: 0 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={imgIndex}
+                  className="absolute inset-0"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
+                >
+                  <Image
+                    src={heroImages[imgIndex].src}
+                    alt={heroImages[imgIndex].alt}
+                    fill
+                    className="object-contain"
+                    sizes="90vw"
+                  />
+                </motion.div>
+              </AnimatePresence>
+
+              {/* 닫기 */}
+              <button
+                className="absolute top-3 right-3 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-black/50 text-white hover:bg-black/80 transition-colors"
+                onClick={() => setLightbox(false)}
+              >
+                ✕
+              </button>
+
+              {/* 이전 */}
+              <button
+                className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-black/50 text-white hover:bg-black/80 transition-colors text-lg"
+                onClick={() => setImgIndex((prev) => (prev - 1 + heroImages.length) % heroImages.length)}
+              >
+                ‹
+              </button>
+
+              {/* 다음 */}
+              <button
+                className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-black/50 text-white hover:bg-black/80 transition-colors text-lg"
+                onClick={() => setImgIndex((prev) => (prev + 1) % heroImages.length)}
+              >
+                ›
+              </button>
+
+              {/* 인디케이터 */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-2">
+                {heroImages.map((_, i) => (
+                  <button
+                    key={i}
+                    className={`w-1.5 h-1.5 rounded-full transition-all ${i === imgIndex ? "bg-white scale-125" : "bg-white/40"}`}
+                    onClick={() => setImgIndex(i)}
+                  />
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
