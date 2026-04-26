@@ -1,9 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import ImageLightbox from "./ImageLightbox";
 import {
   slideUp,
   slideUpStagger,
@@ -60,8 +58,6 @@ const steps = [
 ];
 
 export default function Curriculum() {
-  const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
-
   return (
     <section id="curriculum" className="bg-[var(--color-off-white)] py-24 md:py-32">
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
@@ -169,10 +165,9 @@ export default function Curriculum() {
             >
               {/* 이미지 */}
               <motion.div
-                className="w-full aspect-[4/3] relative overflow-hidden cursor-zoom-in"
+                className="w-full aspect-[4/3] relative overflow-hidden"
                 style={{ borderBottom: "1px solid var(--color-border)" }}
                 variants={cardHover}
-                onClick={() => setLightbox({ src: img, alt: title })}
               >
                 <Image
                   src={img}
@@ -228,13 +223,6 @@ export default function Curriculum() {
           ))}
         </motion.div>
       </div>
-
-      <ImageLightbox
-        src={lightbox?.src ?? ""}
-        alt={lightbox?.alt ?? ""}
-        isOpen={!!lightbox}
-        onClose={() => setLightbox(null)}
-      />
     </section>
   );
 }
