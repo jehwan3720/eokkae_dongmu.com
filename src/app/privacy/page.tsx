@@ -1,10 +1,10 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 
 const sections = [
   {
     num: "제1조",
     title: "개인정보의 수집 및 이용 목적",
-    body: `어깨동무(이하 '운영자')는 다음의 목적을 위하여 개인정보를 처리합니다. 처리한 개인정보는 다음 목적 이외의 용도로는 사용되지 않으며, 이용 목적이 변경되는 경우에는 「개인정보 보호법」 제18조에 따라 별도의 동의를 받는 등 필요한 조치를 이행합니다.
+    body: `에듀그리드(이하 '운영자')는 다음의 목적을 위하여 개인정보를 처리합니다. 처리한 개인정보는 다음 목적 이외의 용도로는 사용되지 않으며, 이용 목적이 변경되는 경우에는 「개인정보 보호법」 제18조에 따라 별도의 동의를 받는 등 필요한 조치를 이행합니다.
 
 ① 교육 일정 상담 및 문의 응대
 ② 교육 프로그램 안내 및 일정 조율
@@ -90,7 +90,7 @@ const sections = [
 ③ 삭제 요구
 ④ 처리 정지 요구
 
-권리 행사는 이메일(eokkae0202@gmail.com)을 통해 언제든 요청하실 수 있으며, 운영자는 지체 없이 조치하겠습니다. 정보주체는 개인정보 보호법 등 관계 법령을 위반하여 운영자가 처리하고 있는 정보주체 본인이나 타인의 개인정보 및 사생활을 침해하여서는 안 됩니다.`,
+권리 행사는 이메일(edugrid1649@gmail.com)을 통해 언제든 요청하실 수 있으며, 운영자는 지체 없이 조치하겠습니다. 정보주체는 개인정보 보호법 등 관계 법령을 위반하여 운영자가 처리하고 있는 정보주체 본인이나 타인의 개인정보 및 사생활을 침해하여서는 안 됩니다.`,
   },
   {
     num: "제8조",
@@ -131,7 +131,7 @@ const sections = [
   · 성명: 명제환
   · 직책: 대표
   · 전화번호: 010-7934-9379
-  · 이메일: eokkae0202@gmail.com
+  · 이메일: edugrid1649@gmail.com
 
 정보주체께서는 운영자의 서비스를 이용하시면서 발생한 모든 개인정보 보호 관련 문의, 불만 처리, 피해 구제 등에 관한 사항을 개인정보 보호책임자에게 문의하실 수 있습니다.
 
@@ -164,7 +164,7 @@ export default function PrivacyPage() {
             href="/"
             className="text-[#1B3F7A] font-bold text-[0.9375rem] tracking-tight hover:opacity-60 transition-opacity duration-150"
           >
-            어깨동무
+            에듀그리드
           </Link>
           <span className="text-[0.6875rem] font-medium text-slate-400 tracking-[0.1em] uppercase">
             Privacy Policy
@@ -184,7 +184,7 @@ export default function PrivacyPage() {
             개인정보 처리방침
           </h1>
           <p className="text-[0.9375rem] text-slate-500 leading-[1.85] max-w-2xl">
-            어깨동무(이하 &apos;운영자&apos;)는 「개인정보 보호법」 제30조에 따라 정보주체의 개인정보를 보호하고
+            에듀그리드(이하 &apos;운영자&apos;)는 「개인정보 보호법」 제30조에 따라 정보주체의 개인정보를 보호하고
             이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 다음과 같이 개인정보 처리방침을 수립·공개합니다.
           </p>
           <div className="mt-6 flex items-center gap-6 text-[0.75rem] text-slate-400">
@@ -261,7 +261,7 @@ export default function PrivacyPage() {
       <footer className="border-t border-slate-100 mt-8">
         <div className="max-w-4xl mx-auto px-6 md:px-12 py-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
           <p className="text-[0.6875rem] text-slate-300 tracking-wide">
-            © 2026 어깨동무. All rights reserved.
+            © 2026 에듀그리드. All rights reserved.
           </p>
           <p className="text-[0.6875rem] text-slate-300 tracking-wide">
             문의: eokkae0202@gmail.com

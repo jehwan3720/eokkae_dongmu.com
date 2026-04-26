@@ -1,8 +1,8 @@
-import { Resend } from "resend";
+﻿import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
 
-const FROM = process.env.CONTACT_FROM_EMAIL    ?? "eoggae-dongmu <onboarding@resend.dev>";
-const TO   = process.env.CONTACT_RECEIVE_EMAIL ?? "eokkae0202@gmail.com";
+const FROM = process.env.CONTACT_FROM_EMAIL    ?? "EDUGRID <onboarding@resend.dev>";
+const TO   = process.env.CONTACT_RECEIVE_EMAIL ?? "edugrid1649@gmail.com";
 
 /* ── 관리자 수신 이메일 HTML ── */
 function adminHtml(d: Record<string, string>) {
@@ -67,7 +67,7 @@ function adminHtml(d: Record<string, string>) {
         <tr>
           <td style="background:#F4F5F7;padding:20px 40px;border-top:1px solid #E8EAED;">
             <p style="margin:0;font-size:11px;color:#B0B8C1;line-height:1.7;">
-              어깨동무 · 학술 기반 생태 체험 교육 프로그램<br />
+              에듀그리드 · 학술 기반 생태 체험 교육 프로그램<br />
               본 메일은 홈페이지 문의 양식을 통해 자동 발송되었습니다.
             </p>
           </td>
@@ -94,7 +94,7 @@ function replyHtml(d: Record<string, string>) {
         <!-- 헤더 -->
         <tr>
           <td style="background:#1B3F7A;padding:28px 40px;">
-            <p style="margin:0;color:#C5D8F0;font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;">어깨동무</p>
+            <p style="margin:0;color:#C5D8F0;font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;">에듀그리드</p>
             <h1 style="margin:6px 0 0;color:#ffffff;font-size:20px;font-weight:700;letter-spacing:-0.02em;">문의가 정상 접수되었습니다</h1>
           </td>
         </tr>
@@ -104,7 +104,7 @@ function replyHtml(d: Record<string, string>) {
           <td style="padding:32px 40px 24px;">
             <p style="margin:0 0 16px;font-size:15px;color:#1A2535;line-height:1.8;">
               안녕하세요, <strong>${d.school}</strong> 선생님.<br />
-              어깨동무 생태 교육 문의를 남겨주셔서 감사합니다.
+              에듀그리드 생태 교육 문의를 남겨주셔서 감사합니다.
             </p>
             <p style="margin:0 0 24px;font-size:14px;color:#5A6472;line-height:1.9;">
               담당자가 확인 후 <strong>영업일 기준 24시간 이내</strong>에 연락처(<strong>${d.contact}</strong>)로 연락드리겠습니다.
@@ -142,7 +142,7 @@ function replyHtml(d: Record<string, string>) {
         <tr>
           <td style="background:#F4F5F7;padding:20px 40px;border-top:1px solid #E8EAED;">
             <p style="margin:0;font-size:11px;color:#B0B8C1;line-height:1.7;">
-              어깨동무 · 강사비 0원 · 키트비 10,000원 · 무관리 올인원 키트<br />
+              에듀그리드 · 강사비 0원 · 키트비 10,000원 · 무관리 올인원 키트<br />
               본 메일은 자동 발송 메일입니다. 직접 회신하지 마세요.
             </p>
           </td>
@@ -175,7 +175,7 @@ export async function POST(req: NextRequest) {
     await resend.emails.send({
       from:    FROM,
       to:      TO,
-      subject: `[어깨동무 문의] ${school} — ${grade} ${headcount}명`,
+      subject: `[에듀그리드 문의] ${school} — ${grade} ${headcount}명`,
       html:    adminHtml(data),
     });
 
@@ -184,7 +184,7 @@ export async function POST(req: NextRequest) {
       await resend.emails.send({
         from:    FROM,
         to:      email,
-        subject: "[어깨동무] 교육 문의가 정상 접수되었습니다",
+        subject: "[에듀그리드] 교육 문의가 정상 접수되었습니다",
         html:    replyHtml(data),
       });
     }

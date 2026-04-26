@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useTransition } from "react";
 import Link from "next/link";
@@ -154,7 +154,7 @@ export default function CheckPage() {
             </svg>
             메인으로
           </Link>
-          <p className="text-[0.6875rem] font-semibold tracking-[0.2em] uppercase text-[#7EB3F5] mb-3">어깨동무</p>
+          <p className="text-[0.6875rem] font-semibold tracking-[0.2em] uppercase text-[#7EB3F5] mb-3">에듀그리드</p>
           <h1 className="text-[1.875rem] font-bold tracking-tight text-white mb-2">
             문의 내역 조회
           </h1>
@@ -268,8 +268,8 @@ export default function CheckPage() {
         {!results && (
           <p className="text-center text-[0.6875rem] text-white/20 leading-relaxed mt-6">
             이메일을 입력하지 않으셨거나 정보를 분실하신 경우<br />
-            <a href="mailto:eokkae0202@gmail.com" className="text-[#7EB3F5]/60 hover:text-[#7EB3F5] transition-colors duration-150 underline underline-offset-2">
-              eokkae0202@gmail.com
+            <a href="mailto:edugrid1649@gmail.com" className="text-[#7EB3F5]/60 hover:text-[#7EB3F5] transition-colors duration-150 underline underline-offset-2">
+              edugrid1649@gmail.com
             </a>
             으로 직접 문의해 주세요.
           </p>

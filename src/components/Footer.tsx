@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 
@@ -20,15 +20,15 @@ export default function Footer() {
           {/* 브랜드 & 사업자 정보 */}
           <div className="flex flex-col gap-4">
             <p className="text-white font-bold text-base tracking-tight">
-              어깨동무
+              에듀그리드
             </p>
             <p className="text-white/30 text-[0.75rem] leading-[1.9] tracking-wide">
               학술 기반 생태 체험 교육 프로그램<br />
               사업자등록번호: 150-21-02079 &nbsp;·&nbsp; 대표: 명제환<br />
-              문의: eokkae0202@gmail.com
+              문의: edugrid1649@gmail.com
             </p>
             <p className="text-white/20 text-[0.6875rem] tracking-wide mt-2">
-              © 2026 어깨동무. All rights reserved.
+              © 2026 에듀그리드. All rights reserved.
             </p>
           </div>
 
