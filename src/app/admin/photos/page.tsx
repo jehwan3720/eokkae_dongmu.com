@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+﻿import { redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import LogoutButton from "@/app/admin/applications/LogoutButton";
@@ -17,7 +17,7 @@ export default async function PhotosPage() {
         <div className="flex items-center justify-between mb-8">
           <div>
             <p className="text-[0.6875rem] font-semibold tracking-[0.18em] uppercase text-[#1B3F7A] mb-1">
-              어깨동무 관리자
+              에듀그리드 관리자
             </p>
             <h1 className="text-[1.75rem] font-bold tracking-tight text-[#1A2535]">
               수업 사진 관리

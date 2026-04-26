@@ -1,5 +1,5 @@
-/**
- * 어깨동무 — 전역 애니메이션 시스템
+﻿/**
+ * 에듀그리드 — 전역 애니메이션 시스템
  * 기준: Soft Slide-up + Fade-in / duration 0.8s / easeOut
  */
 

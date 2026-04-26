@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -7,8 +7,8 @@ import { slideUpStagger, staggerContainer, VIEWPORT } from "@/lib/motion";
 
 const heroImages = [
   { src: "/images/풍뎅이.jpg",   alt: "장수풍뎅이 성충" },
-  { src: "/images/대표사진.png", alt: "어깨동무 생태 교육 키트 대표 사진" },
-  { src: "/images/키트사진.png", alt: "어깨동무 생태 교육 키트 구성" },
+  { src: "/images/대표사진.png", alt: "에듀그리드 생태 교육 키트 대표 사진" },
+  { src: "/images/키트사진.png", alt: "에듀그리드 생태 교육 키트 구성" },
   { src: "/images/유충수정.png", alt: "장수풍뎅이 유충" },
 ];
 
@@ -51,7 +51,7 @@ export default function Hero() {
 
         {/* ── 네비게이션 ─────────────────────────────────── */}
         <nav className="flex items-center justify-between py-5 border-b border-white/10">
-          <span className="text-white font-bold text-lg tracking-tight">어깨동무</span>
+          <span className="text-white font-bold text-lg tracking-tight">에듀그리드</span>
 
           <ul className="hidden md:flex items-center gap-8 text-[0.8125rem] text-white/70 font-medium tracking-wide">
             {[
@@ -99,7 +99,7 @@ export default function Hero() {
               custom={1}
             >
               완성형 생태 교구,<br />
-              어깨동무 올인원 키트
+              에듀그리드 올인원 키트
             </motion.h1>
 
             {/* 서브 카피 */}

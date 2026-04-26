@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -49,7 +49,7 @@ export default function AdminLoginPage() {
         {/* 로고 */}
         <div className="text-center mb-10">
           <p className="text-[0.6875rem] font-semibold tracking-[0.18em] uppercase text-[#1B3F7A] mb-1">
-            어깨동무
+            에듀그리드
           </p>
           <h1 className="text-[1.5rem] font-bold tracking-tight text-[#1A2535]">
             관리자 로그인
@@ -70,7 +70,7 @@ export default function AdminLoginPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="eokkae0202@gmail.com"
+                placeholder="이메일을 입력하세요"
                 required
                 className="w-full px-4 py-[0.6875rem] text-[0.875rem] text-[#1A2535] bg-[#F8F9FB] border border-[#E8EAED] rounded-[3px] outline-none focus:border-[#1B3F7A] focus:ring-2 focus:ring-[#1B3F7A]/10 transition-all duration-200 placeholder:text-gray-300"
               />
@@ -104,7 +104,7 @@ export default function AdminLoginPage() {
         </div>
 
         <p className="mt-6 text-center text-[0.75rem] text-[#B0B8C1]">
-          어깨동무 내부 관리 시스템
+          에듀그리드 내부 관리 시스템
         </p>
       </div>
     </div>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -31,7 +31,7 @@ function PhotoCard({
         {photo ? (
           <Image
             src={photo.image_url}
-            alt={caption ?? "어깨동무 장수풍뎅이 생태 교육 수업 현장"}
+            alt={caption ?? "에듀그리드 장수풍뎅이 생태 교육 수업 현장"}
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 50vw"

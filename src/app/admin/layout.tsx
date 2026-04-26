@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "어깨동무 관리자",
+  title: "에듀그리드 관리자",
   robots: { index: false, follow: false },
 };
 

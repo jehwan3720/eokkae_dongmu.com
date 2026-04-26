@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import { FileText, Building2, Landmark, BookOpen } from "lucide-react";
@@ -12,7 +12,7 @@ const documents = [
     desc: "품목·단가·합계가 명시된 공식 견적서. 학교 예산 품의에 즉시 사용 가능합니다.",
     tag: "즉시 발급",
     downloadHref: "/assets/docs/견적서(9).doc",
-    downloadName: "어깨동무_생태교육_견적서.doc",
+    downloadName: "에듀그리드_생태교육_견적서.doc",
   },
   {
     Icon: Building2,
@@ -20,7 +20,7 @@ const documents = [
     desc: "국세청 등록 사업자 정보 원본. 계약·지출 결의 첨부 서류로 활용됩니다.",
     tag: "공식 서류",
     downloadHref: "/assets/docs/사업자등록증.pdf",
-    downloadName: "어깨동무_사업자등록증.pdf",
+    downloadName: "에듀그리드_사업자등록증.pdf",
   },
   {
     Icon: Landmark,
@@ -28,7 +28,7 @@ const documents = [
     desc: "대금 지급을 위한 공식 계좌 정보. 학교 회계 담당자 확인용으로 제공됩니다.",
     tag: "즉시 제공",
     downloadHref: "/assets/docs/통장사본.pdf",
-    downloadName: "어깨동무_통장사본.pdf",
+    downloadName: "에듀그리드_통장사본.pdf",
   },
   {
     Icon: BookOpen,
@@ -36,7 +36,7 @@ const documents = [
     desc: "교육과정 연계 근거와 차시 구성이 포함된 공문 제출용 계획서입니다.",
     tag: "교육청 기준",
     downloadHref: "/assets/docs/수업계획서.doc",
-    downloadName: "어깨동무_생태교육_수업계획서.doc",
+    downloadName: "에듀그리드_생태교육_수업계획서.doc",
   },
 ];
 
@@ -155,7 +155,7 @@ export default function AdminPackage() {
               const content = await zip.generateAsync({ type: "blob" });
               const a = document.createElement("a");
               a.href = URL.createObjectURL(content);
-              a.download = "어깨동무_행정서류_패키지.zip";
+              a.download = "에듀그리드_행정서류_패키지.zip";
               a.click();
               URL.revokeObjectURL(a.href);
             }}

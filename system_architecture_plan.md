@@ -1,5 +1,5 @@
-# System Architecture Plan
-## 어깨동무 — 문의 접수 백엔드 고도화
+﻿# System Architecture Plan
+## 에듀그리드 — 문의 접수 백엔드 고도화
 
 > 작성일: 2026-04-14  
 > 현재 상태: Next.js API Route → Resend 이메일 단방향 파이프라인  
@@ -179,7 +179,7 @@ CREATE POLICY "allow_admin_only" ON applications
   FOR SELECT
   TO authenticated
   USING (
-    (auth.jwt() ->> 'email') = 'jehu@eoggae-dongmu.kr'
+    (auth.jwt() ->> 'email') = 'jehu@edugrid.kr'
     -- 또는 auth.jwt() -> 'user_metadata' ->> 'role' = 'admin'
   );
 ```
@@ -353,7 +353,7 @@ Discord Embed 형식 사용 (텍스트보다 구조화된 알림):
       { "name": "희망 교육 일자", "value": "2026-05-15", "inline": true },
       { "name": "상태", "value": "⏳ 대기 중", "inline": true }
     ],
-    "footer": { "text": "어깨동무 관리 시스템" },
+    "footer": { "text": "에듀그리드 관리 시스템" },
     "timestamp": "2026-04-14T09:00:00Z"
   }]
 }

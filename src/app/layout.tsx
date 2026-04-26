@@ -1,30 +1,30 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import "./globals.css";
 
 const BASE_URL = "https://eokkae-volunteer.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
-  title: "어깨동무 | 장수풍뎅이 생태 교육 키트 — 누리과정·초등 교과 연계",
+  title: "에듀그리드 | 장수풍뎅이 생태 교육 키트 — 누리과정·초등 교과 연계",
   description:
     "장수풍뎅이 애벌레 관찰부터 성충까지! 유치원·어린이집 누리과정 및 초등 2022 개정 교육과정 100% 연계. 냄새·벌레 없는 올인원 생태 교육 키트. 강사비 0원, 행정 서류 즉시 제공.",
   keywords: [
-    "어깨동무", "장수풍뎅이 키트", "장수풍뎅이 애벌레", "생태 교육 교구",
+    "에듀그리드", "장수풍뎅이 키트", "장수풍뎅이 애벌레", "생태 교육 교구",
     "누리과정 생태학습", "초등 생태교육", "장수풍뎅이 사육", "생태 체험 교구",
     "유치원 교육 키트", "어린이집 생태교육",
   ],
   openGraph: {
-    title: "어깨동무 | 장수풍뎅이 생태 교육 키트",
+    title: "에듀그리드 | 장수풍뎅이 생태 교육 키트",
     description:
       "장수풍뎅이 애벌레 관찰부터 성충까지! 누리과정·초등 교과 연계 올인원 생태 교육 키트. 냄새·벌레 없음, 행정 서류 즉시 제공.",
     url: BASE_URL,
-    siteName: "어깨동무",
+    siteName: "에듀그리드",
     locale: "ko_KR",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "어깨동무 | 장수풍뎅이 생태 교육 키트",
+    title: "에듀그리드 | 장수풍뎅이 생태 교육 키트",
     description: "장수풍뎅이 애벌레 관찰부터 성충까지! 누리과정·초등 교과 연계 올인원 생태 교육 키트.",
   },
   alternates: {
@@ -44,7 +44,7 @@ const jsonLd = {
     {
       "@type": "Organization",
       "@id": `${BASE_URL}/#organization`,
-      "name": "어깨동무",
+      "name": "에듀그리드",
       "url": BASE_URL,
       "description": "유치원·초등학교 대상 장수풍뎅이 생태 교육 키트 전문 브랜드",
       "contactPoint": {
@@ -56,10 +56,10 @@ const jsonLd = {
     {
       "@type": "Product",
       "@id": `${BASE_URL}/#product`,
-      "name": "어깨동무 장수풍뎅이 올인원 생태 교육 키트",
+      "name": "에듀그리드 장수풍뎅이 올인원 생태 교육 키트",
       "description":
         "장수풍뎅이 애벌레 관찰부터 성충까지. 유치원 누리과정 자연탐구 영역 및 초등 2022 개정 교육과정 연계. 냄새·벌레 없는 발효 톱밥, 관찰 활동지, 수업 PPT 포함.",
-      "brand": { "@type": "Brand", "name": "어깨동무" },
+      "brand": { "@type": "Brand", "name": "에듀그리드" },
       "category": "생태 교육 교구",
       "audience": {
         "@type": "EducationalAudience",
@@ -78,7 +78,7 @@ const jsonLd = {
       "@type": "WebSite",
       "@id": `${BASE_URL}/#website`,
       "url": BASE_URL,
-      "name": "어깨동무",
+      "name": "에듀그리드",
       "inLanguage": "ko-KR",
       "publisher": { "@id": `${BASE_URL}/#organization` },
     },

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import { staggerContainer, slideUp, slideUpStagger, VIEWPORT } from "@/lib/motion";
@@ -60,7 +60,7 @@ export default function Differentiation() {
             className="text-[2rem] md:text-[2.75rem] font-bold leading-[1.15] tracking-[-0.025em] text-[var(--color-text-primary)]"
             variants={slideUp}
           >
-            일반 생태 체험과<br />어깨동무가 다른 이유
+            일반 생태 체험과<br />에듀그리드가 다른 이유
           </motion.h2>
         </motion.div>
 
@@ -81,7 +81,7 @@ export default function Differentiation() {
               일반 생태 체험
             </div>
             <div className="text-[0.6875rem] font-semibold tracking-[0.18em] uppercase text-[var(--color-brand)] px-4">
-              어깨동무
+              에듀그리드
             </div>
           </motion.div>
 
@@ -130,7 +130,7 @@ export default function Differentiation() {
                 {generic}
               </div>
 
-              {/* 어깨동무 */}
+              {/* 에듀그리드 */}
               <div
                 className={`py-4 px-4 text-[0.875rem] leading-relaxed font-medium ${
                   highlight

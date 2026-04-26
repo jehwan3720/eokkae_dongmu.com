@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -85,7 +85,7 @@ export default function ExpertCuration() {
             className="text-[0.9375rem] text-[#5A6472] leading-[1.9]"
             variants={slideUp}
           >
-            어깨동무의 키트는 한국곤충학회 연구 데이터를 기반으로,
+            에듀그리드의 키트는 한국곤충학회 연구 데이터를 기반으로,
             아이들에게 가장 안전하고 교육적인 환경을 제공하기 위해
             전문가가 직접 성분을 엄선하고 구성품을 배치했습니다.
           </motion.p>
