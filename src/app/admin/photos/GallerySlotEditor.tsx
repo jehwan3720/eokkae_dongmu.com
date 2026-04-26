@@ -7,6 +7,10 @@ import { X, Save, CheckCircle, Upload, Trash2, ZoomIn } from "lucide-react";
 import { createClient } from "@/lib/supabase/browser";
 import { assignGallerySlots, deletePhotoRecord, type PhotoRecord } from "@/actions/photoManage";
 
+function buildSafeFileName(ext: string | undefined): string {
+  return `${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
+}
+
 /* ── 슬롯 메타 ── */
 const SLOT_META = [
   { index: 0, label: "① 대표 사진",   desc: "왼쪽 세로 대형", aspect: "aspect-[3/4]",  gridClass: "md:row-span-2" },
@@ -73,7 +77,7 @@ export default function GallerySlotEditor({ galleryPhotos }: Props) {
 
     const supabase = createClient();
     const ext = file.name.split(".").pop();
-    const safeName = `${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
+    const safeName = buildSafeFileName(ext);
     const dateFolder = new Date().toISOString().slice(0, 10);
     const storagePath = `uploads/${dateFolder}/${safeName}`;
 

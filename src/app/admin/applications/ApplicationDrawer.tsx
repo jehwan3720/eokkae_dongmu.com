@@ -91,13 +91,6 @@ export default function ApplicationDrawer({
   const [notesError, setNotesError] = useState<string | null>(null);
   const [isSavingNotes, startSavingNotes] = useTransition();
 
-  // app이 바뀌면 메모 초기화
-  useEffect(() => {
-    setNotes(app?.admin_notes ?? "");
-    setNotesSaved(false);
-    setNotesError(null);
-  }, [app?.application_id]);
-
   // Esc 키 닫기
   useEffect(() => {
     function handleKey(e: KeyboardEvent) {

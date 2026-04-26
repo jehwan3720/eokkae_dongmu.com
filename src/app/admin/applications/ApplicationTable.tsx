@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import type { Application } from "@/lib/supabase/types";
@@ -66,7 +66,7 @@ function exportCSV(rows: Application[]) {
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = `어깨동무_문의_${new Date().toISOString().slice(0, 10)}.csv`;
+  a.download = `에듀그리드_문의_${new Date().toISOString().slice(0, 10)}.csv`;
   a.click();
   URL.revokeObjectURL(url);
 }
@@ -176,7 +176,7 @@ export default function ApplicationTable({ rows }: { rows: Application[] }) {
         </table>
       </div>
 
-      <ApplicationDrawer app={selected} onClose={() => setSelected(null)} />
+      <ApplicationDrawer key={selected?.application_id ?? "none"} app={selected} onClose={() => setSelected(null)} />
     </>
   );
 }

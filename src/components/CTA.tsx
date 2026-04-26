@@ -1,6 +1,6 @@
-"use client";
+﻿"use client";
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { staggerContainer, slideUpStagger, VIEWPORT } from "@/lib/motion";
 import { submitApplication } from "@/actions/submitApplication";
@@ -592,6 +592,11 @@ const assurances = [
 export default function CTA() {
   const [modalOpen, setModalOpen] = useState(false);
 
+  useEffect(() => {
+    document.body.style.overflow = modalOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [modalOpen]);
+
   return (
     <>
       <section
@@ -628,7 +633,7 @@ export default function CTA() {
               variants={slideUpStagger}
               custom={1}
             >
-              우리 반 아이들과<br />어깨동무를 시작해보세요.
+              우리 반 아이들과<br />에듀그리드를 시작해보세요.
             </motion.h2>
 
             <motion.p

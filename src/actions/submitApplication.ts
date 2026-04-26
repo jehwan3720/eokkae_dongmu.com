@@ -1,10 +1,10 @@
-"use server";
+﻿"use server";
 
 import { Resend } from "resend";
 import { createServiceClient } from "@/lib/supabase/service";
 
-const FROM = process.env.CONTACT_FROM_EMAIL    ?? "eoggae-dongmu <onboarding@resend.dev>";
-const TO   = process.env.CONTACT_RECEIVE_EMAIL ?? "eokkae0202@gmail.com";
+const FROM = process.env.CONTACT_FROM_EMAIL    ?? "EDUGRID <onboarding@resend.dev>";
+const TO   = process.env.CONTACT_RECEIVE_EMAIL ?? "edugrid1649@gmail.com";
 
 /* ── 입력 타입 ── */
 export interface ApplicationInput {
@@ -82,7 +82,7 @@ function adminHtml(d: ApplicationInput & { id: string }) {
           <p style="margin:0;font-size:12px;color:#B0B8C1;">마케팅 수신 동의: <strong>${d.marketing === "true" ? "동의" : "미동의"}</strong></p>
         </td></tr>
         <tr><td style="background:#F4F5F7;padding:20px 40px;border-top:1px solid #E8EAED;">
-          <p style="margin:0;font-size:11px;color:#B0B8C1;line-height:1.7;">어깨동무 · 학술 기반 생태 체험 교육 프로그램<br />본 메일은 홈페이지 문의 양식을 통해 자동 발송되었습니다.</p>
+          <p style="margin:0;font-size:11px;color:#B0B8C1;line-height:1.7;">에듀그리드 · 학술 기반 생태 체험 교육 프로그램<br />본 메일은 홈페이지 문의 양식을 통해 자동 발송되었습니다.</p>
         </td></tr>
       </table>
     </td></tr>
@@ -101,12 +101,12 @@ function replyHtml(d: ApplicationInput) {
     <tr><td align="center">
       <table width="560" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:4px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
         <tr><td style="background:#1B3F7A;padding:28px 40px;">
-          <p style="margin:0;color:#C5D8F0;font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;">어깨동무</p>
+          <p style="margin:0;color:#C5D8F0;font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;">에듀그리드</p>
           <h1 style="margin:6px 0 0;color:#fff;font-size:20px;font-weight:700;">문의가 정상 접수되었습니다</h1>
         </td></tr>
         <tr><td style="padding:32px 40px 24px;">
           <p style="margin:0 0 16px;font-size:15px;color:#1A2535;line-height:1.8;">
-            안녕하세요, <strong>${n.school}</strong> 선생님.<br />어깨동무 생태 교육 문의를 남겨주셔서 감사합니다.
+            안녕하세요, <strong>${n.school}</strong> 선생님.<br />에듀그리드 생태 교육 문의를 남겨주셔서 감사합니다.
           </p>
           <p style="margin:0 0 24px;font-size:14px;color:#5A6472;line-height:1.9;">
             담당자가 확인 후 <strong>영업일 기준 24시간 이내</strong>에 연락처(<strong>${n.contact}</strong>)로 연락드리겠습니다.
@@ -133,7 +133,7 @@ function replyHtml(d: ApplicationInput) {
         </td></tr>
         <tr><td style="background:#F4F5F7;padding:20px 40px;border-top:1px solid #E8EAED;">
           <p style="margin:0;font-size:11px;color:#B0B8C1;line-height:1.7;">
-            어깨동무 · 강사비 0원 · 키트비 10,000원<br />본 메일은 자동 발송 메일입니다. 직접 회신하지 마세요.
+            에듀그리드 · 강사비 0원 · 키트비 10,000원<br />본 메일은 자동 발송 메일입니다. 직접 회신하지 마세요.
           </p>
         </td></tr>
       </table>
@@ -168,7 +168,7 @@ async function notifyDiscord(d: ReturnType<typeof normalize>, id: string) {
             { name: "상태",          value: "⏳ 대기 중",        inline: false },
             ...(d.message ? [{ name: "📝 문의 상세 내용", value: d.message.slice(0, 1024), inline: false }] : []),
           ],
-          footer: { text: `접수 ID: ${id.slice(0, 8).toUpperCase()} · 어깨동무 관리 시스템` },
+          footer: { text: `접수 ID: ${id.slice(0, 8).toUpperCase()} · 에듀그리드 관리 시스템` },
           timestamp: new Date().toISOString(),
         }],
       }),
@@ -244,7 +244,7 @@ export async function submitApplication(input: ApplicationInput) {
     const adminResult = await resend.emails.send({
       from:    FROM,
       to:      TO,
-      subject: `[어깨동무 문의] ${normalized.school} — ${normalized.grade} ${normalized.headcount}명`,
+      subject: `[에듀그리드 문의] ${normalized.school} — ${normalized.grade} ${normalized.headcount}명`,
       html:    adminHtml({ ...input, id: applicationId }),
     });
     console.log("[Resend] ✅ 관리자 메일 발송 완료:", adminResult.data?.id ?? adminResult.error);
@@ -263,7 +263,7 @@ export async function submitApplication(input: ApplicationInput) {
       const replyResult = await resend.emails.send({
         from:    FROM,
         to:      replyTarget,
-        subject: `[어깨동무] 자동 회신 테스트 — ${normalized.school} 선생님께 발송 예정`,
+        subject: `[에듀그리드] 자동 회신 테스트 — ${normalized.school} 선생님께 발송 예정`,
         html:    replyHtml(input),
       });
       console.log(`[Resend] ✅ 자동 회신 발송 완료 (→ ${replyTarget}):`, replyResult.data?.id ?? replyResult.error);

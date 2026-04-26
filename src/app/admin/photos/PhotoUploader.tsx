@@ -594,7 +594,7 @@ export default function PhotoUploader() {
         {sliderPhotos.length === 0 ? (
           <div className="py-10 text-center text-[0.875rem] text-[#B0B8C1] border border-dashed border-[#E8EAED] rounded-xl">
             슬라이더로 설정된 사진이 없습니다.<br />
-            <span className="text-[0.75rem]">업로드 시 노출 위치를 "롤링 슬라이더"로 선택하세요.</span>
+            <span className="text-[0.75rem]">업로드 시 노출 위치를 &ldquo;롤링 슬라이더&rdquo;로 선택하세요.</span>
           </div>
         ) : (
           <div className="flex flex-col gap-2">
