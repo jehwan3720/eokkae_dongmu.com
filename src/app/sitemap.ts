@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const BASE_URL = "https://edugrid.vercel.app";
+const BASE_URL = "https://edugrid1649.vercel.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
