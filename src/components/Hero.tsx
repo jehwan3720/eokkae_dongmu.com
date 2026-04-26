@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { slideUpStagger, staggerContainer, VIEWPORT } from "@/lib/motion";
+import ImageLightbox from "./ImageLightbox";
 
 const heroImages = [
   { src: "/images/풍뎅이.jpg",   alt: "장수풍뎅이 성충" },
@@ -15,6 +16,7 @@ const heroImages = [
 export default function Hero() {
   const [imgIndex, setImgIndex] = useState(0);
   const [lightbox, setLightbox] = useState(false);
+  const [logoLightbox, setLogoLightbox] = useState(false);
 
   useEffect(() => {
     if (lightbox) return;
@@ -51,7 +53,22 @@ export default function Hero() {
 
         {/* ── 네비게이션 ─────────────────────────────────── */}
         <nav className="flex items-center justify-between py-5 border-b border-white/10">
-          <span className="text-white font-bold text-lg tracking-tight">에듀그리드</span>
+          <button
+            onClick={() => setLogoLightbox(true)}
+            aria-label="EDUGRID 로고 확대 보기"
+            className="cursor-zoom-in"
+          >
+            <span className="inline-flex items-center bg-white rounded-sm px-1.5 py-0.5">
+              <Image
+                src="/images/Logo.png"
+                alt="EDUGRID"
+                width={143}
+                height={48}
+                className="h-10 md:h-12 w-auto"
+                priority
+              />
+            </span>
+          </button>
 
           <ul className="hidden md:flex items-center gap-8 text-[0.8125rem] text-white/70 font-medium tracking-wide">
             {[
@@ -317,6 +334,13 @@ export default function Hero() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <ImageLightbox
+        src="/images/Logo.png"
+        alt="EDUGRID 로고"
+        isOpen={logoLightbox}
+        onClose={() => setLogoLightbox(false)}
+      />
     </section>
   );
 }

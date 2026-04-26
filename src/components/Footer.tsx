@@ -1,6 +1,9 @@
 ﻿"use client";
 
+import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import ImageLightbox from "./ImageLightbox";
 
 const navLinks = [
   { label: "프로그램 소개", href: "#curriculum" },
@@ -12,6 +15,8 @@ const navLinks = [
 ];
 
 export default function Footer() {
+  const [logoLightbox, setLogoLightbox] = useState(false);
+
   return (
     <footer className="bg-[#0A1628] border-t border-white/5">
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-14">
@@ -19,16 +24,30 @@ export default function Footer() {
 
           {/* 브랜드 & 사업자 정보 */}
           <div className="flex flex-col gap-4">
-            <p className="text-white font-bold text-base tracking-tight">
-              에듀그리드
-            </p>
+            <div className="flex items-center gap-4 flex-wrap">
+              <button
+                onClick={() => setLogoLightbox(true)}
+                aria-label="EDUGRID 로고 확대 보기"
+                className="cursor-zoom-in"
+              >
+                <span className="inline-flex items-center bg-white rounded-sm px-1.5 py-0.5">
+                  <Image
+                    src="/images/Logo.png"
+                    alt="EDUGRID"
+                    width={114}
+                    height={39}
+                    className="h-9 w-auto"
+                  />
+                </span>
+              </button>
+              <p className="text-white/20 text-[0.6875rem] tracking-wide">
+                © 2026 EDUGRID. All rights reserved.
+              </p>
+            </div>
             <p className="text-white/30 text-[0.75rem] leading-[1.9] tracking-wide">
               학술 기반 생태 체험 교육 프로그램<br />
               사업자등록번호: 150-21-02079 &nbsp;·&nbsp; 대표: 명제환<br />
               문의: edugrid1649@gmail.com
-            </p>
-            <p className="text-white/20 text-[0.6875rem] tracking-wide mt-2">
-              © 2026 에듀그리드. All rights reserved.
             </p>
           </div>
 
@@ -79,6 +98,12 @@ export default function Footer() {
           </div>
         </div>
       </div>
+      <ImageLightbox
+        src="/images/Logo.png"
+        alt="EDUGRID 로고"
+        isOpen={logoLightbox}
+        onClose={() => setLogoLightbox(false)}
+      />
     </footer>
   );
 }

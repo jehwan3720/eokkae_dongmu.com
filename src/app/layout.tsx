@@ -5,6 +5,11 @@ const BASE_URL = "https://edugrid1649.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
+  icons: {
+    icon: "/images/Logo.png",
+    shortcut: "/images/Logo.png",
+    apple: "/images/Logo.png",
+  },
   title: "에듀그리드 | 장수풍뎅이 생태 교육 키트 — 누리과정·초등 교과 연계",
   description:
     "장수풍뎅이 애벌레 관찰부터 성충까지! 유치원·어린이집 누리과정 및 초등 2022 개정 교육과정 100% 연계. 냄새·벌레 없는 올인원 생태 교육 키트. 강사비 0원, 행정 서류 즉시 제공.",
