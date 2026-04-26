@@ -1,9 +1,11 @@
 ﻿"use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { staggerContainer, slideUp, VIEWPORT } from "@/lib/motion";
 import type { ActivityPhoto } from "./GallerySection";
+import ImageLightbox from "./ImageLightbox";
 
 const ASPECTS = ["aspect-[3/4]", "aspect-square", "aspect-square", "aspect-[16/9]"];
 const PLACEHOLDER_COLORS = ["#C5D8F0", "#D8E8F5", "#B8CCE8", "#D0E0F0"];
@@ -12,10 +14,12 @@ function PhotoCard({
   photo,
   index,
   className = "",
+  onOpen,
 }: {
   photo: ActivityPhoto | null;
   index: number;
   className?: string;
+  onOpen?: (src: string, alt: string) => void;
 }) {
   const aspect = ASPECTS[index] ?? "aspect-square";
   const placeholderColor = PLACEHOLDER_COLORS[index] ?? "#C5D8F0";
@@ -23,9 +27,10 @@ function PhotoCard({
 
   return (
     <motion.div
-      className={`relative overflow-hidden group cursor-default ${className}`}
+      className={`relative overflow-hidden group ${photo ? "cursor-zoom-in" : "cursor-default"} ${className}`}
       whileHover="hover"
       initial="rest"
+      onClick={() => photo && onOpen?.(photo.image_url, caption ?? "에듀그리드 장수풍뎅이 생태 교육 수업 현장")}
     >
       <div className={`w-full ${aspect} relative`} style={photo ? {} : { backgroundColor: placeholderColor }}>
         {photo ? (
@@ -70,8 +75,8 @@ function PhotoCard({
 }
 
 export default function Gallery({ photos }: { photos: (ActivityPhoto | null)[] }) {
-  // 4개 슬롯 배열 그대로 사용 (GallerySection에서 이미 구성됨)
   const slots = photos;
+  const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
 
   return (
     <section id="gallery" className="bg-[var(--color-off-white)] py-24 md:py-32">
@@ -112,29 +117,36 @@ export default function Gallery({ photos }: { photos: (ActivityPhoto | null)[] }
         >
           {/* 데스크탑: Feature Shot (왼쪽 큰 사진) */}
           <motion.div className="md:row-span-2 hidden md:block" variants={slideUp}>
-            <PhotoCard photo={slots[0]} index={0} className="h-full" />
+            <PhotoCard photo={slots[0]} index={0} className="h-full" onOpen={(src, alt) => setLightbox({ src, alt })} />
           </motion.div>
 
           {/* 모바일에서 Feature */}
           <motion.div className="block md:hidden" variants={slideUp}>
-            <PhotoCard photo={slots[0]} index={0} />
+            <PhotoCard photo={slots[0]} index={0} onOpen={(src, alt) => setLightbox({ src, alt })} />
           </motion.div>
 
           {/* 우측 상단 — 작은 2장 */}
           <motion.div variants={slideUp}>
-            <PhotoCard photo={slots[1]} index={1} />
+            <PhotoCard photo={slots[1]} index={1} onOpen={(src, alt) => setLightbox({ src, alt })} />
           </motion.div>
           <motion.div variants={slideUp}>
-            <PhotoCard photo={slots[2]} index={2} />
+            <PhotoCard photo={slots[2]} index={2} onOpen={(src, alt) => setLightbox({ src, alt })} />
           </motion.div>
 
           {/* 우측 하단 — 가로 넓은 Medium */}
           <motion.div className="md:col-span-2" variants={slideUp}>
-            <PhotoCard photo={slots[3]} index={3} />
+            <PhotoCard photo={slots[3]} index={3} onOpen={(src, alt) => setLightbox({ src, alt })} />
           </motion.div>
         </motion.div>
 
       </div>
+
+      <ImageLightbox
+        src={lightbox?.src ?? ""}
+        alt={lightbox?.alt ?? ""}
+        isOpen={!!lightbox}
+        onClose={() => setLightbox(null)}
+      />
     </section>
   );
 }
