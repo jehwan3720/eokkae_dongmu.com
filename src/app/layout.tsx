@@ -59,14 +59,10 @@ const jsonLd = {
       "name": "에듀그리드 장수풍뎅이 올인원 생태 교육 키트",
       "description":
         "장수풍뎅이 애벌레 관찰부터 성충까지. 유치원 누리과정 자연탐구 영역 및 초등 2022 개정 교육과정 연계. 냄새·벌레 없는 발효 톱밥, 관찰 활동지, 수업 PPT 포함.",
-      "image": `${BASE_URL}/og-image.png`,
+      "image": `${BASE_URL}/images/대표사진.png`,
       "url": BASE_URL,
       "brand": { "@type": "Brand", "name": "에듀그리드" },
       "category": "생태 교육 교구",
-      "audience": {
-        "@type": "EducationalAudience",
-        "educationalRole": "teacher",
-      },
       "offers": {
         "@type": "Offer",
         "url": BASE_URL,
@@ -76,6 +72,24 @@ const jsonLd = {
         "availability": "https://schema.org/InStock",
         "itemCondition": "https://schema.org/NewCondition",
         "seller": { "@type": "Organization", "name": "에듀그리드", "url": BASE_URL },
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": { "@type": "MonetaryAmount", "value": "0", "currency": "KRW" },
+          "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "KR" },
+          "deliveryTime": {
+            "@type": "ShippingDeliveryTime",
+            "handlingTime": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 3, "unitCode": "DAY" },
+            "transitTime": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 3, "unitCode": "DAY" },
+          },
+        },
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "applicableCountry": "KR",
+          "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+          "merchantReturnDays": 7,
+          "returnMethod": "https://schema.org/ReturnByMail",
+          "returnFees": "https://schema.org/FreeReturn",
+        },
       },
     },
     {
