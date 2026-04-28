@@ -608,7 +608,7 @@ function QuestionModal({ onClose }: { onClose: () => void }) {
     setApiError("");
     const result = await submitFeedback({ category: "질문·문의", ...form });
     setLoading(false);
-    if ("error" in result) setApiError(result.error);
+    if ("error" in result) setApiError((result as { error: string }).error);
     else setSuccess(true);
   }
 
@@ -763,7 +763,7 @@ function FeedbackModal({ onClose }: { onClose: () => void }) {
     setApiError("");
     const result = await submitFeedback(form);
     setLoading(false);
-    if ("error" in result) setApiError(result.error);
+    if ("error" in result) setApiError((result as { error: string }).error);
     else setSuccess(true);
   }
 

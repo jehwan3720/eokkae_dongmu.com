@@ -62,7 +62,7 @@ export default function Footer() {
     setApiError("");
     const result = await submitFeedback(form);
     setLoading(false);
-    if ("error" in result) setApiError(result.error);
+    if ("error" in result) setApiError((result as { error: string }).error);
     else setSuccess(true);
   }
 
