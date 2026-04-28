@@ -150,7 +150,7 @@ export default function Pricing() {
             <motion.div
               key={label}
               className={[
-                "grid grid-cols-1 md:grid-cols-[1fr_160px_180px] items-start md:items-center gap-3 md:gap-0 px-6 py-6 border-b transition-colors",
+                "grid grid-cols-1 md:grid-cols-[1fr_160px_180px] items-start md:items-center gap-2 md:gap-0 px-6 py-4 md:py-6 border-b transition-colors",
                 highlight
                   ? "bg-[#1B3F7A]/[0.04] border-[#1B3F7A]/20 border-l-4 border-l-[#1B3F7A]"
                   : "border-[var(--color-border)] bg-white border-l-4 border-l-transparent",
@@ -164,6 +164,11 @@ export default function Pricing() {
                   <span className={`text-[0.9375rem] font-semibold tracking-tight ${highlight ? "text-[#1B3F7A]" : "text-[var(--color-text-primary)]"}`}>
                     {label}
                   </span>
+                  {sub && (
+                    <span className={`md:hidden inline-flex items-center px-2 py-0.5 text-[0.625rem] tracking-wide rounded-sm ${highlight ? "text-[#1B3F7A] bg-[#1B3F7A]/10" : "text-[var(--color-text-muted)] bg-[var(--color-border)]/60"}`}>
+                      {sub}
+                    </span>
+                  )}
                   {badge && (
                     <span className="inline-flex items-center px-2.5 py-1 text-[0.5625rem] font-bold tracking-wider bg-[#1B3F7A] text-white rounded-[2px]">
                       {badge}
@@ -265,13 +270,13 @@ export default function Pricing() {
           </motion.div>
 
           <motion.div
-            className="grid grid-cols-2 md:grid-cols-3 gap-px bg-[var(--color-border)]"
+            className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-4 -mx-6 px-6 md:mx-0 md:px-0 md:pb-0 md:overflow-x-visible md:grid md:grid-cols-3 md:gap-px md:bg-[var(--color-border)]"
             variants={staggerContainer}
           >
             {kitFeatures.map(({ icon, title, ecoBasis, desc }, i) => (
               <motion.div
                 key={title}
-                className="bg-[var(--color-off-white)] p-4 md:p-8 flex flex-col gap-3 md:gap-4"
+                className="snap-start flex-shrink-0 w-[78vw] border border-[var(--color-border)] md:border-0 md:w-auto bg-[var(--color-off-white)] p-5 md:p-8 flex flex-col gap-3 md:gap-4"
                 variants={slideUpStagger}
                 custom={i}
               >

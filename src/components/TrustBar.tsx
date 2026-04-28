@@ -20,7 +20,7 @@ export default function TrustBar() {
     <section className="bg-[var(--color-soft-beige)] border-y border-[var(--color-border)]">
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
         <motion.ul
-          className="flex flex-wrap justify-between items-start gap-y-5 py-6"
+          className="grid grid-cols-2 gap-x-6 gap-y-5 py-6 md:flex md:flex-wrap md:justify-between md:items-start md:gap-y-5"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -29,7 +29,7 @@ export default function TrustBar() {
           {items.map(({ icon, text, sub }, i) => (
             <motion.li
               key={text}
-              className="flex flex-col gap-0.5"
+              className={`flex flex-col gap-0.5${i === items.length - 1 && items.length % 2 !== 0 ? " col-span-2" : ""}`}
               variants={slideUpStagger}
               custom={i}
             >

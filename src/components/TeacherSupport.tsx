@@ -61,7 +61,7 @@ export default function TeacherSupport() {
 
         {/* 패키지 카드 3개 */}
         <motion.div
-          className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-5 mb-8 md:mb-12"
+          className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 md:mx-0 md:px-0 md:pb-0 md:overflow-x-visible md:grid md:grid-cols-3 md:gap-5 mb-8 md:mb-12"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -70,7 +70,7 @@ export default function TeacherSupport() {
           {packages.map(({ Icon, title, desc, tag, points }, i) => (
             <motion.div
               key={title}
-              className="bg-white border border-[var(--color-border)] rounded-xl p-4 md:rounded-2xl md:p-8 flex flex-col gap-3 md:gap-5 hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(15,31,61,0.10)] transition-all duration-300"
+              className="snap-start flex-shrink-0 w-[82vw] md:w-auto bg-white border border-[var(--color-border)] rounded-xl p-5 md:rounded-2xl md:p-8 flex flex-col gap-4 md:gap-5 hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(15,31,61,0.10)] transition-all duration-300"
               variants={slideUpStagger}
               custom={i}
             >
