@@ -13,9 +13,17 @@ const heroImages = [
   { src: "/images/유충수정.png", alt: "장수풍뎅이 유충" },
 ];
 
+const NAV_LINKS = [
+  { label: "교과 연계", href: "#curriculum-mapping" },
+  { label: "키트 구성", href: "#curriculum" },
+  { label: "수업 현장", href: "#gallery" },
+  { label: "비용 안내", href: "#pricing" },
+];
+
 export default function Hero() {
   const [imgIndex, setImgIndex] = useState(0);
   const [lightbox, setLightbox] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [logoLightbox, setLogoLightbox] = useState(false);
 
   useEffect(() => {
@@ -52,7 +60,7 @@ export default function Hero() {
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
 
         {/* ── 네비게이션 ─────────────────────────────────── */}
-        <nav className="flex items-center justify-between py-5 border-b border-white/10">
+        <nav className="flex items-center justify-between py-4 md:py-5 border-b border-white/10">
           <button
             onClick={() => setLogoLightbox(true)}
             aria-label="EDUGRID 로고 확대 보기"
@@ -71,12 +79,7 @@ export default function Hero() {
           </button>
 
           <ul className="hidden md:flex items-center gap-8 text-[0.8125rem] text-white/70 font-medium tracking-wide">
-            {[
-              { label: "교과 연계",  href: "#curriculum-mapping" },
-              { label: "키트 구성", href: "#curriculum" },
-              { label: "수업 현장",  href: "#gallery" },
-              { label: "비용 안내",  href: "#pricing" },
-            ].map(({ label, href }) => (
+            {NAV_LINKS.map(({ label, href }) => (
               <li key={label}>
                 <a href={href} className="hover:text-white transition-colors duration-150">{label}</a>
               </li>
@@ -85,11 +88,58 @@ export default function Hero() {
 
           <a
             href="#contact"
-            className="hidden md:inline-flex items-center px-5 py-2.5 text-[0.8125rem] font-semibold tracking-wide text-white border border-white/30 hover:bg-white hover:text-[#0F1F3D] transition-all duration-200 rounded-sm"
+            className="hidden md:inline-flex items-center min-h-[44px] px-5 py-2.5 text-[0.8125rem] font-semibold tracking-wide text-white border border-white/30 hover:bg-white hover:text-[#0F1F3D] transition-all duration-200 rounded-sm"
           >
             교구 납품 문의
           </a>
+
+          {/* 모바일 햄버거 버튼 */}
+          <button
+            onClick={() => setMenuOpen((o) => !o)}
+            className="md:hidden flex flex-col gap-[5px] min-w-[44px] min-h-[44px] items-center justify-center"
+            aria-label={menuOpen ? "메뉴 닫기" : "메뉴 열기"}
+          >
+            <span className={`block w-5 h-0.5 bg-white/80 transition-all duration-200 origin-center ${menuOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
+            <span className={`block w-5 h-0.5 bg-white/80 transition-all duration-200 ${menuOpen ? "opacity-0 scale-x-0" : ""}`} />
+            <span className={`block w-5 h-0.5 bg-white/80 transition-all duration-200 origin-center ${menuOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
+          </button>
         </nav>
+
+        {/* 모바일 드롭다운 메뉴 */}
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              className="md:hidden overflow-hidden"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <div className="py-3 border-b border-white/10">
+                <ul className="flex flex-col">
+                  {NAV_LINKS.map(({ label, href }) => (
+                    <li key={label}>
+                      <a
+                        href={href}
+                        onClick={() => setMenuOpen(false)}
+                        className="flex items-center min-h-[52px] text-[0.9375rem] text-white/70 hover:text-white border-b border-white/5 last:border-0 transition-colors duration-150"
+                      >
+                        {label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href="#contact"
+                  onClick={() => setMenuOpen(false)}
+                  className="mt-4 flex items-center justify-center min-h-[52px] w-full text-[0.875rem] font-semibold text-white border border-white/30 rounded-sm hover:bg-white/10 transition-colors duration-200"
+                >
+                  교구 납품 문의
+                </a>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* ── 히어로 본문 — 2컬럼 레이아웃 ─────────────── */}
         <div className="py-20 md:py-28 lg:py-36 grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-16 items-center">

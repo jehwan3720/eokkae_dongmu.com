@@ -64,89 +64,100 @@ export default function Differentiation() {
           </motion.h2>
         </motion.div>
 
-        {/* 비교 테이블 */}
+        {/* 비교 테이블 / 카드 */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={VIEWPORT}
         >
-          {/* 헤더 행 */}
-          <motion.div
-            className="grid grid-cols-[auto_1fr_1fr] border-b border-[var(--color-border)] pb-3 mb-1"
-            variants={slideUp}
-          >
-            <div className="w-28 md:w-40" />
-            <div className="text-[0.6875rem] font-semibold tracking-[0.18em] uppercase text-[var(--color-text-muted)] px-4">
-              일반 생태 체험
-            </div>
-            <div className="text-[0.6875rem] font-semibold tracking-[0.18em] uppercase text-[var(--color-brand)] px-4">
-              에듀그리드
-            </div>
-          </motion.div>
-
-          {/* 데이터 행 */}
-          {rows.map(({ label, generic, ours, highlight, note }, i) => (
-            <motion.div
-              key={label}
-              className={`grid grid-cols-[auto_1fr_1fr] transition-colors duration-200 cursor-default ${
-                highlight
-                  ? "border-y-2 border-[var(--color-brand)]/30 bg-[var(--color-brand)]/5"
-                  : "border-b border-[var(--color-border)]"
-              }`}
-              variants={slideUpStagger}
-              custom={i}
-              whileHover={{
-                scale: 1.012,
-                transition: { duration: 0.22, ease: [0.16, 1, 0.3, 1] },
-              }}
-            >
-              {/* 행 레이블 */}
-              <div className="w-28 md:w-40 py-4 pr-4 flex items-center gap-2">
-                <span
-                  className={`text-[0.75rem] font-semibold tracking-tighter ${
-                    highlight
-                      ? "text-[var(--color-brand)]"
-                      : "text-[var(--color-text-muted)]"
-                  }`}
-                >
-                  {label}
-                </span>
-                {highlight && (
-                  <span className="inline-flex items-center px-2 py-0.5 text-[10px] font-bold tracking-wide bg-[var(--color-brand)] text-white rounded-[3px]">
-                    핵심
+          {/* ── 모바일 카드 뷰 (md 미만) ── */}
+          <div className="flex flex-col gap-3 md:hidden">
+            {rows.map(({ label, generic, ours, highlight, note }, i) => (
+              <motion.div
+                key={label}
+                className={`rounded-xl border p-4 ${
+                  highlight
+                    ? "bg-[var(--color-brand)]/5 border-[var(--color-brand)]/30"
+                    : "bg-white border-[var(--color-border)]"
+                }`}
+                variants={slideUpStagger}
+                custom={i}
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  <span className={`text-[0.75rem] font-bold tracking-tight ${highlight ? "text-[var(--color-brand)]" : "text-[var(--color-text-muted)]"}`}>
+                    {label}
                   </span>
-                )}
-              </div>
+                  {highlight && (
+                    <span className="inline-flex items-center px-2 py-0.5 text-[10px] font-bold tracking-wide bg-[var(--color-brand)] text-white rounded-[3px]">
+                      핵심
+                    </span>
+                  )}
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <p className="text-[0.5625rem] font-semibold tracking-[0.12em] uppercase text-[var(--color-text-muted)] mb-1.5">일반 생태 체험</p>
+                    <p className="text-[0.8125rem] text-[var(--color-text-secondary)] leading-snug">{generic}</p>
+                  </div>
+                  <div>
+                    <p className="text-[0.5625rem] font-semibold tracking-[0.12em] uppercase text-[var(--color-brand)] mb-1.5">에듀그리드</p>
+                    <p className={`text-[0.8125rem] font-medium leading-snug ${highlight ? "text-[var(--color-brand)]" : "text-[var(--color-text-primary)]"}`}>{ours}</p>
+                    {note && <p className="mt-1 text-[0.625rem] text-[var(--color-text-muted)] tracking-wide">{note}</p>}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
 
-              {/* 일반 */}
-              <div
-                className={`py-4 px-4 text-[0.875rem] leading-relaxed ${
-                  highlight
-                    ? "text-[var(--color-text-muted)]"
-                    : "text-[var(--color-text-secondary)]"
-                }`}
-              >
-                {generic}
+          {/* ── 데스크탑 테이블 뷰 (md 이상) ── */}
+          <div className="hidden md:block">
+            {/* 헤더 행 */}
+            <motion.div
+              className="grid grid-cols-[auto_1fr_1fr] border-b border-[var(--color-border)] pb-3 mb-1"
+              variants={slideUp}
+            >
+              <div className="w-28 md:w-40" />
+              <div className="text-[0.6875rem] font-semibold tracking-[0.18em] uppercase text-[var(--color-text-muted)] px-4">
+                일반 생태 체험
               </div>
-
-              {/* 에듀그리드 */}
-              <div
-                className={`py-4 px-4 text-[0.875rem] leading-relaxed font-medium ${
-                  highlight
-                    ? "text-[var(--color-brand)]"
-                    : "text-[var(--color-text-primary)]"
-                }`}
-              >
-                {ours}
-                {note && (
-                  <p className="mt-1 text-[0.6875rem] font-normal text-[var(--color-text-muted)] tracking-wide">
-                    {note}
-                  </p>
-                )}
+              <div className="text-[0.6875rem] font-semibold tracking-[0.18em] uppercase text-[var(--color-brand)] px-4">
+                에듀그리드
               </div>
             </motion.div>
-          ))}
+
+            {/* 데이터 행 */}
+            {rows.map(({ label, generic, ours, highlight, note }, i) => (
+              <motion.div
+                key={label}
+                className={`grid grid-cols-[auto_1fr_1fr] transition-colors duration-200 cursor-default ${
+                  highlight
+                    ? "border-y-2 border-[var(--color-brand)]/30 bg-[var(--color-brand)]/5"
+                    : "border-b border-[var(--color-border)]"
+                }`}
+                variants={slideUpStagger}
+                custom={i}
+                whileHover={{ scale: 1.012, transition: { duration: 0.22, ease: [0.16, 1, 0.3, 1] } }}
+              >
+                <div className="w-28 md:w-40 py-4 pr-4 flex items-center gap-2">
+                  <span className={`text-[0.75rem] font-semibold tracking-tighter ${highlight ? "text-[var(--color-brand)]" : "text-[var(--color-text-muted)]"}`}>
+                    {label}
+                  </span>
+                  {highlight && (
+                    <span className="inline-flex items-center px-2 py-0.5 text-[10px] font-bold tracking-wide bg-[var(--color-brand)] text-white rounded-[3px]">
+                      핵심
+                    </span>
+                  )}
+                </div>
+                <div className={`py-4 px-4 text-[0.875rem] leading-relaxed ${highlight ? "text-[var(--color-text-muted)]" : "text-[var(--color-text-secondary)]"}`}>
+                  {generic}
+                </div>
+                <div className={`py-4 px-4 text-[0.875rem] leading-relaxed font-medium ${highlight ? "text-[var(--color-brand)]" : "text-[var(--color-text-primary)]"}`}>
+                  {ours}
+                  {note && <p className="mt-1 text-[0.6875rem] font-normal text-[var(--color-text-muted)] tracking-wide">{note}</p>}
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>

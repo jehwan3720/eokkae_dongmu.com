@@ -98,7 +98,7 @@ export default function Pricing() {
           viewport={VIEWPORT}
         >
           <motion.div
-            className="bg-[#0F1F3D] px-10 py-9 flex flex-col md:flex-row md:items-center md:justify-between gap-5"
+            className="bg-[#0F1F3D] px-6 md:px-10 py-7 md:py-9 flex flex-col md:flex-row md:items-center md:justify-between gap-5"
             variants={slideUp}
           >
             <div>
@@ -338,7 +338,7 @@ export default function Pricing() {
           </div>
           <a
             href="#contact"
-            className="flex-shrink-0 inline-flex items-center px-6 py-3 border border-[var(--color-brand)] text-[var(--color-brand)] text-[0.8125rem] font-semibold tracking-wide hover:bg-[var(--color-brand)] hover:text-white transition-all duration-200"
+            className="flex-shrink-0 inline-flex items-center justify-center min-h-[48px] px-6 py-3.5 w-full sm:w-auto border border-[var(--color-brand)] text-[var(--color-brand)] text-[0.8125rem] font-semibold tracking-wide hover:bg-[var(--color-brand)] hover:text-white transition-all duration-200"
           >
             견적서 요청하기 →
           </a>

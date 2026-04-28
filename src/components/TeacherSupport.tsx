@@ -125,7 +125,7 @@ export default function TeacherSupport() {
           </div>
           <a
             href="#contact"
-            className="flex-shrink-0 inline-flex items-center gap-2 px-6 py-3 bg-[var(--color-brand)] text-white text-[0.875rem] font-semibold tracking-tight rounded-[6px] hover:bg-[var(--color-brand-light)] transition-colors duration-200"
+            className="flex-shrink-0 inline-flex items-center gap-2 min-h-[48px] px-6 py-3.5 bg-[var(--color-brand)] text-white text-[0.875rem] font-semibold tracking-tight rounded-[6px] hover:bg-[var(--color-brand-light)] transition-colors duration-200 w-full sm:w-auto justify-center"
           >
             납품 문의하기
             <svg width="14" height="10" viewBox="0 0 14 10" fill="none">

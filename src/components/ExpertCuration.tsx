@@ -92,11 +92,11 @@ export default function ExpertCuration() {
         </motion.div>
 
         {/* ── 검증 체크리스트 + 프로필 카드 ── */}
-        <div className="flex flex-col lg:flex-row items-start gap-12 lg:gap-16 -mb-10">
+        <div className="flex flex-col lg:flex-row items-start gap-10 lg:gap-16 -mb-10">
 
-          {/* 좌측 — 체크리스트 */}
+          {/* 좌측 — 체크리스트 (모바일에서 두 번째) */}
           <motion.div
-            className="flex-1 min-w-0 flex flex-col gap-0"
+            className="flex-1 min-w-0 flex flex-col gap-0 order-2 lg:order-1"
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
@@ -105,7 +105,7 @@ export default function ExpertCuration() {
             {checks.map(({ title, desc }, i) => (
               <motion.div
                 key={title}
-                className="flex gap-5 py-12 border-b border-[#E8EAED] first:border-t first:border-[#E8EAED] first:pt-0"
+                className="flex gap-5 py-7 md:py-10 lg:py-12 border-b border-[#E8EAED] first:border-t first:border-[#E8EAED] first:pt-0"
                 variants={slideUpStagger}
                 custom={i}
               >
@@ -126,8 +126,8 @@ export default function ExpertCuration() {
             ))}
           </motion.div>
 
-          {/* 우측 — 전문가 프로필 카드 */}
-          <div className="w-full lg:w-[380px] flex-shrink-0 lg:-mt-40" style={{ alignSelf: 'flex-start' }}>
+          {/* 우측 — 전문가 프로필 카드 (모바일에서 첫 번째) */}
+          <div className="w-full lg:w-[380px] flex-shrink-0 order-1 lg:order-2 lg:-mt-40" style={{ alignSelf: 'flex-start' }}>
             <motion.div
               className="bg-white border border-[#E8EAED] rounded-2xl overflow-hidden"
               initial={{ opacity: 0, x: 20 }}
