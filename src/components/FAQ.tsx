@@ -165,7 +165,7 @@ export default function FAQ() {
         </motion.div>
 
         {/* 카테고리별 아코디언 */}
-        <div className="flex flex-col gap-14">
+        <div className="flex flex-col gap-8 md:gap-14">
           {categories.map(({ label, items }) => (
             <motion.div
               key={label}

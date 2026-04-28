@@ -76,14 +76,14 @@ export default function AdminPackage() {
 
         {/* ── 문서 카드 그리드 ── */}
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-12"
+          className="grid grid-cols-2 gap-3 lg:grid-cols-4 md:gap-5 mb-8 md:mb-12"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={VIEWPORT}
         >
           {documents.map(({ Icon, title, desc, tag, downloadHref, downloadName }, i) => {
-            const cardClass = "group bg-white border border-[#E8EAED] rounded-2xl p-7 flex flex-col gap-5 hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(15,31,61,0.10)] active:scale-[0.97] transition-all duration-300";
+            const cardClass = "group bg-white border border-[#E8EAED] rounded-xl p-4 md:rounded-2xl md:p-7 flex flex-col gap-3 md:gap-5 hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(15,31,61,0.10)] active:scale-[0.97] transition-all duration-300";
 
             const inner = (
               <>

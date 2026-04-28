@@ -1,7 +1,8 @@
 ﻿"use client";
 
+import { useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, BookOpen, FileText, Trophy, Heart } from "lucide-react";
 import { staggerContainer, slideUp, slideUpStagger, VIEWPORT } from "@/lib/motion";
 
@@ -51,6 +52,47 @@ const careerDetails = [
 ];
 
 const quote = `토론 대회 준비를 위해 생태계를 공부하던 날들, 그리고 아이들과 함께한 봉사 현장에서 처음 장수풍뎅이를 손에 쥐어준 순간을 잊지 못합니다. 그 아이의 눈빛이 바뀌는 데는 단 3초도 걸리지 않았습니다. 저는 그 3초를 더 많은 아이들에게 전하고 싶습니다.`;
+
+function CareerAccordion({ category, items }: { category: string; items: string[] }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="py-4">
+      <button
+        className="w-full flex items-center justify-between gap-4 text-left min-h-[44px]"
+        onClick={() => setOpen(!open)}
+      >
+        <p className="text-[0.6875rem] font-semibold tracking-[0.14em] uppercase text-[#0F1F3D]">
+          {category}
+        </p>
+        <motion.span
+          className="flex-shrink-0 text-[#8A95A3] text-lg leading-none select-none"
+          animate={{ rotate: open ? 45 : 0 }}
+          transition={{ duration: 0.25 }}
+        >
+          +
+        </motion.span>
+      </button>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.ul
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden flex flex-col gap-3 mt-3"
+          >
+            {items.map((item, j) => (
+              <li key={j} className="flex items-start gap-2.5 text-[0.8125rem] text-[#5A6472] leading-relaxed">
+                <span className="flex-shrink-0 mt-[0.4rem] w-1 h-1 rounded-full bg-[#B0BCC8]" />
+                {item}
+              </li>
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
 
 export default function ExpertCuration() {
   return (
@@ -205,7 +247,15 @@ export default function ExpertCuration() {
             상세 경력
           </motion.p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10">
+          {/* 모바일: 아코디언 */}
+          <div className="sm:hidden divide-y divide-[#E8EAED]">
+            {careerDetails.map(({ category, items }) => (
+              <CareerAccordion key={category} category={category} items={items} />
+            ))}
+          </div>
+
+          {/* 데스크탑: 3열 그리드 */}
+          <div className="hidden sm:grid grid-cols-3 gap-10">
             {careerDetails.map(({ category, items }, i) => (
               <motion.div key={category} variants={slideUpStagger} custom={i}>
                 <p className="text-[0.6875rem] font-semibold tracking-[0.14em] uppercase text-[#0F1F3D] mb-4">

@@ -50,7 +50,7 @@ export default function Reviews() {
 
         {/* 리뷰 카드 그리드 */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[var(--color-border)]"
+          className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-6 -mx-6 px-6 md:mx-0 md:px-0 md:pb-0 md:overflow-x-visible md:grid md:grid-cols-3 md:gap-px md:bg-[var(--color-border)]"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -59,7 +59,7 @@ export default function Reviews() {
           {reviews.map(({ quote, author, name }, i) => (
             <motion.div
               key={name}
-              className="bg-[var(--color-off-white)] p-10 flex flex-col gap-8"
+              className="snap-start flex-shrink-0 w-[85vw] border border-[var(--color-border)] md:border-0 md:w-auto bg-[var(--color-off-white)] p-7 md:p-10 flex flex-col gap-6 md:gap-8"
               variants={slideUpStagger}
               custom={i}
             >

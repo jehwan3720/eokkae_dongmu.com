@@ -265,13 +265,13 @@ export default function Pricing() {
           </motion.div>
 
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[var(--color-border)]"
+            className="grid grid-cols-2 md:grid-cols-3 gap-px bg-[var(--color-border)]"
             variants={staggerContainer}
           >
             {kitFeatures.map(({ icon, title, ecoBasis, desc }, i) => (
               <motion.div
                 key={title}
-                className="bg-[var(--color-off-white)] p-8 flex flex-col gap-4"
+                className="bg-[var(--color-off-white)] p-4 md:p-8 flex flex-col gap-3 md:gap-4"
                 variants={slideUpStagger}
                 custom={i}
               >

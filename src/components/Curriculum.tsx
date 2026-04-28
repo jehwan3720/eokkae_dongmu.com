@@ -148,7 +148,7 @@ export default function Curriculum() {
 
         {/* ── 4단계 카드 그리드 ─────────────────────── */}
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-[var(--color-border)]"
+          className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-6 -mx-6 px-6 md:mx-0 md:px-0 md:pb-0 md:overflow-x-visible md:grid md:grid-cols-2 md:gap-px md:bg-[var(--color-border)] lg:grid-cols-4"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -157,7 +157,7 @@ export default function Curriculum() {
           {steps.map(({ step, lifecycle: lc, title, badge, desc, tags, img }, i) => (
             <motion.div
               key={step}
-              className="bg-[var(--color-off-white)] flex flex-col cursor-default"
+              className="snap-start flex-shrink-0 w-[82vw] border border-[var(--color-border)] md:border-0 md:w-auto bg-[var(--color-off-white)] flex flex-col cursor-default"
               variants={slideUpStagger}
               custom={i}
               initial="rest"

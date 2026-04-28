@@ -79,7 +79,7 @@ export default function Gallery({ photos }: { photos: (ActivityPhoto | null)[] }
   const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
 
   return (
-    <section id="gallery" className="bg-[var(--color-off-white)] py-24 md:py-32">
+    <section id="gallery" className="bg-[#0A1628] md:bg-[var(--color-off-white)] py-24 md:py-32">
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
 
         {/* 섹션 헤더 */}
@@ -90,17 +90,20 @@ export default function Gallery({ photos }: { photos: (ActivityPhoto | null)[] }
           whileInView="visible"
           viewport={VIEWPORT}
         >
-          <motion.p className="eyebrow mb-4" variants={slideUp}>
+          <motion.p
+            className="text-[0.6875rem] font-semibold tracking-[0.2em] uppercase mb-4 text-white/60 md:text-[var(--color-brand)]"
+            variants={slideUp}
+          >
             수업 현장
           </motion.p>
           <motion.h2
-            className="text-[2rem] md:text-[2.75rem] font-bold leading-[1.15] tracking-[-0.025em] text-[var(--color-text-primary)]"
+            className="text-[2rem] md:text-[2.75rem] font-bold leading-[1.15] tracking-[-0.025em] text-white md:text-[var(--color-text-primary)]"
             variants={slideUp}
           >
             수업이 끝난 뒤에도<br />남는 것들
           </motion.h2>
           <motion.p
-            className="mt-4 text-[0.9375rem] text-[var(--color-text-secondary)] leading-relaxed"
+            className="mt-4 text-[0.9375rem] text-white/70 md:text-[var(--color-text-secondary)] leading-relaxed"
             variants={slideUp}
           >
             아이들이 장수풍뎅이와 나눈 작은 순간들
