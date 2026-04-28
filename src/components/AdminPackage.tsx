@@ -27,7 +27,7 @@ const documents = [
     title: "통장 사본",
     desc: "대금 지급을 위한 공식 계좌 정보. 학교 회계 담당자 확인용으로 제공됩니다.",
     tag: "즉시 제공",
-    downloadHref: "/assets/docs/통장사본.pdf",
+    downloadHref: "/assets/docs/통장사본 최종.pdf",
     downloadName: "에듀그리드_통장사본.pdf",
   },
   {
