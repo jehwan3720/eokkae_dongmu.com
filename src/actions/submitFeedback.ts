@@ -54,7 +54,7 @@ function feedbackHtml(d: FeedbackInput): string {
 </body></html>`;
 }
 
-export async function submitFeedback(input: FeedbackInput) {
+export async function submitFeedback(input: FeedbackInput): Promise<{ ok: true } | { error: string }> {
   if (!input.content.trim()) return { error: "내용을 입력해주세요." };
 
   try {
