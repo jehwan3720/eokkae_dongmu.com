@@ -42,11 +42,8 @@ function formatTime(iso: string) {
   });
 }
 
-function maskIp(ip: string | null) {
-  if (!ip) return "-";
-  const parts = ip.split(".");
-  if (parts.length === 4) return `${parts[0]}.${parts[1]}.*.*`;
-  return ip.slice(0, 8) + "***";
+function showIp(ip: string | null) {
+  return ip || "-";
 }
 
 export default async function AnalyticsPage() {
@@ -182,7 +179,7 @@ export default async function AnalyticsPage() {
                   <td className="px-5 py-3 text-[#4A5568] whitespace-nowrap">{formatDevice(row.device)}</td>
                   <td className="px-5 py-3 text-[#4A5568]">{formatReferrer(row.referrer)}</td>
                   <td className="px-5 py-3 text-[#4A5568] font-mono text-[0.75rem]">{row.path}</td>
-                  <td className="px-5 py-3 text-[#8A95A3] font-mono text-[0.75rem]">{maskIp(row.ip)}</td>
+                  <td className="px-5 py-3 text-[#8A95A3] font-mono text-[0.75rem]">{showIp(row.ip)}</td>
                 </tr>
               ))
             )}
