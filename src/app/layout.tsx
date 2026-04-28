@@ -1,4 +1,5 @@
 ﻿import type { Metadata } from "next";
+import Analytics from "@/components/Analytics";
 import "./globals.css";
 
 const BASE_URL = "https://edugrid1649.vercel.app";
@@ -120,7 +121,10 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <Analytics />
+        {children}
+      </body>
     </html>
   );
 }

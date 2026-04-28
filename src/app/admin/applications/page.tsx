@@ -71,6 +71,12 @@ export default async function ApplicationsPage({
         </div>
         <div className="flex items-center gap-3">
           <Link
+            href="/admin/analytics"
+            className="px-4 py-2 text-[0.8125rem] font-medium text-[#8A95A3] border border-[#E8EAED] rounded-[3px] hover:text-[#1A2535] hover:border-[#C0C6CE] transition-colors duration-150"
+          >
+            방문자 통계
+          </Link>
+          <Link
             href="/admin/photos"
             className="px-4 py-2 text-[0.8125rem] font-medium text-[#8A95A3] border border-[#E8EAED] rounded-[3px] hover:text-[#1A2535] hover:border-[#C0C6CE] transition-colors duration-150"
           >
