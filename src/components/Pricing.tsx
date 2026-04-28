@@ -242,10 +242,8 @@ export default function Pricing() {
                   왜 무관리가 가능한가?
                 </p>
                 <p className="text-[0.8125rem] text-[var(--color-text-secondary)] leading-[1.85]">
-                  장수풍뎅이(<span style={{ fontFamily: "Georgia, serif", fontStyle: "italic" }}>Trypoxylus dichotomus</span>) 3령 유충은
-                  발효 참나무 톱밥을 먹이이자 서식지로 사용하며,
-                  번데기방을 스스로 만드는 생태적 특성을 가집니다.
-                  이 특성 덕분에 유충 입식부터 우화까지 유충병 한 통 안에서 완결됩니다.
+                  발효 참나무 톱밥이 먹이·서식지를 겸하며, 번데기방도 유충이 스스로 조성합니다.
+                  입식부터 우화까지 유충병 한 통으로 완결됩니다.
                 </p>
               </div>
             </motion.div>
