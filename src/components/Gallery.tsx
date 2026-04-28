@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import Image from "next/image";
@@ -15,13 +15,15 @@ function PhotoCard({
   index,
   className = "",
   onOpen,
+  aspectClass,
 }: {
   photo: ActivityPhoto | null;
   index: number;
   className?: string;
   onOpen?: (src: string, alt: string) => void;
+  aspectClass?: string;
 }) {
-  const aspect = ASPECTS[index] ?? "aspect-square";
+  const aspect = aspectClass ?? (ASPECTS[index] ?? "aspect-square");
   const placeholderColor = PLACEHOLDER_COLORS[index] ?? "#C5D8F0";
   const caption = photo ? `${photo.activity_step ?? ""} ${photo.grade_class ?? ""}`.trim() : null;
 
@@ -48,7 +50,6 @@ function PhotoCard({
             </span>
           </div>
         )}
-
 
         {/* 호버 캡션 오버레이 */}
         <motion.div
@@ -77,6 +78,7 @@ function PhotoCard({
 export default function Gallery({ photos }: { photos: (ActivityPhoto | null)[] }) {
   const slots = photos;
   const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
+  const open = (src: string, alt: string) => setLightbox({ src, alt });
 
   return (
     <section id="gallery" className="bg-[#0A1628] md:bg-[var(--color-off-white)] py-24 md:py-32">
@@ -110,35 +112,52 @@ export default function Gallery({ photos }: { photos: (ActivityPhoto | null)[] }
           </motion.p>
         </motion.div>
 
-        {/* 갤러리 그리드 */}
+        {/* ── 모바일 전용: 2열 벤토 그리드 ── */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-3"
+          className="md:hidden grid grid-cols-2 gap-2"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={VIEWPORT}
         >
-          {/* 데스크탑: Feature Shot (왼쪽 큰 사진) */}
-          <motion.div className="md:row-span-2 hidden md:block" variants={slideUp}>
-            <PhotoCard photo={slots[0]} index={0} className="h-full" onOpen={(src, alt) => setLightbox({ src, alt })} />
+          {/* 전체 폭 — 대표 사진 (16:9로 높이 절약) */}
+          <motion.div className="col-span-2" variants={slideUp}>
+            <PhotoCard photo={slots[0]} index={0} aspectClass="aspect-[16/9]" onOpen={open} />
           </motion.div>
 
-          {/* 모바일에서 Feature */}
-          <motion.div className="block md:hidden" variants={slideUp}>
-            <PhotoCard photo={slots[0]} index={0} onOpen={(src, alt) => setLightbox({ src, alt })} />
-          </motion.div>
-
-          {/* 우측 상단 — 작은 2장 */}
+          {/* 2열 — 정방형 2장 */}
           <motion.div variants={slideUp}>
-            <PhotoCard photo={slots[1]} index={1} onOpen={(src, alt) => setLightbox({ src, alt })} />
+            <PhotoCard photo={slots[1]} index={1} onOpen={open} />
           </motion.div>
           <motion.div variants={slideUp}>
-            <PhotoCard photo={slots[2]} index={2} onOpen={(src, alt) => setLightbox({ src, alt })} />
+            <PhotoCard photo={slots[2]} index={2} onOpen={open} />
           </motion.div>
 
-          {/* 우측 하단 — 가로 넓은 Medium */}
-          <motion.div className="md:col-span-2" variants={slideUp}>
-            <PhotoCard photo={slots[3]} index={3} onOpen={(src, alt) => setLightbox({ src, alt })} />
+          {/* 전체 폭 — 와이드 사진 */}
+          <motion.div className="col-span-2" variants={slideUp}>
+            <PhotoCard photo={slots[3]} index={3} onOpen={open} />
+          </motion.div>
+        </motion.div>
+
+        {/* ── 데스크탑 전용: 비대칭 3열 그리드 (원본 유지) ── */}
+        <motion.div
+          className="hidden md:grid md:grid-cols-[2fr_1fr_1fr] gap-3"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VIEWPORT}
+        >
+          <motion.div className="row-span-2" variants={slideUp}>
+            <PhotoCard photo={slots[0]} index={0} className="h-full" onOpen={open} />
+          </motion.div>
+          <motion.div variants={slideUp}>
+            <PhotoCard photo={slots[1]} index={1} onOpen={open} />
+          </motion.div>
+          <motion.div variants={slideUp}>
+            <PhotoCard photo={slots[2]} index={2} onOpen={open} />
+          </motion.div>
+          <motion.div className="col-span-2" variants={slideUp}>
+            <PhotoCard photo={slots[3]} index={3} onOpen={open} />
           </motion.div>
         </motion.div>
 
