@@ -4,6 +4,7 @@ import React, { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { staggerContainer, slideUpStagger, VIEWPORT } from "@/lib/motion";
 import { submitApplication } from "@/actions/submitApplication";
+import { submitFeedback } from "@/actions/submitFeedback";
 
 /* ────────────────────────────────────────
    타입
@@ -271,6 +272,7 @@ function ContactModal({ onClose }: { onClose: () => void }) {
       {/* 카드 */}
       <motion.div
         className="relative w-full max-w-[580px] bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh]"
+        onTouchMove={(e) => e.stopPropagation()}
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.97 }}
@@ -313,7 +315,8 @@ function ContactModal({ onClose }: { onClose: () => void }) {
 
               {/* 폼 */}
               <form
-                className="px-5 sm:px-10 py-6 sm:py-8 flex flex-col gap-6 overflow-y-auto"
+                className="px-5 sm:px-10 py-6 sm:py-8 flex flex-col gap-6 overflow-y-auto overscroll-contain"
+                style={{ WebkitOverflowScrolling: "touch" }}
                 onSubmit={handleSubmit}
                 noValidate
               >
@@ -580,6 +583,273 @@ function ContactModal({ onClose }: { onClose: () => void }) {
 }
 
 /* ────────────────────────────────────────
+   질문 모달
+──────────────────────────────────────── */
+const Q_INIT = { name: "", email: "", content: "" };
+
+function QuestionModal({ onClose }: { onClose: () => void }) {
+  const [form, setForm] = useState(Q_INIT);
+  const [emailError, setEmailError] = useState("");
+  const [contentError, setContentError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [apiError, setApiError] = useState("");
+  const [success, setSuccess] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    let hasError = false;
+    if (!form.email.trim()) { setEmailError("답변 수신을 위해 이메일을 입력해주세요."); hasError = true; }
+    else setEmailError("");
+    if (!form.content.trim()) { setContentError("내용을 입력해주세요."); hasError = true; }
+    else setContentError("");
+    if (hasError) return;
+
+    setLoading(true);
+    setApiError("");
+    const result = await submitFeedback({ category: "질문·문의", ...form });
+    setLoading(false);
+    if ("error" in result) setApiError(result.error);
+    else setSuccess(true);
+  }
+
+  return (
+    <motion.div
+      className="fixed inset-0 z-50 flex items-center justify-center px-4 py-6"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.22 }}
+    >
+      <div className="absolute inset-0 bg-black/55 backdrop-blur-[3px]" onClick={onClose} />
+      <motion.div
+        className="relative w-full max-w-[480px] bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.97 }}
+        transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+        onTouchMove={(e) => e.stopPropagation()}
+      >
+        <AnimatePresence mode="wait">
+          {success ? (
+            <motion.div
+              key="success"
+              className="px-8 py-10 flex flex-col items-center text-center"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="w-14 h-14 rounded-full bg-[var(--color-brand)]/10 flex items-center justify-center mb-5">
+                <svg width="24" height="18" viewBox="0 0 24 18" fill="none">
+                  <path d="M1.5 9L8.5 16L22.5 2" stroke="var(--color-brand)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <p className="text-[0.6875rem] font-semibold tracking-[0.18em] uppercase text-[var(--color-brand)] mb-1.5">전송 완료</p>
+              <h3 className="text-[1.125rem] font-bold tracking-tight text-[var(--color-text-primary)] mb-2">질문이 전송되었습니다</h3>
+              <p className="text-[0.8125rem] text-[var(--color-text-muted)] leading-relaxed mb-8">
+                답변은 작성하신 메일로 보내드립니다.<br />감사합니다.
+              </p>
+              <button
+                onClick={onClose}
+                className="w-full py-3 text-[0.875rem] font-semibold text-white bg-[var(--color-brand)] rounded-[3px] hover:opacity-90 transition-opacity"
+              >닫기</button>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="form"
+              className="flex flex-col overflow-hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.18 }}
+            >
+              <div className="px-6 pt-6 pb-5 border-b border-gray-100 flex-shrink-0">
+                <p className="text-[0.625rem] font-semibold tracking-[0.18em] uppercase text-[var(--color-brand)] mb-1">에듀그리드</p>
+                <h3 className="text-[1.125rem] font-bold tracking-tight text-[var(--color-text-primary)]">질문하기</h3>
+                <p className="mt-1 text-[0.8125rem] text-[var(--color-text-muted)] leading-snug">
+                  궁금하신 내용을 남겨주시면 메일로 답변드립니다.
+                </p>
+                <button
+                  onClick={onClose}
+                  className="absolute top-5 right-5 w-8 h-8 flex items-center justify-center text-gray-300 hover:text-gray-500 transition-colors text-[1rem]"
+                  aria-label="닫기"
+                >✕</button>
+              </div>
+              <form
+                className="px-6 py-6 flex flex-col gap-5 overflow-y-auto overscroll-contain"
+                style={{ WebkitOverflowScrolling: "touch" }}
+                onSubmit={handleSubmit}
+                noValidate
+              >
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="flex flex-col gap-1">
+                    <p className={labelBase}>이름 <span className="text-gray-300 font-normal">(선택)</span></p>
+                    <input
+                      type="text"
+                      placeholder="예) 홍길동"
+                      value={form.name}
+                      onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+                      className={inputCls(false)}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <p className={labelBase}>이메일 <span className="ml-0.5 text-[var(--color-brand)]">*</span></p>
+                    <input
+                      type="email"
+                      placeholder="예) example@gmail.com"
+                      value={form.email}
+                      onChange={(e) => { setForm((f) => ({ ...f, email: e.target.value })); if (emailError) setEmailError(""); }}
+                      className={inputCls(!!emailError)}
+                    />
+                    {emailError
+                      ? <p className="text-[0.6875rem] text-red-500">{emailError}</p>
+                      : <p className="text-[0.6875rem] text-[var(--color-text-muted)]">답변은 작성하신 메일로 보내드립니다.</p>
+                    }
+                  </div>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <p className={labelBase}>질문 내용 <span className="ml-0.5 text-[var(--color-brand)]">*</span></p>
+                  <textarea
+                    rows={5}
+                    placeholder="궁금하신 내용을 자유롭게 작성해주세요."
+                    value={form.content}
+                    onChange={(e) => { setForm((f) => ({ ...f, content: e.target.value })); if (contentError) setContentError(""); }}
+                    className={inputCls(!!contentError) + " resize-none leading-[1.8]"}
+                  />
+                  {contentError && <p className="text-[0.6875rem] text-red-500">{contentError}</p>}
+                </div>
+                {apiError && <p className="text-[0.75rem] text-red-500 text-center">{apiError}</p>}
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full py-3.5 text-white text-[0.875rem] font-bold tracking-tight rounded-[3px] bg-[var(--color-brand)] hover:bg-[var(--color-brand-light)] disabled:bg-slate-300 disabled:cursor-not-allowed transition-colors duration-200 flex items-center justify-center gap-2"
+                >
+                  {loading ? (
+                    <>
+                      <svg className="animate-spin" width="15" height="15" viewBox="0 0 16 16" fill="none">
+                        <circle cx="8" cy="8" r="6" stroke="white" strokeOpacity="0.3" strokeWidth="2"/>
+                        <path d="M14 8a6 6 0 0 0-6-6" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+                      </svg>
+                      전송 중...
+                    </>
+                  ) : "질문 보내기"}
+                </button>
+              </form>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+/* ────────────────────────────────────────
+   피드백 모달
+──────────────────────────────────────── */
+const FB_CATEGORIES = ["서비스 요구사항", "민원", "운영 개선 제안", "기타"];
+const FB_INIT = { category: FB_CATEGORIES[0], name: "", email: "", content: "" };
+
+function FeedbackModal({ onClose }: { onClose: () => void }) {
+  const [form, setForm] = useState(FB_INIT);
+  const [contentError, setContentError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [apiError, setApiError] = useState("");
+  const [success, setSuccess] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!form.content.trim()) { setContentError("내용을 입력해주세요."); return; }
+    setContentError("");
+    setLoading(true);
+    setApiError("");
+    const result = await submitFeedback(form);
+    setLoading(false);
+    if ("error" in result) setApiError(result.error);
+    else setSuccess(true);
+  }
+
+  return (
+    <motion.div
+      className="fixed inset-0 z-50 flex items-center justify-center px-4 py-6"
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      transition={{ duration: 0.22 }}
+    >
+      <div className="absolute inset-0 bg-black/55 backdrop-blur-[3px]" onClick={onClose} />
+      <motion.div
+        className="relative w-full max-w-[480px] bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+        initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.97 }}
+        transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+        onTouchMove={(e) => e.stopPropagation()}
+      >
+        <AnimatePresence mode="wait">
+          {success ? (
+            <motion.div key="success" className="px-8 py-10 flex flex-col items-center text-center"
+              initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}
+            >
+              <div className="w-14 h-14 rounded-full bg-[var(--color-brand)]/10 flex items-center justify-center mb-5">
+                <svg width="24" height="18" viewBox="0 0 24 18" fill="none">
+                  <path d="M1.5 9L8.5 16L22.5 2" stroke="var(--color-brand)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <p className="text-[0.6875rem] font-semibold tracking-[0.18em] uppercase text-[var(--color-brand)] mb-1.5">접수 완료</p>
+              <h3 className="text-[1.125rem] font-bold tracking-tight text-[var(--color-text-primary)] mb-2">의견이 접수되었습니다</h3>
+              <p className="text-[0.8125rem] text-[var(--color-text-muted)] leading-relaxed mb-8">
+                검토 후 빠르게 처리하겠습니다.<br />감사합니다.
+              </p>
+              <button onClick={onClose} className="w-full py-3 text-[0.875rem] font-semibold text-white bg-[var(--color-brand)] rounded-[3px] hover:opacity-90 transition-opacity">닫기</button>
+            </motion.div>
+          ) : (
+            <motion.div key="form" className="flex flex-col overflow-hidden"
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.18 }}
+            >
+              <div className="px-6 pt-6 pb-5 border-b border-gray-100 flex-shrink-0">
+                <p className="text-[0.625rem] font-semibold tracking-[0.18em] uppercase text-[var(--color-brand)] mb-1">에듀그리드</p>
+                <h3 className="text-[1.125rem] font-bold tracking-tight text-[var(--color-text-primary)]">의견 · 민원 접수</h3>
+                <p className="mt-1 text-[0.8125rem] text-[var(--color-text-muted)] leading-snug">불편하신 점이나 요청사항을 남겨주시면 검토 후 처리해드립니다.</p>
+                <button onClick={onClose} className="absolute top-5 right-5 w-8 h-8 flex items-center justify-center text-gray-300 hover:text-gray-500 transition-colors text-[1rem]" aria-label="닫기">✕</button>
+              </div>
+              <form className="px-6 py-6 flex flex-col gap-5 overflow-y-auto overscroll-contain" style={{ WebkitOverflowScrolling: "touch" }} onSubmit={handleSubmit} noValidate>
+                <div className="flex flex-col gap-1">
+                  <p className="text-[0.75rem] font-semibold tracking-wide text-[var(--color-text-secondary)]">분류 <span className="text-[var(--color-brand)]">*</span></p>
+                  <select value={form.category} onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))}
+                    className="w-full px-4 py-3 text-[0.875rem] text-[var(--color-text-primary)] bg-white border border-gray-200 rounded-[3px] outline-none focus:border-[var(--color-brand)] focus:ring-2 focus:ring-[var(--color-brand)]/10 transition-all duration-200">
+                    {FB_CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
+                  </select>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="flex flex-col gap-1">
+                    <p className="text-[0.75rem] font-semibold tracking-wide text-[var(--color-text-secondary)]">이름 <span className="text-gray-300 font-normal">(선택)</span></p>
+                    <input type="text" placeholder="예) 홍길동" value={form.name} onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))} className={inputCls(false)} />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <p className="text-[0.75rem] font-semibold tracking-wide text-[var(--color-text-secondary)]">이메일 <span className="text-gray-300 font-normal">(선택)</span></p>
+                    <input type="email" placeholder="예) example@gmail.com" value={form.email} onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))} className={inputCls(false)} />
+                    <p className="text-[0.6875rem] text-[var(--color-text-muted)]">답변은 작성하신 메일로 보내드립니다.</p>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <p className="text-[0.75rem] font-semibold tracking-wide text-[var(--color-text-secondary)]">내용 <span className="text-[var(--color-brand)]">*</span></p>
+                  <textarea rows={5} placeholder="요청하시는 내용을 자유롭게 작성해주세요." value={form.content}
+                    onChange={(e) => { setForm((f) => ({ ...f, content: e.target.value })); if (contentError) setContentError(""); }}
+                    className={inputCls(!!contentError) + " resize-none leading-[1.8]"} />
+                  {contentError && <p className="text-[0.6875rem] text-red-500">{contentError}</p>}
+                </div>
+                {apiError && <p className="text-[0.75rem] text-red-500 text-center">{apiError}</p>}
+                <button type="submit" disabled={loading}
+                  className="w-full py-3.5 text-white text-[0.875rem] font-bold tracking-tight rounded-[3px] bg-[var(--color-brand)] hover:bg-[var(--color-brand-light)] disabled:bg-slate-300 disabled:cursor-not-allowed transition-colors duration-200 flex items-center justify-center gap-2">
+                  {loading ? (
+                    <><svg className="animate-spin" width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="white" strokeOpacity="0.3" strokeWidth="2"/><path d="M14 8a6 6 0 0 0-6-6" stroke="white" strokeWidth="2" strokeLinecap="round"/></svg>전송 중...</>
+                  ) : "접수하기"}
+                </button>
+              </form>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+/* ────────────────────────────────────────
    CTA 섹션
 ──────────────────────────────────────── */
 const assurances = [
@@ -591,11 +861,13 @@ const assurances = [
 
 export default function CTA() {
   const [modalOpen, setModalOpen] = useState(false);
+  const [questionOpen, setQuestionOpen] = useState(false);
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
 
   useEffect(() => {
-    document.body.style.overflow = modalOpen ? "hidden" : "";
+    document.body.style.overflow = (modalOpen || questionOpen || feedbackOpen) ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
-  }, [modalOpen]);
+  }, [modalOpen, questionOpen, feedbackOpen]);
 
   return (
     <>
@@ -645,23 +917,46 @@ export default function CTA() {
               납품 일정·예산 처리·교육과정 연계까지 편하게 문의해주세요.
             </motion.p>
 
-            <motion.div variants={slideUpStagger} custom={3} className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
-              <motion.button
-                onClick={() => setModalOpen(true)}
-                className="inline-flex items-center justify-center px-10 py-5 bg-white text-[var(--color-brand)] text-[0.9375rem] font-bold tracking-tighter rounded-sm"
-                whileHover={{
-                  scale: 1.03,
-                  boxShadow: "0 10px 40px rgba(0,0,0,0.25)",
-                  transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] },
-                }}
-                whileTap={{ scale: 0.97, transition: { duration: 0.1 } }}
-              >
-                지금 교구 납품 문의하기
-              </motion.button>
+            <motion.div variants={slideUpStagger} custom={3} className="flex flex-col gap-4">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                <motion.button
+                  onClick={() => setModalOpen(true)}
+                  className="inline-flex items-center justify-center px-10 py-5 bg-white text-[var(--color-brand)] text-[0.9375rem] font-bold tracking-tighter rounded-sm"
+                  whileHover={{
+                    scale: 1.03,
+                    boxShadow: "0 10px 40px rgba(0,0,0,0.25)",
+                    transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] },
+                  }}
+                  whileTap={{ scale: 0.97, transition: { duration: 0.1 } }}
+                >
+                  지금 교구 납품 문의하기
+                </motion.button>
+
+                <button
+                  onClick={() => setQuestionOpen(true)}
+                  className="inline-flex items-center gap-2 px-6 py-4 border border-white/25 text-white/70 text-[0.875rem] font-medium tracking-wide rounded-sm hover:border-white/50 hover:text-white transition-colors duration-200"
+                >
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="flex-shrink-0">
+                    <rect x="1" y="2.5" width="12" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.3"/>
+                    <path d="M1 4.5l6 4 6-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+                  </svg>
+                  궁금한 내용 문의하기
+                </button>
+
+                <button
+                  onClick={() => setFeedbackOpen(true)}
+                  className="inline-flex items-center gap-2 px-6 py-4 border border-white/15 text-white/40 text-[0.875rem] font-medium tracking-wide rounded-sm hover:border-white/35 hover:text-white/70 transition-colors duration-200"
+                >
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none" className="flex-shrink-0">
+                    <path d="M6.5 1.5C3.74 1.5 1.5 3.46 1.5 5.875c0 .9.3 1.74.82 2.43L1.5 11l2.84-1.08A5.3 5.3 0 0 0 6.5 10.25c2.76 0 5-1.96 5-4.375S9.26 1.5 6.5 1.5Z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  의견·민원 접수
+                </button>
+              </div>
 
               <a
                 href="/check"
-                className="text-[0.8125rem] text-white/40 hover:text-white/70 transition-colors duration-200 underline underline-offset-4 decoration-white/20 hover:decoration-white/50 whitespace-nowrap"
+                className="text-[0.8125rem] text-white/40 hover:text-white/70 transition-colors duration-200 underline underline-offset-4 decoration-white/20 hover:decoration-white/50 whitespace-nowrap self-start"
               >
                 이미 문의하셨나요? 문의 내역 조회하기
               </a>
@@ -687,6 +982,14 @@ export default function CTA() {
 
       <AnimatePresence>
         {modalOpen && <ContactModal onClose={() => setModalOpen(false)} />}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {questionOpen && <QuestionModal onClose={() => setQuestionOpen(false)} />}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {feedbackOpen && <FeedbackModal onClose={() => setFeedbackOpen(false)} />}
       </AnimatePresence>
     </>
   );
