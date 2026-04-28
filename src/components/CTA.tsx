@@ -134,7 +134,7 @@ function Field({
 function SuccessView({ onClose }: { id: string; onClose: () => void }) {
   return (
     <motion.div
-      className="px-10 py-10 flex flex-col items-center text-center"
+      className="px-5 sm:px-10 py-8 sm:py-10 flex flex-col items-center text-center"
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
@@ -291,7 +291,7 @@ function ContactModal({ onClose }: { onClose: () => void }) {
               transition={{ duration: 0.2 }}
             >
               {/* 헤더 */}
-              <div className="px-10 pt-8 pb-5 border-b border-gray-100 flex-shrink-0">
+              <div className="px-5 sm:px-10 pt-6 sm:pt-8 pb-5 border-b border-gray-100 flex-shrink-0">
                 <p className="text-[0.6875rem] font-semibold tracking-[0.18em] uppercase text-[var(--color-brand)] mb-1.5">
                   교구 납품 문의
                 </p>
@@ -313,7 +313,7 @@ function ContactModal({ onClose }: { onClose: () => void }) {
 
               {/* 폼 */}
               <form
-                className="px-10 py-8 flex flex-col gap-6 overflow-y-auto"
+                className="px-5 sm:px-10 py-6 sm:py-8 flex flex-col gap-6 overflow-y-auto"
                 onSubmit={handleSubmit}
                 noValidate
               >
@@ -321,7 +321,7 @@ function ContactModal({ onClose }: { onClose: () => void }) {
                 <div>
                   <p className={sectionLabel}>담당자 정보</p>
                   <div className="flex flex-col gap-6">
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <Field label="학교명 / 기관명" required error={err("school")}>
                         <input
                           type="text"
@@ -343,7 +343,7 @@ function ContactModal({ onClose }: { onClose: () => void }) {
                         />
                       </Field>
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <Field label="담당자 연락처" required error={err("contact")}>
                         <input
                           type="tel"
@@ -376,7 +376,7 @@ function ContactModal({ onClose }: { onClose: () => void }) {
                 <div>
                   <p className={sectionLabel}>교육 상세 정보</p>
                   <div className="flex flex-col gap-6">
-                    <div className="grid grid-cols-2 gap-4 items-start">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-start">
                       <Field label="학년 / 연령" required error={err("grade")}>
                         <div
                           className={[
