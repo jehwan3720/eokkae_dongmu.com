@@ -33,7 +33,7 @@ function NavFeedbackModal({ onClose }: { onClose: () => void }) {
 
   function inputCls(hasError: boolean) {
     return [
-      "w-full px-4 py-3 text-[0.875rem] text-[var(--color-text-primary)]",
+      "w-full px-4 py-3 text-[1rem] text-[var(--color-text-primary)]",
       "bg-white rounded-[3px] outline-none transition-all duration-200 placeholder:text-gray-300",
       hasError
         ? "border border-red-400 focus:ring-2 focus:ring-red-400/15"
@@ -62,6 +62,7 @@ function NavFeedbackModal({ onClose }: { onClose: () => void }) {
       <div className="absolute inset-0 bg-black/55" style={{ WebkitBackdropFilter: "blur(3px)", backdropFilter: "blur(3px)" }} onClick={onClose} />
       <motion.div
         className="relative w-full max-w-[480px] bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+        style={{ overflowX: "hidden" }}
         initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.97 }}
         transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
         onTouchMove={(e) => e.stopPropagation()}
@@ -93,11 +94,11 @@ function NavFeedbackModal({ onClose }: { onClose: () => void }) {
                 <p className="mt-1 text-[0.8125rem] text-[var(--color-text-muted)] leading-snug">불편하신 점이나 요청사항을 남겨주시면 검토 후 처리해드립니다.</p>
                 <button onClick={onClose} className="absolute top-5 right-5 w-8 h-8 flex items-center justify-center text-gray-300 hover:text-gray-500 transition-colors text-[1rem]" aria-label="닫기">✕</button>
               </div>
-              <form className="px-6 py-6 flex flex-col gap-5 overflow-y-auto overscroll-contain" style={{ WebkitOverflowScrolling: "touch" }} onSubmit={handleSubmit} noValidate>
+              <form className="px-6 py-6 flex flex-col gap-5 overflow-y-auto overflow-x-hidden overscroll-contain" style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-y", overscrollBehaviorX: "none" }} onSubmit={handleSubmit} noValidate>
                 <div className="flex flex-col gap-1">
                   <p className="text-[0.75rem] font-semibold tracking-wide text-[var(--color-text-secondary)]">분류 <span className="text-[var(--color-brand)]">*</span></p>
                   <select value={form.category} onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))}
-                    className="w-full px-4 py-3 text-[0.875rem] text-[var(--color-text-primary)] bg-white border border-gray-200 rounded-[3px] outline-none focus:border-[var(--color-brand)] focus:ring-2 focus:ring-[#1B3F7A]/10 transition-all duration-200">
+                    className="w-full px-4 py-3 text-[1rem] text-[var(--color-text-primary)] bg-white border border-gray-200 rounded-[3px] outline-none focus:border-[var(--color-brand)] focus:ring-2 focus:ring-[#1B3F7A]/10 transition-all duration-200">
                     {FB_CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
                   </select>
                 </div>
