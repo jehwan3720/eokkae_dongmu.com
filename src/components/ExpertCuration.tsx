@@ -152,7 +152,7 @@ export default function ExpertCuration() {
                 custom={i}
               >
                 <div className="flex-shrink-0 mt-0.5">
-                  <div className="w-8 h-8 rounded-full bg-[var(--color-brand)]/[0.08] flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-full bg-[#1B3F7A]/[0.08] flex items-center justify-center">
                     <CheckCircle2 size={16} className="text-[var(--color-brand)]" strokeWidth={2} />
                   </div>
                 </div>

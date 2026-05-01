@@ -78,7 +78,7 @@ export default function Differentiation() {
                 key={label}
                 className={`rounded-xl border p-4 ${
                   highlight
-                    ? "bg-[var(--color-brand)]/5 border-[var(--color-brand)]/30"
+                    ? "bg-[#1B3F7A]/5 border-[#1B3F7A]/30"
                     : "bg-white border-[var(--color-border)]"
                 }`}
                 variants={slideUpStagger}
@@ -131,7 +131,7 @@ export default function Differentiation() {
                 key={label}
                 className={`grid grid-cols-[auto_1fr_1fr] transition-colors duration-200 cursor-default ${
                   highlight
-                    ? "border-y-2 border-[var(--color-brand)]/30 bg-[var(--color-brand)]/5"
+                    ? "border-y-2 border-[#1B3F7A]/30 bg-[#1B3F7A]/5"
                     : "border-b border-[var(--color-border)]"
                 }`}
                 variants={slideUpStagger}

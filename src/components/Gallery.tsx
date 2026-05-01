@@ -53,7 +53,7 @@ function PhotoCard({
 
         {/* 호버 캡션 오버레이 */}
         <motion.div
-          className="absolute inset-0 bg-[var(--color-brand)]/70 flex flex-col justify-end p-4"
+          className="absolute inset-0 bg-[#1B3F7A]/70 flex flex-col justify-end p-4"
           variants={{
             rest: { opacity: 0 },
             hover: { opacity: 1, transition: { duration: 0.25 } },

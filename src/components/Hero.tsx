@@ -37,7 +37,7 @@ function NavFeedbackModal({ onClose }: { onClose: () => void }) {
       "bg-white rounded-[3px] outline-none transition-all duration-200 placeholder:text-gray-300",
       hasError
         ? "border border-red-400 focus:ring-2 focus:ring-red-400/15"
-        : "border border-gray-200 focus:border-[var(--color-brand)] focus:ring-2 focus:ring-[var(--color-brand)]/10",
+        : "border border-gray-200 focus:border-[var(--color-brand)] focus:ring-2 focus:ring-[#1B3F7A]/10",
     ].join(" ");
   }
 
@@ -55,11 +55,11 @@ function NavFeedbackModal({ onClose }: { onClose: () => void }) {
 
   return (
     <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center px-4 py-6"
+      className="fixed inset-0 z-50 flex items-center justify-center px-4 py-6" style={{ touchAction: "none" }}
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
       transition={{ duration: 0.22 }}
     >
-      <div className="absolute inset-0 bg-black/55 backdrop-blur-[3px]" onClick={onClose} />
+      <div className="absolute inset-0 bg-black/55" style={{ WebkitBackdropFilter: "blur(3px)", backdropFilter: "blur(3px)" }} onClick={onClose} />
       <motion.div
         className="relative w-full max-w-[480px] bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
         initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.97 }}
@@ -71,7 +71,7 @@ function NavFeedbackModal({ onClose }: { onClose: () => void }) {
             <motion.div key="success" className="px-8 py-10 flex flex-col items-center text-center"
               initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}
             >
-              <div className="w-14 h-14 rounded-full bg-[var(--color-brand)]/10 flex items-center justify-center mb-5">
+              <div className="w-14 h-14 rounded-full bg-[#1B3F7A]/10 flex items-center justify-center mb-5">
                 <svg width="24" height="18" viewBox="0 0 24 18" fill="none">
                   <path d="M1.5 9L8.5 16L22.5 2" stroke="var(--color-brand)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
@@ -97,7 +97,7 @@ function NavFeedbackModal({ onClose }: { onClose: () => void }) {
                 <div className="flex flex-col gap-1">
                   <p className="text-[0.75rem] font-semibold tracking-wide text-[var(--color-text-secondary)]">분류 <span className="text-[var(--color-brand)]">*</span></p>
                   <select value={form.category} onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))}
-                    className="w-full px-4 py-3 text-[0.875rem] text-[var(--color-text-primary)] bg-white border border-gray-200 rounded-[3px] outline-none focus:border-[var(--color-brand)] focus:ring-2 focus:ring-[var(--color-brand)]/10 transition-all duration-200">
+                    className="w-full px-4 py-3 text-[0.875rem] text-[var(--color-text-primary)] bg-white border border-gray-200 rounded-[3px] outline-none focus:border-[var(--color-brand)] focus:ring-2 focus:ring-[#1B3F7A]/10 transition-all duration-200">
                     {FB_CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
                   </select>
                 </div>
@@ -238,50 +238,47 @@ export default function Hero() {
           </button>
         </nav>
 
-        {/* 모바일 드롭다운 메뉴 */}
-        <AnimatePresence>
-          {menuOpen && (
-            <motion.div
-              className="md:hidden overflow-hidden"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+        {/* 모바일 드롭다운 메뉴 — CSS max-height transition (삼성 인터넷 호환) */}
+        <div
+          className="md:hidden overflow-hidden transition-all duration-300 ease-in-out"
+          style={{
+            maxHeight: menuOpen ? "500px" : "0px",
+            opacity: menuOpen ? 1 : 0,
+            pointerEvents: menuOpen ? "auto" : "none",
+          }}
+        >
+          <div className="py-3 border-b border-white/10">
+            <ul className="flex flex-col">
+              {NAV_LINKS.map(({ label, href }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    onClick={() => setMenuOpen(false)}
+                    className="flex items-center min-h-[52px] text-[0.9375rem] text-white/70 hover:text-white border-b border-white/5 last:border-0 transition-colors duration-150"
+                  >
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <a
+              href="#contact"
+              onClick={() => setMenuOpen(false)}
+              className="mt-4 flex items-center justify-center min-h-[52px] w-full text-[0.875rem] font-semibold text-white border border-white/30 rounded-sm hover:bg-white/10 transition-colors duration-200"
             >
-              <div className="py-3 border-b border-white/10">
-                <ul className="flex flex-col">
-                  {NAV_LINKS.map(({ label, href }) => (
-                    <li key={label}>
-                      <a
-                        href={href}
-                        onClick={() => setMenuOpen(false)}
-                        className="flex items-center min-h-[52px] text-[0.9375rem] text-white/70 hover:text-white border-b border-white/5 last:border-0 transition-colors duration-150"
-                      >
-                        {label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href="#contact"
-                  onClick={() => setMenuOpen(false)}
-                  className="mt-4 flex items-center justify-center min-h-[52px] w-full text-[0.875rem] font-semibold text-white border border-white/30 rounded-sm hover:bg-white/10 transition-colors duration-200"
-                >
-                  교구 납품 문의
-                </a>
-                <button
-                  onClick={() => { setMenuOpen(false); setFeedbackOpen(true); }}
-                  className="mt-2 flex items-center justify-center gap-2 min-h-[44px] w-full text-[0.8125rem] text-white/40 hover:text-white/70 transition-colors duration-200"
-                >
-                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none" className="flex-shrink-0">
-                    <path d="M6.5 1.5C3.74 1.5 1.5 3.46 1.5 5.875c0 .9.3 1.74.82 2.43L1.5 11l2.84-1.08A5.3 5.3 0 0 0 6.5 10.25c2.76 0 5-1.96 5-4.375S9.26 1.5 6.5 1.5Z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                  의견·민원 접수
-                </button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              교구 납품 문의
+            </a>
+            <button
+              onClick={() => { setMenuOpen(false); setFeedbackOpen(true); }}
+              className="mt-2 flex items-center justify-center gap-2 min-h-[44px] w-full text-[0.8125rem] text-white/40 hover:text-white/70 transition-colors duration-200"
+            >
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="none" className="flex-shrink-0">
+                <path d="M6.5 1.5C3.74 1.5 1.5 3.46 1.5 5.875c0 .9.3 1.74.82 2.43L1.5 11l2.84-1.08A5.3 5.3 0 0 0 6.5 10.25c2.76 0 5-1.96 5-4.375S9.26 1.5 6.5 1.5Z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              의견·민원 접수
+            </button>
+          </div>
+        </div>
 
         {/* ── 히어로 본문 — 2컬럼 레이아웃 ─────────────── */}
         <div className="py-20 md:py-28 lg:py-36 grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-16 items-center">

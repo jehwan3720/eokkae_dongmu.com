@@ -88,7 +88,7 @@ export default function CurriculumMapping() {
                 <div className="w-10 h-10 rounded-xl bg-[var(--color-brand)] flex items-center justify-center flex-shrink-0">
                   <Icon size={17} className="text-white" strokeWidth={1.6} />
                 </div>
-                <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[0.625rem] font-bold tracking-[0.12em] uppercase border border-[var(--color-brand)]/20 text-[var(--color-brand)] bg-[var(--color-brand)]/[0.06]">
+                <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[0.625rem] font-bold tracking-[0.12em] uppercase border border-[#1B3F7A]/20 text-[var(--color-brand)] bg-[#1B3F7A]/[0.06]">
                   {badge}
                 </span>
               </div>

@@ -93,7 +93,7 @@ function inputCls(hasError: boolean) {
     "placeholder:text-gray-300",
     hasError
       ? "border border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-400/15"
-      : "border border-gray-200 focus:border-[var(--color-brand)] focus:ring-2 focus:ring-[var(--color-brand)]/10",
+      : "border border-gray-200 focus:border-[var(--color-brand)] focus:ring-2 focus:ring-[#1B3F7A]/10",
   ].join(" ");
 }
 
@@ -141,7 +141,7 @@ function SuccessView({ onClose }: { id: string; onClose: () => void }) {
       transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
     >
       {/* 체크 아이콘 */}
-      <div className="w-14 h-14 rounded-full bg-[var(--color-brand)]/10 flex items-center justify-center mb-5">
+      <div className="w-14 h-14 rounded-full bg-[#1B3F7A]/10 flex items-center justify-center mb-5">
         <svg width="24" height="18" viewBox="0 0 24 18" fill="none">
           <path d="M1.5 9L8.5 16L22.5 2" stroke="var(--color-brand)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
@@ -158,8 +158,8 @@ function SuccessView({ onClose }: { id: string; onClose: () => void }) {
       </p>
 
       {/* 조회 안내 카드 */}
-      <div className="w-full bg-[var(--color-brand)]/5 border border-[var(--color-brand)]/15 rounded-lg px-6 py-5 mb-8 text-left">
-        <p className="text-[0.6875rem] font-semibold tracking-[0.14em] uppercase text-[var(--color-brand)]/60 mb-2">
+      <div className="w-full bg-[#1B3F7A]/5 border border-[#1B3F7A]/15 rounded-lg px-6 py-5 mb-8 text-left">
+        <p className="text-[0.6875rem] font-semibold tracking-[0.14em] uppercase text-[#1B3F7A]/60 mb-2">
           처리 상태 조회 방법
         </p>
         <p className="text-[0.8125rem] text-gray-600 leading-relaxed">
@@ -257,7 +257,7 @@ function ContactModal({ onClose }: { onClose: () => void }) {
 
   return (
     <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center px-4 py-6"
+      className="fixed inset-0 z-50 flex items-center justify-center px-4 py-6" style={{ touchAction: "none" }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -265,7 +265,7 @@ function ContactModal({ onClose }: { onClose: () => void }) {
     >
       {/* 딤 */}
       <div
-        className="absolute inset-0 bg-black/55 backdrop-blur-[3px]"
+        className="absolute inset-0 bg-black/55" style={{ WebkitBackdropFilter: "blur(3px)", backdropFilter: "blur(3px)" }}
         onClick={onClose}
       />
 
@@ -614,13 +614,13 @@ function QuestionModal({ onClose }: { onClose: () => void }) {
 
   return (
     <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center px-4 py-6"
+      className="fixed inset-0 z-50 flex items-center justify-center px-4 py-6" style={{ touchAction: "none" }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.22 }}
     >
-      <div className="absolute inset-0 bg-black/55 backdrop-blur-[3px]" onClick={onClose} />
+      <div className="absolute inset-0 bg-black/55" style={{ WebkitBackdropFilter: "blur(3px)", backdropFilter: "blur(3px)" }} onClick={onClose} />
       <motion.div
         className="relative w-full max-w-[480px] bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
         initial={{ opacity: 0, scale: 0.95 }}
@@ -638,7 +638,7 @@ function QuestionModal({ onClose }: { onClose: () => void }) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <div className="w-14 h-14 rounded-full bg-[var(--color-brand)]/10 flex items-center justify-center mb-5">
+              <div className="w-14 h-14 rounded-full bg-[#1B3F7A]/10 flex items-center justify-center mb-5">
                 <svg width="24" height="18" viewBox="0 0 24 18" fill="none">
                   <path d="M1.5 9L8.5 16L22.5 2" stroke="var(--color-brand)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
@@ -769,11 +769,11 @@ function FeedbackModal({ onClose }: { onClose: () => void }) {
 
   return (
     <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center px-4 py-6"
+      className="fixed inset-0 z-50 flex items-center justify-center px-4 py-6" style={{ touchAction: "none" }}
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
       transition={{ duration: 0.22 }}
     >
-      <div className="absolute inset-0 bg-black/55 backdrop-blur-[3px]" onClick={onClose} />
+      <div className="absolute inset-0 bg-black/55" style={{ WebkitBackdropFilter: "blur(3px)", backdropFilter: "blur(3px)" }} onClick={onClose} />
       <motion.div
         className="relative w-full max-w-[480px] bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
         initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.97 }}
@@ -785,7 +785,7 @@ function FeedbackModal({ onClose }: { onClose: () => void }) {
             <motion.div key="success" className="px-8 py-10 flex flex-col items-center text-center"
               initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}
             >
-              <div className="w-14 h-14 rounded-full bg-[var(--color-brand)]/10 flex items-center justify-center mb-5">
+              <div className="w-14 h-14 rounded-full bg-[#1B3F7A]/10 flex items-center justify-center mb-5">
                 <svg width="24" height="18" viewBox="0 0 24 18" fill="none">
                   <path d="M1.5 9L8.5 16L22.5 2" stroke="var(--color-brand)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
@@ -811,7 +811,7 @@ function FeedbackModal({ onClose }: { onClose: () => void }) {
                 <div className="flex flex-col gap-1">
                   <p className="text-[0.75rem] font-semibold tracking-wide text-[var(--color-text-secondary)]">분류 <span className="text-[var(--color-brand)]">*</span></p>
                   <select value={form.category} onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))}
-                    className="w-full px-4 py-3 text-[0.875rem] text-[var(--color-text-primary)] bg-white border border-gray-200 rounded-[3px] outline-none focus:border-[var(--color-brand)] focus:ring-2 focus:ring-[var(--color-brand)]/10 transition-all duration-200">
+                    className="w-full px-4 py-3 text-[0.875rem] text-[var(--color-text-primary)] bg-white border border-gray-200 rounded-[3px] outline-none focus:border-[var(--color-brand)] focus:ring-2 focus:ring-[#1B3F7A]/10 transition-all duration-200">
                     {FB_CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
                   </select>
                 </div>

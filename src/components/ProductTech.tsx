@@ -76,7 +76,7 @@ export default function ProductTech() {
             >
               {/* 아이콘 + 라벨 */}
               <div className="flex flex-col gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-[var(--color-brand)]/10 flex items-center justify-center">
+                <div className="w-12 h-12 rounded-2xl bg-[#1B3F7A]/10 flex items-center justify-center">
                   <Icon size={21} className="text-[var(--color-brand)]" strokeWidth={1.5} />
                 </div>
                 <div>

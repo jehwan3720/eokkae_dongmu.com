@@ -100,7 +100,7 @@ export default function TeacherSupport() {
               </ul>
 
               {/* 태그 */}
-              <span className="self-start inline-flex items-center px-2.5 py-1 rounded-full text-[0.625rem] font-bold tracking-[0.12em] uppercase border border-[var(--color-brand)]/20 text-[var(--color-brand)] bg-[var(--color-brand)]/[0.06]">
+              <span className="self-start inline-flex items-center px-2.5 py-1 rounded-full text-[0.625rem] font-bold tracking-[0.12em] uppercase border border-[#1B3F7A]/20 text-[var(--color-brand)] bg-[#1B3F7A]/[0.06]">
                 {tag}
               </span>
             </motion.div>
