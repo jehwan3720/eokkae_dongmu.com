@@ -272,6 +272,7 @@ function ContactModal({ onClose }: { onClose: () => void }) {
       {/* 카드 */}
       <motion.div
         className="relative w-full max-w-[580px] bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh]"
+        style={{ overflowX: "hidden" }}
         onTouchMove={(e) => e.stopPropagation()}
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -315,8 +316,8 @@ function ContactModal({ onClose }: { onClose: () => void }) {
 
               {/* 폼 */}
               <form
-                className="px-5 sm:px-10 py-6 sm:py-8 flex flex-col gap-6 overflow-y-auto overscroll-contain"
-                style={{ WebkitOverflowScrolling: "touch" }}
+                className="px-5 sm:px-10 py-6 sm:py-8 flex flex-col gap-6 overflow-y-auto overflow-x-hidden overscroll-contain"
+                style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-y", overscrollBehaviorX: "none" }}
                 onSubmit={handleSubmit}
                 noValidate
               >
