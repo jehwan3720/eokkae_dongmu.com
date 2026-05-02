@@ -95,7 +95,7 @@ export default async function AnalyticsPage() {
   const rows = (recent ?? []) as PageView[];
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-10">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-10 overflow-x-hidden">
       {/* 헤더 */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div>
@@ -131,7 +131,7 @@ export default async function AnalyticsPage() {
           { label: "30일",   value: month  ?? 0, color: "text-amber-600" },
           { label: "누적",   value: total  ?? 0, color: "text-[#1A2535]" },
         ].map(({ label, value, color }) => (
-          <div key={label} className="bg-white rounded-[4px] px-6 py-5" style={{ boxShadow: "0 1px 3px rgba(15,31,61,0.06)" }}>
+          <div key={label} className="bg-white rounded-[4px] px-4 py-4 sm:px-6 sm:py-5" style={{ boxShadow: "0 1px 3px rgba(15,31,61,0.06)" }}>
             <p className="text-[0.6875rem] font-semibold tracking-wide text-[#8A95A3] uppercase mb-1">{label}</p>
             <p className={`text-[2rem] font-bold leading-none ${color}`}>{value.toLocaleString()}</p>
           </div>
@@ -139,11 +139,14 @@ export default async function AnalyticsPage() {
       </div>
 
       {/* 일별 차트 */}
-      <div className="bg-white rounded-[4px] px-6 py-6 mb-6" style={{ boxShadow: "0 1px 3px rgba(15,31,61,0.06)" }}>
-        <p className="text-[0.75rem] font-semibold tracking-wide text-[#8A95A3] uppercase mb-5">최근 14일 방문자</p>
+      <div className="bg-white rounded-[4px] px-4 sm:px-6 py-6 mb-6 overflow-hidden" style={{ boxShadow: "0 1px 3px rgba(15,31,61,0.06)" }}>
+        <p className="text-[0.75rem] font-semibold tracking-wide text-[#8A95A3] uppercase mb-5">
+          <span className="sm:hidden">최근 7일 방문자</span>
+          <span className="hidden sm:inline">최근 14일 방문자</span>
+        </p>
         <div className="flex items-end gap-1.5 h-28">
-          {days.map(({ label, count }) => (
-            <div key={label} className="flex-1 flex flex-col items-center gap-1">
+          {days.map(({ label, count }, index) => (
+            <div key={label} className={`flex-1 flex flex-col items-center gap-1${index < 7 ? " hidden sm:flex" : ""}`}>
               <span className="text-[0.6rem] text-[#8A95A3]">{count > 0 ? count : ""}</span>
               <div
                 className="w-full rounded-t-[2px] bg-[#1B3F7A] transition-all duration-300"
@@ -158,12 +161,18 @@ export default async function AnalyticsPage() {
       {/* 방문 목록 */}
       <div className="bg-white rounded-[4px] overflow-hidden" style={{ boxShadow: "0 1px 3px rgba(15,31,61,0.06)" }}>
         <div className="overflow-x-auto">
-        <table className="w-full text-[0.8125rem]">
+        <table className="w-full text-[0.8125rem] min-w-[500px]">
           <thead>
             <tr className="border-b border-[#F0F1F3]">
-              {["시각", "기기", "유입 경로", "페이지", "IP"].map((h) => (
-                <th key={h} className="px-5 py-3 text-left text-[0.6875rem] font-semibold tracking-wide text-[#8A95A3] uppercase">
-                  {h}
+              {[
+                { label: "시각",     cls: "" },
+                { label: "기기",     cls: "" },
+                { label: "유입 경로", cls: "" },
+                { label: "페이지",   cls: "hidden sm:table-cell" },
+                { label: "IP",       cls: "hidden sm:table-cell" },
+              ].map(({ label, cls }) => (
+                <th key={label} className={`px-3 sm:px-5 py-3 text-left text-[0.6875rem] font-semibold tracking-wide text-[#8A95A3] uppercase ${cls}`.trim()}>
+                  {label}
                 </th>
               ))}
             </tr>
@@ -171,16 +180,16 @@ export default async function AnalyticsPage() {
           <tbody>
             {rows.length === 0 ? (
               <tr>
-                <td colSpan={5} className="px-5 py-10 text-center text-[#B0B8C1]">아직 방문 기록이 없습니다.</td>
+                <td colSpan={5} className="px-3 py-10 text-center text-[#B0B8C1]">아직 방문 기록이 없습니다.</td>
               </tr>
             ) : (
               rows.map((row) => (
                 <tr key={row.id} className="border-b border-[#F4F5F7] last:border-0 hover:bg-[#FAFBFC] transition-colors duration-100">
-                  <td className="px-5 py-3 text-[#1A2535] whitespace-nowrap">{formatTime(row.visited_at)}</td>
-                  <td className="px-5 py-3 text-[#4A5568] whitespace-nowrap">{formatDevice(row.device)}</td>
-                  <td className="px-5 py-3 text-[#4A5568]">{formatReferrer(row.referrer)}</td>
-                  <td className="px-5 py-3 text-[#4A5568] font-mono text-[0.75rem]">{row.path}</td>
-                  <td className="px-5 py-3 text-[#8A95A3] font-mono text-[0.75rem]">{showIp(row.ip)}</td>
+                  <td className="px-3 sm:px-5 py-3 text-[#1A2535] whitespace-nowrap">{formatTime(row.visited_at)}</td>
+                  <td className="px-3 sm:px-5 py-3 text-[#4A5568] whitespace-nowrap">{formatDevice(row.device)}</td>
+                  <td className="px-3 sm:px-5 py-3 text-[#4A5568]">{formatReferrer(row.referrer)}</td>
+                  <td className="px-3 sm:px-5 py-3 text-[#4A5568] font-mono text-[0.75rem] hidden sm:table-cell">{row.path}</td>
+                  <td className="px-3 sm:px-5 py-3 text-[#8A95A3] font-mono text-[0.75rem] hidden sm:table-cell">{showIp(row.ip)}</td>
                 </tr>
               ))
             )}
