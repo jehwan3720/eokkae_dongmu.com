@@ -60,7 +60,14 @@ const jsonLd = {
       "name": "에듀그리드 장수풍뎅이 올인원 생태 교육 키트",
       "description":
         "장수풍뎅이 애벌레 관찰부터 성충까지. 유치원 누리과정 자연탐구 영역 및 초등 2022 개정 교육과정 연계. 냄새·벌레 없는 발효 톱밥, 관찰 활동지, 수업 PPT 포함.",
-      "image": `${BASE_URL}/images/대표사진.png`,
+      "image": [
+        {
+          "@type": "ImageObject",
+          "url": `${BASE_URL}/images/${encodeURIComponent("대표사진.png")}`,
+          "width": 1200,
+          "height": 900,
+        },
+      ],
       "url": BASE_URL,
       "brand": { "@type": "Brand", "name": "에듀그리드" },
       "category": "생태 교육 교구",
