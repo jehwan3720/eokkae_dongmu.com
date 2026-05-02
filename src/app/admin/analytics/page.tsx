@@ -97,7 +97,7 @@ export default async function AnalyticsPage() {
   return (
     <div className="max-w-7xl mx-auto px-6 py-10">
       {/* 헤더 */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div>
           <p className="text-[0.6875rem] font-semibold tracking-[0.18em] uppercase text-[#1B3F7A] mb-1">
             에듀그리드 관리자
@@ -106,16 +106,16 @@ export default async function AnalyticsPage() {
             방문자 통계
           </h1>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 flex-wrap">
           <Link
             href="/admin/applications"
-            className="px-4 py-2 text-[0.8125rem] font-medium text-[#8A95A3] border border-[#E8EAED] rounded-[3px] hover:text-[#1A2535] hover:border-[#C0C6CE] transition-colors duration-150"
+            className="px-3 py-2 text-[0.8125rem] font-medium text-[#8A95A3] border border-[#E8EAED] rounded-[3px] hover:text-[#1A2535] hover:border-[#C0C6CE] transition-colors duration-150"
           >
             문의 관리
           </Link>
           <Link
             href="/admin/photos"
-            className="px-4 py-2 text-[0.8125rem] font-medium text-[#8A95A3] border border-[#E8EAED] rounded-[3px] hover:text-[#1A2535] hover:border-[#C0C6CE] transition-colors duration-150"
+            className="px-3 py-2 text-[0.8125rem] font-medium text-[#8A95A3] border border-[#E8EAED] rounded-[3px] hover:text-[#1A2535] hover:border-[#C0C6CE] transition-colors duration-150"
           >
             사진 관리
           </Link>
@@ -124,7 +124,7 @@ export default async function AnalyticsPage() {
       </div>
 
       {/* 통계 카드 */}
-      <div className="grid grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
         {[
           { label: "오늘",   value: today  ?? 0, color: "text-[#1B3F7A]" },
           { label: "7일",    value: week   ?? 0, color: "text-emerald-600" },
@@ -157,6 +157,7 @@ export default async function AnalyticsPage() {
 
       {/* 방문 목록 */}
       <div className="bg-white rounded-[4px] overflow-hidden" style={{ boxShadow: "0 1px 3px rgba(15,31,61,0.06)" }}>
+        <div className="overflow-x-auto">
         <table className="w-full text-[0.8125rem]">
           <thead>
             <tr className="border-b border-[#F0F1F3]">
@@ -185,6 +186,7 @@ export default async function AnalyticsPage() {
             )}
           </tbody>
         </table>
+        </div>
       </div>
       <p className="mt-4 text-[0.6875rem] text-[#B0B8C1] text-right">최근 100건 표시</p>
     </div>

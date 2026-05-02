@@ -72,7 +72,7 @@ export default function AdminLoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="이메일을 입력하세요"
                 required
-                className="w-full px-4 py-[0.6875rem] text-[0.875rem] text-[#1A2535] bg-[#F8F9FB] border border-[#E8EAED] rounded-[3px] outline-none focus:border-[#1B3F7A] focus:ring-2 focus:ring-[#1B3F7A]/10 transition-all duration-200 placeholder:text-gray-300"
+                className="w-full px-4 py-[0.6875rem] text-base text-[#1A2535] bg-[#F8F9FB] border border-[#E8EAED] rounded-[3px] outline-none focus:border-[#1B3F7A] focus:ring-2 focus:ring-[#1B3F7A]/10 transition-all duration-200 placeholder:text-gray-300"
               />
             </div>
 
@@ -85,7 +85,7 @@ export default function AdminLoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full px-4 py-[0.6875rem] text-[0.875rem] text-[#1A2535] bg-[#F8F9FB] border border-[#E8EAED] rounded-[3px] outline-none focus:border-[#1B3F7A] focus:ring-2 focus:ring-[#1B3F7A]/10 transition-all duration-200"
+                className="w-full px-4 py-[0.6875rem] text-base text-[#1A2535] bg-[#F8F9FB] border border-[#E8EAED] rounded-[3px] outline-none focus:border-[#1B3F7A] focus:ring-2 focus:ring-[#1B3F7A]/10 transition-all duration-200"
               />
             </div>
 

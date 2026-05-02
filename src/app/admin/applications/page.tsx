@@ -60,7 +60,7 @@ export default async function ApplicationsPage({
   return (
     <div className="max-w-7xl mx-auto px-6 py-10">
       {/* 헤더 */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div>
           <p className="text-[0.6875rem] font-semibold tracking-[0.18em] uppercase text-[#1B3F7A] mb-1">
             에듀그리드 관리자
@@ -69,16 +69,16 @@ export default async function ApplicationsPage({
             교육 문의 관리
           </h1>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 flex-wrap">
           <Link
             href="/admin/analytics"
-            className="px-4 py-2 text-[0.8125rem] font-medium text-[#8A95A3] border border-[#E8EAED] rounded-[3px] hover:text-[#1A2535] hover:border-[#C0C6CE] transition-colors duration-150"
+            className="px-3 py-2 text-[0.8125rem] font-medium text-[#8A95A3] border border-[#E8EAED] rounded-[3px] hover:text-[#1A2535] hover:border-[#C0C6CE] transition-colors duration-150"
           >
             방문자 통계
           </Link>
           <Link
             href="/admin/photos"
-            className="px-4 py-2 text-[0.8125rem] font-medium text-[#8A95A3] border border-[#E8EAED] rounded-[3px] hover:text-[#1A2535] hover:border-[#C0C6CE] transition-colors duration-150"
+            className="px-3 py-2 text-[0.8125rem] font-medium text-[#8A95A3] border border-[#E8EAED] rounded-[3px] hover:text-[#1A2535] hover:border-[#C0C6CE] transition-colors duration-150"
           >
             사진 관리
           </Link>
@@ -87,7 +87,7 @@ export default async function ApplicationsPage({
       </div>
 
       {/* 통계 카드 */}
-      <div className="grid grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
         {[
           { label: "전체", value: stats.all,       color: "text-[#1A2535]" },
           { label: "대기", value: stats.pending,   color: STATUS_COUNT_STYLE.pending },

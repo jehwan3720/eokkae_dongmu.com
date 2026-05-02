@@ -152,7 +152,7 @@ export default function ApplicationDrawer({
       {/* Drawer */}
       <div
         className={[
-          "fixed top-0 right-0 z-50 h-full w-[480px] bg-white shadow-2xl flex flex-col",
+          "fixed top-0 right-0 z-50 h-full w-full sm:w-[480px] bg-white shadow-2xl flex flex-col",
           "transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
           isOpen ? "translate-x-0" : "translate-x-full",
         ].join(" ")}
@@ -160,7 +160,7 @@ export default function ApplicationDrawer({
         {app && (
           <>
             {/* 헤더 */}
-            <div className="flex items-start justify-between px-7 py-5 border-b border-[#F0F1F3] flex-shrink-0">
+            <div className="flex items-start justify-between px-5 sm:px-7 py-5 border-b border-[#F0F1F3] flex-shrink-0">
               <div>
                 <p className="text-[0.625rem] font-semibold tracking-[0.18em] uppercase text-[#8A95A3] mb-1">
                   {new Date(app.created_at).toLocaleDateString("ko-KR", {
@@ -173,7 +173,7 @@ export default function ApplicationDrawer({
               </div>
               <button
                 onClick={onClose}
-                className="mt-0.5 flex-shrink-0 text-[#B0B8C1] hover:text-[#1A2535] transition-colors duration-150"
+                className="mt-0.5 flex-shrink-0 p-2 -mr-2 text-[#B0B8C1] hover:text-[#1A2535] transition-colors duration-150"
                 aria-label="닫기"
               >
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
@@ -183,7 +183,7 @@ export default function ApplicationDrawer({
             </div>
 
             {/* 본문 — 스크롤 가능 */}
-            <div className="flex-1 overflow-y-auto px-7 py-6 flex flex-col gap-6">
+            <div className="flex-1 overflow-y-auto px-5 sm:px-7 py-6 flex flex-col gap-6">
 
               {/* 상태 */}
               <div>
@@ -326,7 +326,7 @@ export default function ApplicationDrawer({
             </div>
 
             {/* 하단 삭제 버튼 */}
-            <div className="flex-shrink-0 px-7 py-4 border-t border-[#F0F1F3] bg-white">
+            <div className="flex-shrink-0 px-5 sm:px-7 py-4 border-t border-[#F0F1F3] bg-white">
               <button
                 onClick={() => { setDeleteError(null); setShowDeleteModal(true); }}
                 className="w-full py-2.5 text-[0.8125rem] font-semibold text-red-400 border border-red-200 rounded-[3px] hover:bg-red-50 hover:text-red-600 hover:border-red-300 transition-all duration-150"
