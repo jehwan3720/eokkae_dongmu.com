@@ -22,11 +22,20 @@ export const metadata: Metadata = {
     siteName: "에듀그리드",
     locale: "ko_KR",
     type: "website",
+    images: [
+      {
+        url: `${BASE_URL}/images/${encodeURIComponent("대표사진.png")}`,
+        width: 1200,
+        height: 900,
+        alt: "에듀그리드 장수풍뎅이 올인원 생태 교육 키트",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "에듀그리드 | 장수풍뎅이 생태 교육 키트",
     description: "장수풍뎅이 애벌레 관찰부터 성충까지! 누리과정·초등 교과 연계 올인원 생태 교육 키트.",
+    images: [`${BASE_URL}/images/${encodeURIComponent("대표사진.png")}`],
   },
   alternates: {
     canonical: BASE_URL,
