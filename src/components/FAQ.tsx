@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { staggerContainer, slideUp, slideUpStagger, VIEWPORT } from "@/lib/motion";
 
 /* 스크롤 중 여부를 감지하는 훅 */
@@ -112,30 +112,37 @@ function AccordionItem({ q, a, index }: { q: string; a: string; index: number })
         <span className="text-[0.9375rem] font-medium text-[var(--color-text-primary)] leading-snug group-hover:text-[var(--color-brand)] transition-colors duration-150">
           {q}
         </span>
-        <motion.span
+        <span
           className="flex-shrink-0 mt-0.5 text-[var(--color-text-muted)] text-lg leading-none select-none"
-          animate={{ rotate: open ? 45 : 0 }}
-          transition={{ duration: 0.25 }}
+          style={{
+            transform: open ? "rotate(45deg)" : "rotate(0deg)",
+            transition: "transform 0.25s ease",
+          }}
         >
           +
-        </motion.span>
+        </span>
       </button>
 
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="overflow-hidden"
+      {/* CSS grid-template-rows transition — JS 높이 계산 없이 GPU 단독 처리 */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateRows: open ? "1fr" : "0fr",
+          transition: "grid-template-rows 0.28s cubic-bezier(0.16,1,0.3,1)",
+        }}
+      >
+        <div className="overflow-hidden">
+          <p
+            className="pb-6 text-[0.875rem] leading-[1.9] text-[var(--color-text-secondary)] whitespace-pre-line"
+            style={{
+              opacity: open ? 1 : 0,
+              transition: "opacity 0.2s ease",
+            }}
           >
-            <p className="pb-6 text-[0.875rem] leading-[1.9] text-[var(--color-text-secondary)] whitespace-pre-line">
-              {a}
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            {a}
+          </p>
+        </div>
+      </div>
     </motion.div>
   );
 }
